@@ -37,25 +37,26 @@ namespace CybersecurityAwarenessBot
             }
         }*/
 
-        static void DisplayAsciiArt()
+        static void DisplayAsciiArt() //displays the logo
         {
-            string asciiArt = @"
+            //assigns the art to a string
+            string asciiArt = @" 
      
-                  ___           ___     
-      ___        /\  \         /\  \    
-     /\  \      /::\  \       /::\  \   
-     \:\  \    /:/\:\  \     /:/\ \  \  
-     /::\__\  /:/  \:\  \   _\:\~\ \  \ 
-  __/:/\/__/ /:/__/ \:\__\ /\ \:\ \ \__\
- /\/:/  /    \:\  \  \/__/ \:\ \:\ \/__/
- \::/__/      \:\  \        \:\ \:\__\  
-  \:\__\       \:\  \        \:\/:/  /  
-   \/__/        \:\__\        \::/  /   
-                 \/__/         \/__/    
-  Irvine        Cyber        Security
+                              ___           ___     
+                  ___        /\  \         /\  \    
+                 /\  \      /::\  \       /::\  \   
+                 \:\  \    /:/\:\  \     /:/\ \  \  
+                 /::\__\  /:/  \:\  \   _\:\~\ \  \ 
+              __/:/\/__/ /:/__/ \:\__\ /\ \:\ \ \__\
+             /\/:/  /    \:\  \  \/__/ \:\ \:\ \/__/
+             \::/__/      \:\  \        \:\ \:\__\  
+              \:\__\       \:\  \        \:\/:/  /  
+               \/__/        \:\__\        \::/  /   
+                             \/__/         \/__/    
+              Irvine        Cyber        Security
                                 
-";
-            Console.WriteLine(asciiArt);
+            ";
+            Console.WriteLine(asciiArt); //outputs the logo string
         }
 
 
@@ -71,9 +72,9 @@ namespace CybersecurityAwarenessBot
 
 
             Console.Write("Are you ready to learn about CyberSecurity?: ");
-            string greetingAnswer = Console.ReadLine().ToLower();
+            string greetingAnswer = Console.ReadLine().ToLower(); //gets a yes or no
 
-            if (greetingAnswer == "yes")
+            if (greetingAnswer == "yes") //if they want to learn
             {
                 Console.WriteLine("\n  /\\      /\\     " +
                                 "\r\n /  \\____/  \\    " +
@@ -85,7 +86,7 @@ namespace CybersecurityAwarenessBot
 
                 MainMenu(); //this will start up the menu (question or leave)
             }
-            else
+            else //if they dont want to learn
             {
                 Console.WriteLine("\n  /\\      /\\     " +
                                 "\r\n /  \\____/  \\    " +
@@ -99,7 +100,7 @@ namespace CybersecurityAwarenessBot
             }
         }
 
-        static void MainMenu()
+        static void MainMenu() //the main menu display
         {
             bool exit = false;
             while (!exit)
@@ -111,18 +112,19 @@ namespace CybersecurityAwarenessBot
                                 "\r\n \\    v     /" +
                                 "\r\n  ~~~~~~~~~~");
 
-                Console.WriteLine("1. Ask a question");
+                Console.WriteLine("1. Ask a question"); 
                 Console.WriteLine("2. Pet the cat!");
                 Console.WriteLine("3. Exit");
                 Console.Write("Choose an option: ");
-                string choice = Console.ReadLine();
+
+                string choice = Console.ReadLine(); //gets the user choice
 
                 switch (choice)
                 {
-                    case "1":
-                        AskQuestion();
+                    case "1": //ask a question
+                        AskQuestion(); //launch question protocall
                         break;
-                    case "2":
+                    case "2": //give cat pets
                         Console.WriteLine("\n  /\\  <3  /\\     " +
                                         "\r\n /  \\____/  \\    " +
                                         "\r\n<            >\t " +
@@ -130,7 +132,7 @@ namespace CybersecurityAwarenessBot
                                         "\r\n \\    w     /" +
                                         "\r\n  ~~~~~~~~~~\r\n");
                         break;
-                    case "3":
+                    case "3": //they want to leave
                         exit = true;
                         Console.WriteLine("\n  /\\      /\\     " +
                                         "\r\n /  \\____/  \\    " +
@@ -139,7 +141,7 @@ namespace CybersecurityAwarenessBot
                                         "\r\n \\    v     /" +
                                         "\r\n  ~~~~~~~~~~\r\n");
                         break;
-                    case "":
+                    case "": //they left it blank
                         Console.WriteLine("\n  /\\      /\\" +
                                         "\r\n /  \\____/  \\ | No input detected,                  |" +
                                         "\r\n<            >  | Please do not leave the input blank |" +
@@ -147,7 +149,7 @@ namespace CybersecurityAwarenessBot
                                         "\r\n \\    ^     /" +
                                         "\r\n  ~~~~~~~~~~\r\n");
                         break;
-                    default:
+                    default: //they typed something else
                         Console.WriteLine("\n  /\\      /\\" +
                                         "\r\n /  \\____/  \\  | I don't understand your input... |" +
                                         "\r\n<            >   | Can you try again?               |" +
@@ -159,7 +161,8 @@ namespace CybersecurityAwarenessBot
             }
         }
 
-        static void AskQuestion()
+
+        static void AskQuestion() //ask questions method
         {
             Console.WriteLine("\n  /\\      /\\     " +
                             "\r\n /  \\____/  \\    " +
@@ -168,9 +171,9 @@ namespace CybersecurityAwarenessBot
                             "\r\n \\    v     /   | and I'll look for a keyword I have knowledge on!    |" +
                             "\r\n  ~~~~~~~~~~\r\n");
 
-            string question = Console.ReadLine().ToLower();
+            string question = Console.ReadLine().ToLower(); //get user keyword
 
-            bool wantsToQuit = false;
+            bool wantsToQuit = false; //assuming they wont quit immediatly
 
             while (!wantsToQuit)
             {
@@ -234,7 +237,7 @@ namespace CybersecurityAwarenessBot
 
                     question = Console.ReadLine().ToLower();
                 }
-                else if (string.IsNullOrWhiteSpace(question))
+                else if (string.IsNullOrWhiteSpace(question)) //in case of blanks
                 {
                     Console.WriteLine("\n  /\\      /\\" +
                                     "\r\n /  \\____/  \\ | No input detected,                  |" +
@@ -254,11 +257,11 @@ namespace CybersecurityAwarenessBot
 
                     question = Console.ReadLine().ToLower();
                 }
-                else if (question.Contains("quit"))
+                else if (question.Contains("quit")) // they leave
                 {
                     wantsToQuit = true;
                 }
-                else
+                else //they typed a keyword I dont have
                 {
                     Console.WriteLine("\n  /\\      /\\" +
                                     "\r\n /  \\____/  \\   | I don't understand your input... |" +
