@@ -12,6 +12,84 @@ namespace CybersecurityAwarenessBot
 {
     class Program
     {
+        static void DisplayAsciiArt() //displays the logo
+        {
+            //assigns the art to a string
+            string asciiArt = @" 
+     
+                              ___           ___     
+                  ___        /\  \         /\  \    
+                 /\  \      /::\  \       /::\  \   
+                 \:\  \    /:/\:\  \     /:/\ \  \  
+                 /::\__\  /:/  \:\  \   _\:\~\ \  \ 
+              __/:/\/__/ /:/__/ \:\__\ /\ \:\ \ \__\
+             /\/:/  /    \:\  \  \/__/ \:\ \:\ \/__/
+             \::/__/      \:\  \        \:\ \:\__\  
+              \:\__\       \:\  \        \:\/:/  /  
+               \/__/        \:\__\        \::/  /   
+                             \/__/         \/__/    
+              Irvine        Cyber        Security
+                                
+            ";
+            Console.WriteLine(asciiArt); //outputs the logo string
+        }
+
+        enum CatExpression //set of contant "values" that I can reliably call linked to a specific cat face, allows for a wide array of expressions to be called easy
+        {
+            Happy,
+            Curious,
+            Sad,
+            Loving,
+            Confused
+        }
+
+        static void DisplayCat(string message, CatExpression expression) //method using the constants for expression and whatever needs to be said by the cat
+        {
+            string catArt = expression switch //using switch statement
+            {
+                CatExpression.Happy => "\n  /\\      /\\     " +
+                                       "\r\n /  \\____/  \\    " +
+                                       "\r\n<            >\t " +
+                                       "\r\n<   ^    ^   >   " +
+                                       "\r\n \\    v     /    " +
+                                       "\r\n  ~~~~~~~~~~",
+                CatExpression.Curious => "\n  /\\      /\\     " +
+                                         "\r\n /  \\____/  \\    " +
+                                         "\r\n<            >\t " +
+                                         "\r\n<   O    o   >   " +
+                                         "\r\n \\    ?     /    " +
+                                         "\r\n  ~~~~~~~~~~",
+                CatExpression.Sad => "\n  /\\      /\\     " +
+                                     "\r\n /  \\____/  \\    " +
+                                     "\r\n<            >\t " +
+                                     "\r\n<   T    T   >   " +
+                                     "\r\n \\    ^     /    " +
+                                     "\r\n  ~~~~~~~~~~",
+                CatExpression.Loving => "\n  /\\      /\\     " +
+                                         "\r\n /  \\____/  \\    " +
+                                         "\r\n<            >\t " +
+                                         "\r\n<   O    <3  >   " +
+                                         "\r\n \\    w     /    " +
+                                         "\r\n  ~~~~~~~~~~",
+                CatExpression.Confused => "\n  /\\      /\\     " +
+                                           "\r\n /  \\____/  \\    " +
+                                           "\r\n<            >\t " +
+                                           "\r\n<   Ò    ó   >   " +
+                                           "\r\n \\    ?     /    " +
+                                           "\r\n  ~~~~~~~~~~",
+                _ => "\n  /\\      /\\     " +
+                     "\r\n /  \\____/  \\    " +
+                     "\r\n<            >\t " +
+                     "\r\n<   ?    ?   >   " +
+                     "\r\n \\    ?     /    " +
+                     "\r\n  ~~~~~~~~~~"
+            };
+
+            // Display the cat expression you want and the message together as one entity
+            Console.WriteLine(catArt);
+            Console.WriteLine($"| {message} |");
+        }
+
         static void Main(string[] args)
         {
             //PlayVoiceGreeting(); //the method to play the greeting
@@ -37,67 +115,15 @@ namespace CybersecurityAwarenessBot
             }
         }*/
 
-        static void DisplayAsciiArt() //displays the logo
-        {
-            //assigns the art to a string
-            string asciiArt = @" 
-     
-                              ___           ___     
-                  ___        /\  \         /\  \    
-                 /\  \      /::\  \       /::\  \   
-                 \:\  \    /:/\:\  \     /:/\ \  \  
-                 /::\__\  /:/  \:\  \   _\:\~\ \  \ 
-              __/:/\/__/ /:/__/ \:\__\ /\ \:\ \ \__\
-             /\/:/  /    \:\  \  \/__/ \:\ \:\ \/__/
-             \::/__/      \:\  \        \:\ \:\__\  
-              \:\__\       \:\  \        \:\/:/  /  
-               \/__/        \:\__\        \::/  /   
-                             \/__/         \/__/    
-              Irvine        Cyber        Security
-                                
-            ";
-            Console.WriteLine(asciiArt); //outputs the logo string
-        }
-
-
-
         static void GreetUser()
         {
-            Console.WriteLine("\n  /\\      /\\     " +
-                            "\r\n /  \\____/  \\    " +
-                            "\r\n<            >\t | Hello! I am the CyberCat,          |" +
-                            "\r\n<   O    O   >   | Let me tell you about CyberSecurity|" +
-                            "\r\n \\    v     /" +
-                            "\r\n  ~~~~~~~~~~\r\n");
+            // Display a greeting with the happy cat
+            DisplayCat("Hello! I am the CyberCat, your cybersecurity awareness assistant!", CatExpression.Happy);
 
+            //need to add the name asks still
 
-            Console.Write("Are you ready to learn about CyberSecurity?: ");
-            string greetingAnswer = Console.ReadLine().ToLower(); //gets a yes or no
-
-            if (greetingAnswer == "yes") //if they want to learn
-            {
-                Console.WriteLine("\n  /\\      /\\     " +
-                                "\r\n /  \\____/  \\    " +
-                                "\r\n<            >\t " +
-                                "\r\n<   >    <   >   | Great! Lets get started! |" +
-                                "\r\n \\    v     /" +
-                                "\r\n  ~~~~~~~~~~\r\n");
-
-
-                MainMenu(); //this will start up the menu (question or leave)
-            }
-            else //if they dont want to learn
-            {
-                Console.WriteLine("\n  /\\      /\\     " +
-                                "\r\n /  \\____/  \\    " +
-                                "\r\n<            >\t " +
-                                "\r\n<   O    O   >   | Ok, see you next time!|" +
-                                "\r\n \\    v     /" +
-                                "\r\n  ~~~~~~~~~~\r\n");
-
-
-                Console.WriteLine("Press any key to close the program!");
-            }
+            // Main menu call
+            MainMenu();
         }
 
         static void MainMenu() //the main menu display
@@ -105,19 +131,15 @@ namespace CybersecurityAwarenessBot
             bool exit = false;
             while (!exit)
             {
-                Console.WriteLine("\n  /\\      /\\     " +
-                                "\r\n /  \\____/  \\    " +
-                                "\r\n<            >\t " +
-                                "\r\n<   O    O   >   | What do you want to do?|" +
-                                "\r\n \\    v     /" +
-                                "\r\n  ~~~~~~~~~~");
-
-                Console.WriteLine("1. Ask a question"); 
+                DisplayCat("What do you want to do?", CatExpression.Curious);
+                
+                //options of what the user can do
+                Console.WriteLine("1. Ask a question");
                 Console.WriteLine("2. Pet the cat!");
                 Console.WriteLine("3. Exit");
                 Console.Write("Choose an option: ");
 
-                string choice = Console.ReadLine(); //gets the user choice
+                string choice = Console.ReadLine()?.Trim(); //gets the user choice
 
                 switch (choice)
                 {
@@ -125,165 +147,55 @@ namespace CybersecurityAwarenessBot
                         AskQuestion(); //launch question protocall
                         break;
                     case "2": //give cat pets
-                        Console.WriteLine("\n  /\\  <3  /\\     " +
-                                        "\r\n /  \\____/  \\    " +
-                                        "\r\n<            >\t " +
-                                        "\r\n<   O    <   >   | Aw, thanks!|" +
-                                        "\r\n \\    w     /" +
-                                        "\r\n  ~~~~~~~~~~\r\n");
+                        DisplayCat("Aw, thanks! Im glad you like me!", CatExpression.Loving);
                         break;
                     case "3": //they want to leave
+                        DisplayCat("Goodbye! Stay safe online!", CatExpression.Happy);
                         exit = true;
-                        Console.WriteLine("\n  /\\      /\\     " +
-                                        "\r\n /  \\____/  \\    " +
-                                        "\r\n<            >\t " +
-                                        "\r\n<   O    O   >   | Goodbye! Stay safe online!|" +
-                                        "\r\n \\    v     /" +
-                                        "\r\n  ~~~~~~~~~~\r\n");
-                        break;
-                    case "": //they left it blank
-                        Console.WriteLine("\n  /\\      /\\" +
-                                        "\r\n /  \\____/  \\ | No input detected,                  |" +
-                                        "\r\n<            >  | Please do not leave the input blank |" +
-                                        "\r\n<   Ò    Ó   >" +
-                                        "\r\n \\    ^     /" +
-                                        "\r\n  ~~~~~~~~~~\r\n");
                         break;
                     default: //they typed something else
-                        Console.WriteLine("\n  /\\      /\\" +
-                                        "\r\n /  \\____/  \\  | I don't understand your input... |" +
-                                        "\r\n<            >   | Can you try again?               |" +
-                                        "\r\n<   Ô    ó   >" +
-                                        "\r\n \\    0     /" +
-                                        "\r\n  ~~~~~~~~~~\r\n");
+                        DisplayCat("Invalid input. Please choose 1, 2 or 3.", CatExpression.Confused);
                         break;
                 }
             }
         }
 
-
         static void AskQuestion() //ask questions method
         {
-            Console.WriteLine("\n  /\\      /\\     " +
-                            "\r\n /  \\____/  \\    " +
-                            "\r\n<            >\t | Great! I love teaching people how to be safe online!|" +
-                            "\r\n<   ^    ^   >   | Just type the topic you want to learn about,        |" +
-                            "\r\n \\    v     /   | and I'll look for a keyword I have knowledge on!    |" +
-                            "\r\n  ~~~~~~~~~~\r\n");
+            //dictionary of responses each linked to a keyword
+            var responses = new System.Collections.Generic.Dictionary<string, string>
+            {
+                { "malware", "Malware is a program that wants to do bad things to your computer!" },
+                { "password", "Passwords secure accounts. Use strong, unique ones, and never share them!" },
+                { "virus", "Viruses are a type of malware. They can damage or delete your files!" }
+            };
 
-            string question = Console.ReadLine().ToLower(); //get user keyword
-
-            bool wantsToQuit = false; //assuming they wont quit immediatly
+            bool wantsToQuit = false;
 
             while (!wantsToQuit)
             {
-                // dictionary of keywords and responses
-                if (question.Contains("malware"))
-                {
-                    Console.WriteLine("\n  /\\      /\\     " +
-                                    "\r\n /  \\____/  \\    " +
-                                    "\r\n<            >\t | Malware is a program that wants to  |" +
-                                    "\r\n<   O    O   >   | do bad things to your computer!     |" +
-                                    "\r\n \\    0     /    " +
-                                    "\r\n  ~~~~~~~~~~\r\n");
+                //tell user what to do, may need tweaking
+                DisplayCat("Type a topic to learn about (e.g., malware, password, virus), or type 'quit' to exit:", CatExpression.Curious);
+                string question = Console.ReadLine()?.ToLower()?.Trim(); //dont consider blank spaces after answer
 
-
-                    Console.WriteLine("\n  /\\      /\\     " +
-                                    "\r\n /  \\____/  \\    " +
-                                    "\r\n<            >\t | Would you like to learn about anything else? |" +
-                                    "\r\n<   O    O   >   | Type \"quit\" to go back to the main menu.   |" +
-                                    "\r\n \\    v     /    " +
-                                    "\r\n  ~~~~~~~~~~\r\n");
-
-                    question = Console.ReadLine().ToLower();
-                }
-                else if (question.Contains("password"))
-                {
-                    Console.WriteLine("\n  /\\      /\\     " +
-                                    "\r\n /  \\____/  \\    " +
-                                    "\r\n<            >\t | A password is used to secure accounts and    |" +
-                                    "\r\n<   O    O   >   | devices. Make sure to use strong, complex    |" +
-                                    "\r\n \\    0     /   | passwords and don't give them out to anyone! |" +
-                                    "\r\n  ~~~~~~~~~~\r\n");
-
-
-                    Console.WriteLine("\n  /\\      /\\     " +
-                                    "\r\n /  \\____/  \\    " +
-                                    "\r\n<            >\t | Would you like to learn about anything else? |" +
-                                    "\r\n<   O    O   >   | Type \"quit\" to go back to the main menu.     |" +
-                                    "\r\n \\    v     /    " +
-                                    "\r\n  ~~~~~~~~~~\r\n");
-
-
-                    question = Console.ReadLine().ToLower();
-                }
-                else if (question.Contains("virus"))
-                {
-                    Console.WriteLine("  /\\      /\\     " +
-                                  "\r\n /  \\____/  \\    " +
-                                  "\r\n<            >\t | That's a type of malware! They can do many     |" +
-                                  "\r\n<   O    O   >   | bad things to your computer like delete things |" +
-                                  "\r\n \\    0     /    " +
-                                  "\r\n  ~~~~~~~~~~\r\n");
-
-
-                    Console.WriteLine("\n  /\\      /\\     " +
-                                    "\r\n /  \\____/  \\    " +
-                                    "\r\n<            >\t | Would you like to learn about anything else? |" +
-                                    "\r\n<   O    O   >   | Type \"quit\" to go back to the main menu.     |" +
-                                    "\r\n \\    v     /    " +
-                                    "\r\n  ~~~~~~~~~~\r\n");
-
-
-                    question = Console.ReadLine().ToLower();
-                }
-                else if (string.IsNullOrWhiteSpace(question)) //in case of blanks
-                {
-                    Console.WriteLine("\n  /\\      /\\" +
-                                    "\r\n /  \\____/  \\ | No input detected,                  |" +
-                                    "\r\n<            >  | Please do not leave the input blank |" +
-                                    "\r\n<   Ò    Ó   >" +
-                                    "\r\n \\    ^     /" +
-                                    "\r\n  ~~~~~~~~~~\r\n");
-
-
-                    Console.WriteLine("\n  /\\      /\\     " +
-                                    "\r\n /  \\____/  \\    " +
-                                    "\r\n<            >\t | Would you like to learn about anything else? |" +
-                                    "\r\n<   O    O   >   | Type \"quit\" to go back to the main menu.   |" +
-                                    "\r\n \\    v     /    " +
-                                    "\r\n  ~~~~~~~~~~\r\n");
-
-
-                    question = Console.ReadLine().ToLower();
-                }
-                else if (question.Contains("quit")) // they leave
+                if (question == "quit") //they want to leave
                 {
                     wantsToQuit = true;
                 }
-                else //they typed a keyword I dont have
+                else if (string.IsNullOrWhiteSpace(question)) //checks if its blank OR invalid
                 {
-                    Console.WriteLine("\n  /\\      /\\" +
-                                    "\r\n /  \\____/  \\   | I don't understand your input... |" +
-                                    "\r\n<            >    | Can you try again?               |" +
-                                    "\r\n<   Ô    ó   >" +
-                                    "\r\n \\    0     /" +
-                                    "\r\n  ~~~~~~~~~~\r\n");
-
-
-                    question = Console.ReadLine().ToLower();
+                    DisplayCat("Please enter a valid topic or type 'quit' to exit!", CatExpression.Sad);
+                }
+                else if (responses.ContainsKey(question)) //if ther answer mathes a keyword in the dictionary, show the info associated with keyword
+                {
+                    DisplayCat(responses[question], CatExpression.Happy);
+                }
+                else //keyword is not in dictionary
+                {
+                    DisplayCat("I don’t know about that topic yet. Can you try another?", CatExpression.Confused);
                 }
 
-
             }
-
-            Console.WriteLine("\n  /\\      /\\     " +
-                            "\r\n /  \\____/  \\    " +
-                            "\r\n<            >\t " +
-                            "\r\n<   O    O   >   | Hope you learned something today!|" +
-                            "\r\n \\    v     /" +
-                            "\r\n  ~~~~~~~~~~\r\n");
-
         }
 
     }
