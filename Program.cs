@@ -4,7 +4,7 @@
 
 //Voice Greeting: Not implemented
 //Logo: Implemented
-//Personalization: Not implemented
+//Personalization: Partial implementation
 //Basic Responses: Prototyped
 //Input Validation: Prototyped
 
@@ -34,7 +34,7 @@ namespace CybersecurityAwarenessBot
             Console.WriteLine(asciiArt); //outputs the logo string
         }
 
-        enum CatExpression //set of contant "values" that I can reliably call linked to a specific cat face, allows for a wide array of expressions to be called easy
+        enum CatExpression //set of constant "values" that I can reliably call linked to a specific cat face, allows for a wide array of expressions to be called easy
         {
             Happy,
             Curious,
@@ -118,12 +118,28 @@ namespace CybersecurityAwarenessBot
         static void GreetUser()
         {
             // Display a greeting with the happy cat
-            DisplayCat("Hello! I am the CyberCat, your cybersecurity awareness assistant!", CatExpression.Happy);
+            DisplayCat("Hello! I am the CyberCat, your cybersecurity awareness assistant! What's your name?", CatExpression.Happy);
 
-            //need to add the name asks still
+            bool gaveName = false;
 
-            // Main menu call
-            MainMenu();
+            while (gaveName == false)
+            {
+                string userName = Console.ReadLine()?.Trim();
+
+                if (string.IsNullOrWhiteSpace(userName)) //checks if its blank
+                {
+                    DisplayCat("Aw don't be shy, tell me!", CatExpression.Sad);
+                }
+                else  //gave name
+                {
+                    DisplayCat($"Nice to meet you {userName}, lets get started!", CatExpression.Happy);
+                    gaveName = true;
+                    // Main menu call
+                    MainMenu();
+                }
+
+            }
+            
         }
 
         static void MainMenu() //the main menu display
