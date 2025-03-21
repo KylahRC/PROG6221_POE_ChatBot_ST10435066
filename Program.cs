@@ -12,6 +12,9 @@ namespace CybersecurityAwarenessBot
 {
     class Program
     {
+        // A global variable to store the user's name
+        static string userName;
+
         static void DisplayAsciiArt() //displays the logo
         {
             //assigns the art to a string
@@ -134,21 +137,25 @@ namespace CybersecurityAwarenessBot
                 {
                     DisplayCat($"Nice to meet you {userName}, lets get started!", CatExpression.Happy);
                     gaveName = true;
-                    // Main menu call
-                    MainMenu();
+                                       
                 }
 
             }
-            
+            // Main menu call
+            MainMenu();
+
         }
 
         static void MainMenu() //the main menu display
         {
+            
+
             bool exit = false;
             while (!exit)
             {
-                DisplayCat("What do you want to do?", CatExpression.Curious);
+                DisplayCat($"What do you want to do, {userName}?", CatExpression.Curious);
                 
+
                 //options of what the user can do
                 Console.WriteLine("1. Ask a question");
                 Console.WriteLine("2. Pet the cat!");
@@ -163,10 +170,10 @@ namespace CybersecurityAwarenessBot
                         AskQuestion(); //launch question protocall
                         break;
                     case "2": //give cat pets
-                        DisplayCat("Aw, thanks! Im glad you like me!", CatExpression.Loving);
+                        DisplayCat($"Aw, thanks {userName}! Im glad you like me!", CatExpression.Loving);
                         break;
                     case "3": //they want to leave
-                        DisplayCat("Goodbye! Stay safe online!", CatExpression.Happy);
+                        DisplayCat($"Goodbye {userName}! Stay safe online!", CatExpression.Happy);
                         exit = true;
                         break;
                     default: //they typed something else
