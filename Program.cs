@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Media;
+
 
 //Still in prototype stages, some functions not working
 
-//Voice Greeting: Not implemented
+//Voice Greeting: Not implemented (No idea how to get it working)
 //Logo: Implemented
-//Personalization: Partial implementation
-//Basic Responses: Prototyped
-//Input Validation: Prototyped
+//Personalization: Almost perfect
+//Basic Responses: Almost perfect
+//Input Validation: Almost perfect
 
 namespace CybersecurityAwarenessBot
 {
@@ -95,28 +97,45 @@ namespace CybersecurityAwarenessBot
 
         static void Main(string[] args)
         {
-            //PlayVoiceGreeting(); //the method to play the greeting
+            
             DisplayAsciiArt(); //show the logo
+            //PlayVoiceGreeting(); //the method to play the greeting
             GreetUser(); //the text greeting to start the program
 
         }
 
-        /*static void PlayVoiceGreeting()
-        {
-            // Path to the WAV file
-            string path = "path_to_your_greeting.wav";
-            try
-            {
-                using (SoundPlayer player = new SoundPlayer(path))
-                {
-                    player.PlaySync();
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error playing audio: " + e.Message);
-            }
-        }*/
+
+        //I cannot get the audio to play, what do I do
+        //static void PlayVoiceGreeting()
+        //{
+        //    // Path to the WAV file
+        //    string path = "Chatbot_voice_greeting.wav"; //where to find the audio file
+
+        //    try
+        //    {
+        //        //instance of sound player
+        //        SoundPlayer player = new SoundPlayer(path);
+
+        //        //load the WAV file as its own action
+        //        player.Load();
+
+        //        //play the WAV file
+        //        player.PlaySync();
+        //    }
+        //    catch (FileNotFoundException)
+        //    {
+        //        Console.WriteLine($"Error: The file '{path}' was not found. Please ensure the file path is correct.");
+        //    }
+        //    catch (InvalidOperationException)
+        //    {
+        //        Console.WriteLine("Error: The WAV file could not be played. Please check the file format or integrity.");
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine($"An unexpected error occurred: {e.Message}");
+        //    }
+        //}
+
 
         static void GreetUser()
         {
@@ -188,9 +207,21 @@ namespace CybersecurityAwarenessBot
             //dictionary of responses each linked to a keyword
             var responses = new System.Collections.Generic.Dictionary<string, string>
             {
+                //responses that give life to the mascot
+                { "how are you", "I'm feeling great! Im very excited to be teaching you today!" },
+                { "what’s your purpose", "My purpose is to help you stay safe online by teaching you about cybersecurity." },
+                { "what can i ask you about", "You can ask me about passwords, phishing, safe browsing, malware and more!" },
+                { "keywords", "Recognized keywords: malware, password, virus, phishing, safe browsing" },
+
+                //cyber related
                 { "malware", "Malware is a program that wants to do bad things to your computer!" },
-                { "password", "Passwords secure accounts. Use strong, unique ones, and never share them!" },
-                { "virus", "Viruses are a type of malware. They can damage or delete your files!" }
+                { "password", "Passwords secure accounts or devices from unauthorized access. You can make a strong password by using a mix of lower case, " +
+                "upper case, symbols and numbers! Never share these passwords with anyone" },
+                { "virus", "Viruses are a type of malware. They can damage or delete your files! They can get into your computer via infected emails, files " +
+                "and external hardware entering or interacting with your system" },                
+                { "phishing", "Phishing scams try to trick you into giving away personal information by pretending to be someone you can trust. " +
+                "Always verify the sender and avoid clicking on any suspicious links!" },
+                { "safe browsing", "Ensure your browser is updated, use HTTPS websites, and be cautious when entering personal information online." }
             };
 
             bool wantsToQuit = false;
@@ -198,7 +229,8 @@ namespace CybersecurityAwarenessBot
             while (!wantsToQuit)
             {
                 //tell user what to do, may need tweaking
-                DisplayCat("Type a topic to learn about (e.g., malware, password, virus), or type 'quit' to exit:", CatExpression.Curious);
+                DisplayCat("Give me a topic and I'll tell you more about it, or type 'quit' to go back to the main menu " +
+                    "\nYou can also type \"keywords\" to see a list of topics I'm familiar with", CatExpression.Curious);
                 string question = Console.ReadLine()?.ToLower()?.Trim(); //dont consider blank spaces after answer
 
                 if (question == "quit") //they want to leave
@@ -207,7 +239,7 @@ namespace CybersecurityAwarenessBot
                 }
                 else if (string.IsNullOrWhiteSpace(question)) //checks if its blank OR invalid
                 {
-                    DisplayCat("Please enter a valid topic or type 'quit' to exit!", CatExpression.Sad);
+                    DisplayCat("Please enter a valid topic or type 'quit' to go back to the main menu!", CatExpression.Sad);
                 }
                 else if (responses.ContainsKey(question)) //if ther answer mathes a keyword in the dictionary, show the info associated with keyword
                 {
