@@ -35,7 +35,7 @@ namespace CybersecurityAwarenessBot
               Irvine        Cyber        Security
                         
                 ";
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.Green; //changes the font colour
             Console.WriteLine(asciiArt); //outputs the logo string
             Console.ForegroundColor = ConsoleColor.White;
         }
