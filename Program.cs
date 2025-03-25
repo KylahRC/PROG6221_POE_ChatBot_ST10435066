@@ -4,7 +4,7 @@ using System.Media;
 
 //Still in prototype stages, some functions not working
 
-//Voice Greeting: Not implemented (No idea how to get it working)
+//Voice Greeting: Implemented
 //Logo: Implemented
 //Personalization: Almost perfect
 //Basic Responses: Almost perfect
@@ -99,42 +99,42 @@ namespace CybersecurityAwarenessBot
         {
             
             DisplayAsciiArt(); //show the logo
-            //PlayVoiceGreeting(); //the method to play the greeting
+            PlayVoiceGreeting(); //the method to play the greeting
             GreetUser(); //the text greeting to start the program
 
         }
 
 
-        //I cannot get the audio to play, what do I do
-        //static void PlayVoiceGreeting()
-        //{
-        //    // Path to the WAV file
-        //    string path = "Chatbot_voice_greeting.wav"; //where to find the audio file
+        //It works!
+        static void PlayVoiceGreeting()
+        {
+            // Path to the WAV file
+            string path = "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Chatbot_voice_greeting.wav"; //where to find the audio file
 
-        //    try
-        //    {
-        //        //instance of sound player
-        //        SoundPlayer player = new SoundPlayer(path);
+            try
+            {
+                //instance of sound player
+                SoundPlayer player = new SoundPlayer(path);
 
-        //        //load the WAV file as its own action
-        //        player.Load();
+                //load the WAV file as its own action
+                player.Load();
 
-        //        //play the WAV file
-        //        player.PlaySync();
-        //    }
-        //    catch (FileNotFoundException)
-        //    {
-        //        Console.WriteLine($"Error: The file '{path}' was not found. Please ensure the file path is correct.");
-        //    }
-        //    catch (InvalidOperationException)
-        //    {
-        //        Console.WriteLine("Error: The WAV file could not be played. Please check the file format or integrity.");
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine($"An unexpected error occurred: {e.Message}");
-        //    }
-        //}
+                //play the WAV file
+                player.PlaySync();
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine($"Error: The file '{path}' was not found. Please ensure the file path is correct.");
+            }
+            catch (InvalidOperationException)
+            {
+                Console.WriteLine("Error: The WAV file could not be played. Please check the file format or integrity.");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"An unexpected error occurred: {e.Message}");
+            }
+        }
 
 
         static void GreetUser()
