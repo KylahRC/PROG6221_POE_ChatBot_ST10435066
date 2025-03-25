@@ -1,4 +1,4 @@
-name: .NET CI Workflow
+name: POE CI Workflow
 
 on:
   push:
@@ -9,37 +9,33 @@ on:
       - main
 
 jobs:
-  build-and-test:
-    runs-on: windows-latest # Use Windows as your project relies on SoundPlayer
+  build:
+    name: Build and Validate Code
+    runs-on: windows-latest
 
     steps:
-      # Step 1: Checkout the repository
-      - name: Checkout repository
+      # Step 1: Checkout the code from your repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Setup .NET environment
-      - name: Setup .NET
+      # Step 2: Set up .NET environment
+      - name: Setup .NET SDK
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 6.0 # Specify the .NET version you're using (adjust if different)
+          dotnet-version: '6.0.x' # Adjust this version based on your project requirements
 
-      # Step 3: Restore NuGet packages
-      - name: Restore dependencies
+      # Step 3: Install dependencies and restore NuGet packages
+      - name: Restore NuGet packages
         run: dotnet restore
 
       # Step 4: Build the project
-      - name: Build
-        run: dotnet build --configuration Release --no-restore
+      - name: Build the solution
+        run: dotnet build --no-restore --configuration Release
 
-      # Step 5: Run tests (Optional, if you have tests configured)
-      - name: Run tests
+      # Step 5: Run code analysis (optional but recommended for formatting checks)
+      - name: Run Code Formatter Check
+        run: dotnet format --check # Ensure code formatting standards are met
+
+      # Step 6: Run tests (if applicable)
+      - name: Run Unit Tests
         run: dotnet test --no-build --verbosity normal
-
-      # Step 6: Verify the WAV file exists
-      - name: Verify WAV file exists
-        shell: cmd
-        run: |
-          if not exist "Chatbot_voice_greeting.wav" (
-            echo "Error: WAV file 'Chatbot_voice_greeting.wav' is missing."
-            exit /b 1
-          )
