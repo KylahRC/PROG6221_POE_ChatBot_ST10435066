@@ -1,7 +1,7 @@
 name: .NET CI Workflow
 
 on:
-  workflow_dispatch: # Enables manual triggering of the workflow
+  
   push:
     branches:
       - main
