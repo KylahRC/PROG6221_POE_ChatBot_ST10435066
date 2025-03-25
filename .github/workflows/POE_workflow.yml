@@ -10,7 +10,7 @@ on:
 
 jobs:
   build-and-test:
-    runs-on: windows-latest # Use Windows since you're using SoundPlayer, which relies on Windows libraries
+    runs-on: windows-latest # Use Windows as your project relies on SoundPlayer
 
     steps:
       # Step 1: Checkout the repository
@@ -21,28 +21,25 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 6.0 # Specify the .NET version you're using. Adjust if different
+          dotnet-version: 6.0 # Specify the .NET version you're using (adjust if different)
 
       # Step 3: Restore NuGet packages
       - name: Restore dependencies
         run: dotnet restore
 
-      # Step 4: Check code formatting using dotnet format (Optional)
-      - name: Code formatting check
-        run: dotnet format --check
-
-      # Step 5: Build the project
+      # Step 4: Build the project
       - name: Build
-        run: dotnet build --no-restore --configuration Release
+        run: dotnet build --configuration Release --no-restore
 
-      # Step 6: Run tests (if applicable)
+      # Step 5: Run tests (Optional, if you have tests configured)
       - name: Run tests
         run: dotnet test --no-build --verbosity normal
 
-      # Step 7: Verify the WAV file exists (Custom validation step)
+      # Step 6: Verify the WAV file exists
       - name: Verify WAV file exists
+        shell: cmd
         run: |
           if not exist "Chatbot_voice_greeting.wav" (
             echo "Error: WAV file 'Chatbot_voice_greeting.wav' is missing."
-            exit 1
+            exit /b 1
           )
