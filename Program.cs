@@ -364,14 +364,14 @@ namespace CybersecurityAwarenessBot
 
         static readonly Dictionary<string, string> AudioFiles = new Dictionary<string, string>
         {
-            { "Intro", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Chatbot_voice_greeting.wav" },
-            { "Excited", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Excited_meow.wav" },
-            { "Sad", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Sad_meow.wav" },
-            { "Curious", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Curious_meow.wav" },
-            { "Dialog", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Dialog_meow.wav" },
-            { "Talk", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Talk_meow.wav" },
-            { "Purr", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Purr.wav" },
-            { "Bye", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Bye_meow.wav" }
+            { "Intro", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Chatbot_voice_greeting.wav" },
+            { "Excited", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Excited_meow.wav" },
+            { "Sad", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Sad_meow.wav" },
+            { "Curious", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Curious_meow.wav" },
+            { "Dialog", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Dialog_meow.wav" },
+            { "Talk", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Talk_meow.wav" },
+            { "Purr", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Purr.wav" },
+            { "Bye", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Bye_meow.wav" }
         };
 
 
