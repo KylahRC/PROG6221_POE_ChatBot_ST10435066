@@ -1,4 +1,4 @@
-﻿using System
+﻿using System;
 using System.Media;
 
 namespace CybersecurityAwarenessBot
@@ -55,37 +55,37 @@ namespace CybersecurityAwarenessBot
 
         static void GreetUser()
         {
-
-            // Display a greeting with the happy cat
-            DisplayCat("Hello! I am the CyberCat, your cybersecurity awareness assistant! What's your name?", CatExpression.Happy);
+            string greeting = ChatbotResponses.GetRandomGreeting();
+            DisplayCat(greeting, CatExpression.Happy);
             PlayAudio(AudioFiles["Excited"]);
 
             bool gaveName = false;
 
-            while (gaveName == false)
+            while (!gaveName)
             {
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.Write("USER: ");
                 userName = Console.ReadLine()?.Trim();
                 Console.ForegroundColor = ConsoleColor.White;
 
-                if (string.IsNullOrWhiteSpace(userName)) //checks if its blank
+                if (string.IsNullOrWhiteSpace(userName)) // checks if input is blank
                 {
-                    DisplayCat("Aw don't be shy, tell me!", CatExpression.Sad);
+                    string noNameResponse = ChatbotResponses.GetRandomNoNameResponse();
+                    DisplayCat(noNameResponse, CatExpression.Sad);
                     PlayAudio(AudioFiles["Sad"]);
-
                 }
-                else  //gave name
+                else // valid input
                 {
-                    DisplayCat($"Nice to meet you {userName}, lets get started!", CatExpression.Happy);
-                    gaveName = true;
+                    DisplayCat($"Nice to meet you {userName}, let's get started!", CatExpression.Happy);
                     PlayAudio(AudioFiles["Excited"]);
+                    gaveName = true;
                 }
-
             }
-            // Main menu call
+
             MainMenu();
         }
+
+
 
 
 
@@ -118,24 +118,26 @@ namespace CybersecurityAwarenessBot
 
                 switch (choice)
                 {
-                    case "1": //ask a question
-                        AskQuestion(); //launch question protocall
+                    case "1": // ask a question
+                        AskQuestion(); // launch question protocol
                         break;
-                    case "2": //give cat pets
-                        DisplayCat($"Aw, thanks {userName}! Im glad you like me!", CatExpression.Loving);
+                    case "2": // pet the cat
+                        string petResponse = ChatbotResponses.GetRandomPetTheCatResponse();
+                        DisplayCat(petResponse, CatExpression.Loving);
                         PlayAudio(AudioFiles["Purr"]);
                         break;
-                    case "3": //they want to leave
-                        DisplayCat($"Goodbye {userName}! Stay safe online!", CatExpression.Happy);
+                    case "3": // exit
+                        string goodbyeResponse = ChatbotResponses.GetRandomGoodbyeResponse();
+                        DisplayCat(goodbyeResponse, CatExpression.Happy);
                         PlayAudio(AudioFiles["Bye"]);
-
                         exit = true;
                         break;
-                    default: //they typed something else
-                        DisplayCat("Invalid input. Please choose 1, 2 or 3.", CatExpression.Confused);
+                    default: // invalid input
+                        DisplayCat(ChatbotResponses.GetRandomInvalidInputResponse(), CatExpression.Confused);
                         PlayAudio(AudioFiles["Sad"]);
                         break;
                 }
+
             }
         }
 
@@ -147,64 +149,75 @@ namespace CybersecurityAwarenessBot
                 Handles user questions and provides responses based on recognized keywords.
         _______________________________________________________________________________________
         */
-        static void AskQuestion() //ask questions method
+        static void AskQuestion()
         {
-            //dictionary of responses each linked to a keyword
-            var responses = new System.Collections.Generic.Dictionary<string, string>
-            {
-                //responses that give life to the mascot
-                { "how are you", "I'm feeling great! Im very excited to be teaching you today!" },
-                { "what’s your purpose", "My purpose is to help you stay safe online by teaching you about cybersecurity." },
-                { "what can i ask you about", "You can ask me about passwords, phishing, safe browsing, malware and more!" },
-                { "keywords", "Recognized keywords: malware, password, virus, phishing, safe browsing" },
-
-                //cyber related
-                { "malware", "Malware is a program that wants to do bad things to your computer!" },
-                { "password", "Passwords secure accounts or devices from unauthorized access. You can make a strong password by using a mix of lower case, " +
-                "upper case, symbols and numbers! Never share these passwords with anyone" },
-                { "virus", "Viruses are a type of malware. They can damage or delete your files! They can get into your computer via infected emails, files " +
-                "and external hardware entering or interacting with your system" },
-                { "phishing", "Phishing scams try to trick you into giving away personal information by pretending to be someone you can trust. " +
-                "Always verify the sender and avoid clicking on any suspicious links!" },
-                { "safe browsing", "Ensure your browser is updated, use HTTPS websites, and be cautious when entering personal information online." }
-            };
-
             bool wantsToQuit = false;
 
             while (!wantsToQuit)
             {
-                //tell user what to do, may need tweaking
-                DisplayCat("Give me a topic and I'll tell you more about it, or type 'quit' to go back to the main menu " +
-                    "\nYou can also type \"keywords\" to see a list of topics I'm familiar with", CatExpression.Happy);
+                DisplayCat("Give me a topic and I'll tell you more about it, or type 'quit' to go back to the main menu. You can also type \"keywords\" to see a list of topics I'm familiar with.", CatExpression.Happy);
                 PlayAudio(AudioFiles["Dialog"]);
 
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.Write("USER: ");
-                string question = Console.ReadLine()?.ToLower()?.Trim(); //dont consider blank spaces after answer
+                string question = Console.ReadLine()?.ToLower()?.Trim();
                 Console.ForegroundColor = ConsoleColor.White;
 
-                if (question == "quit") //they want to leave
+                if (question == "quit")
                 {
                     wantsToQuit = true;
                 }
-                else if (string.IsNullOrWhiteSpace(question)) //checks if its blank OR invalid
+                else if (string.IsNullOrWhiteSpace(question)) // checks for blank input
                 {
-                    DisplayCat("Please enter a valid topic or type 'quit' to go back to the main menu!", CatExpression.Sad);
+                    DisplayCat(ChatbotResponses.GetRandomInvalidInputResponse(), CatExpression.Sad);
                     PlayAudio(AudioFiles["Sad"]);
                 }
-                else if (responses.ContainsKey(question)) //if ther answer mathes a keyword in the dictionary, show the info associated with keyword
+                else
                 {
-                    DisplayCat(responses[question], CatExpression.Explain);
-                    PlayAudio(AudioFiles["Talk"]);
-                }
-                else //keyword is not in dictionary
-                {
-                    DisplayCat("I don’t know about that topic yet. Can you try another?", CatExpression.Confused);
-                    PlayAudio(AudioFiles["Curious"]);
-                }
+                    string personalResponse = ChatbotResponses.GetPersonalResponse(question);
+                    string cybersecurityResponse = ChatbotResponses.GetCybersecurityResponse(question);
 
+                    if (personalResponse != null)
+                    {
+                        if (question == "how are you")
+                        {
+                            // Use the random "How are you?" response
+                            string howAreYouResponse = ChatbotResponses.GetRandomHowAreYouResponse();
+                            DisplayCat(howAreYouResponse, CatExpression.Explain);
+                            PlayAudio(AudioFiles["Talk"]);
+                        }
+                        else
+                        {
+                            DisplayCat(personalResponse, CatExpression.Explain);
+                            PlayAudio(AudioFiles["Talk"]);
+                        }
+                    }
+                    else if (cybersecurityResponse != null)
+                    {
+                        // Use the fun phrase from ChatbotResponses
+                        string funPhrase = ChatbotResponses.GetRandomFunPhrase(question);
+
+                        // Display cat art with the fun phrase
+                        DisplayCat(funPhrase, CatExpression.Curious);
+                        
+
+                        // Display only the cybersecurity response without the cat art
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine(cybersecurityResponse);
+                        Console.ForegroundColor = ConsoleColor.White;
+                        PlayAudio(AudioFiles["Talk"]);
+                    }
+                    else
+                    {
+                        DisplayCat(ChatbotResponses.GetRandomInvalidInputResponse(), CatExpression.Confused);
+                        PlayAudio(AudioFiles["Curious"]);
+                    }
+                }
             }
         }
+
+
+
 
         #endregion
 
@@ -360,6 +373,265 @@ namespace CybersecurityAwarenessBot
             { "Purr", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Purr.wav" },
             { "Bye", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Bye_meow.wav" }
         };
+
+
+        public static class ChatbotResponses
+        {
+            /*====================================================
+            ================ Predefined Responses ================
+            ====================================================*/
+
+            /*
+            _______________________________________________________________________________________
+                Summary of CheerfulGreetings:
+                    Contains dynamic greetings to welcome the user in a cheerful and engaging way.
+            _______________________________________________________________________________________
+            */
+            public static readonly string[] CheerfulGreetings =
+            {
+                "Meowdy! I’m CyberCat, your paw-some cybersecurity guide! What should I call you?",
+                "Hello there! CyberCat reporting for duty—I’ll help keep you safe online. What’s your name?",
+                "Purr-fect day to chat about cybersecurity! What’s your name, friend?",
+                "Meow! Let’s dive into the world of cybersecurity together. I’d love to know your name!"
+            };
+
+            /*
+            _______________________________________________________________________________________
+                Summary of HowAreYouResponses:
+                    Contains playful responses for when the user asks how the chatbot is doing.
+            _______________________________________________________________________________________
+            */
+            public static readonly string[] HowAreYouResponses =
+            {
+                "Meowvelous! I’m here to help you stay safe online today!",
+                "I’m paws-itively great, thanks for asking!",
+                "Feeling claw-some and ready to teach you about cybersecurity!",
+                "Purring happily, because I love helping with cybersecurity!"
+            };
+
+            /*
+            _______________________________________________________________________________________
+                Summary of PetTheCatResponses:
+                    Contains appreciation responses for when the user selects the "Pet the Cat" option.
+            _______________________________________________________________________________________
+            */
+            public static readonly string[] PetTheCatResponses =
+            {
+                "Purr, purr, purr… you’re the best! Thanks for petting me!",
+                "Oh, I feel so loved! Let me give you some cybersecurity wisdom in return!",
+                "Thank you for the pets—you're so sweet!",
+                "Aw, I needed that! Now, let’s keep learning about cybersecurity!"
+            };
+
+            /*
+           _______________________________________________________________________________________
+               Summary of GoodbyeResponses:
+                   Contains memorable goodbye phrases when the user exits the chatbot.
+           _______________________________________________________________________________________
+           */
+            public static readonly string[] GoodbyeResponses =
+            {
+                "Goodbye, human! Stay safe online and don’t forget to use strong passwords!",
+                "Meow-bye! Don’t fall for phishing scams, okay?",
+                "See you next time! I’ll be here to purr whenever you need cybersecurity advice.",
+                "Farewell, friend! Remember, safe browsing is the cat’s meow!"
+            };
+
+            /*
+            _______________________________________________________________________________________
+                Summary of FunPhrases:
+                    Contains fun introductory phrases for cybersecurity-related responses.
+            _______________________________________________________________________________________
+            */
+            public static readonly string[] FunPhrases =
+            {
+                "Meow! Here’s what I know about {topic}:",
+                "Purr-fect question! Let me tell you about {topic}:",
+                "You’re curious, I love that! Let’s explore {topic}:",
+                "That’s a great topic—here’s what I know about {topic}:",
+                "Oh that's easy! Here’s what you need to know about {topic}:"
+            };
+
+            /*
+            _______________________________________________________________________________________
+                Summary of PersonalQuestions:
+                    Stores responses for personal questions about the chatbot's personality or purpose.
+            _______________________________________________________________________________________
+            */
+            public static readonly Dictionary<string, string> PersonalQuestions = new Dictionary<string, string>
+            {
+                { "how are you", "I'm feeling great! I'm very excited to be teaching you today!" },
+                { "what can you do", "I can answer your questions about cybersecurity, teach you about online safety, and make sure you're ready to avoid digital threats!" },
+                { "who are you", "I am CyberCat, your cybersecurity awareness assistant. Meow!" },
+                { "what’s your purpose", "My purpose is to help you stay safe online by teaching you about cybersecurity and answering your questions." },
+                { "what can i ask you about", "You can ask me about topics like passwords, phishing, safe browsing, malware, and more!" },
+                { "keywords", "Recognized keywords include: malware, password, virus, phishing, safe browsing." }
+            };
+
+            /*
+            _______________________________________________________________________________________
+                Summary of CybersecurityQuestions:
+                    Stores cybersecurity-related questions and their corresponding responses.
+            _______________________________________________________________________________________
+            */
+            public static readonly Dictionary<string, string> CybersecurityQuestions = new Dictionary<string, string>
+            {
+                { "malware", "Malware is a program that wants to do bad things to your computer!" },
+                { "password", "Passwords secure accounts or devices from unauthorized access. Use a mix of lower case, upper case, symbols, and numbers to make strong passwords. Never share them with anyone!" },
+                { "virus", "Viruses are a type of malware that can damage or delete your files! They often spread through infected emails or files." },
+                { "phishing", "Phishing scams try to trick you into giving away personal information by pretending to be someone trustworthy. Always verify the sender and avoid suspicious links!" },
+                { "safe browsing", "Ensure your browser is updated, use HTTPS websites, and be cautious when entering personal information online." }
+            };
+
+            /*
+            _______________________________________________________________________________________
+                Summary of InvalidInputResponses:
+                    Contains responses for unrecognized user inputs.
+            _______________________________________________________________________________________
+            */
+            public static readonly string[] InvalidInputResponses =
+            {
+                "Hmm, I don’t quite understand that. Could you try rephrasing or asking about cybersecurity topics like passwords or phishing?",
+                "Oops! That doesn’t ring a bell. Maybe you can try keywords like ‘safe browsing’ or ‘virus’?",
+                "Oh no, that topic isn’t in my kitty brain yet! Let me grow smarter, but for now, try asking about passwords, malware, or phishing!"
+            };
+
+            /*
+            _______________________________________________________________________________________
+                Summary of NoNameResponses:
+                    Contains responses for when the user does not provide their name.
+            _______________________________________________________________________________________
+            */
+            public static readonly string[] NoNameResponses =
+            {
+                "Aw, don’t be shy! I’d love to know your name!",
+                "Meow! It’s okay if you don’t want to share your real name, but I’d love to call you something!",
+                "Hmm… if I were a guessing cat, I’d guess your name is Human. Am I right?",
+                "Purr-fectly fine if you're cautious to share your real name, you can give me a nickname of yours instead!"
+            };
+
+            /*=========================================================
+            ================= Response Retrieval =====================
+            =========================================================*/
+
+
+            /*
+            _______________________________________________________________________________________
+                Summary of GetRandomGreeting():
+                    Gets a random cheerful greeting.
+            _______________________________________________________________________________________
+            */
+            public static string GetRandomGreeting()
+            {
+                Random random = new Random();
+                return CheerfulGreetings[random.Next(CheerfulGreetings.Length)];
+            }
+
+
+            /*
+            _______________________________________________________________________________________
+                Summary of GetRandomHowAreYouResponse():
+                    Gets a random response to "How are you?"
+            _______________________________________________________________________________________
+            */
+            public static string GetRandomHowAreYouResponse()
+            {
+                Random random = new Random();
+                return HowAreYouResponses[random.Next(HowAreYouResponses.Length)];
+            }
+
+
+            /*
+            _______________________________________________________________________________________
+                Summary of GetRandomPetTheCatResponse():
+                   Gets a random response for petting the cat.
+            _______________________________________________________________________________________
+            */            
+            public static string GetRandomPetTheCatResponse()
+            {
+                Random random = new Random();
+                return PetTheCatResponses[random.Next(PetTheCatResponses.Length)];
+            }
+
+            /*
+            _______________________________________________________________________________________
+                Summary of GetRandomGoodbyeResponse():
+                   Gets a random memorable goodbye response.
+            _______________________________________________________________________________________
+            */
+            public static string GetRandomGoodbyeResponse()
+            {
+                Random random = new Random();
+                return GoodbyeResponses[random.Next(GoodbyeResponses.Length)];
+            }
+
+            /*
+            _______________________________________________________________________________________
+                Summary of GetRandomFunPhrase():
+                   Gets a random fun introductory phrase for cybersecurity topics.
+            _______________________________________________________________________________________
+            */
+            public static string GetRandomFunPhrase(string topic)
+            {
+                Random random = new Random();
+                string funPhrase = FunPhrases[random.Next(FunPhrases.Length)];
+                return funPhrase.Replace("{topic}", topic);
+            }
+
+            /*
+            _______________________________________________________________________________________
+                Summary of GetRandomInvalidInputResponse():
+                   Gets a random response for unrecognized inputs.
+            _______________________________________________________________________________________
+            */
+            public static string GetRandomInvalidInputResponse()
+            {
+                Random random = new Random();
+                return InvalidInputResponses[random.Next(InvalidInputResponses.Length)];
+            }
+
+            /*
+            _______________________________________________________________________________________
+                Summary of GetPersonalResponse():
+                   Gets a response for a recognized personal question.
+            _______________________________________________________________________________________
+            */
+            public static string GetPersonalResponse(string question)
+            {
+                if (PersonalQuestions.ContainsKey(question))
+                {
+                    return PersonalQuestions[question];
+                }
+                return null;
+            }
+
+            /*
+            _______________________________________________________________________________________
+                Summary of GetCybersecurityResponse():
+                   Gets a response for a recognized cybersecurity question.
+            _______________________________________________________________________________________
+            */
+            public static string GetCybersecurityResponse(string question)
+            {
+                if (CybersecurityQuestions.ContainsKey(question))
+                {
+                    return CybersecurityQuestions[question];
+                }
+                return null;
+            }
+
+            /*
+            _______________________________________________________________________________________
+                Summary of GetRandomNoNameResponse():
+                   Gets a random response for when the user doesn't provide their name.
+            _______________________________________________________________________________________
+            */
+            public static string GetRandomNoNameResponse()
+            {
+                Random random = new Random();
+                return NoNameResponses[random.Next(NoNameResponses.Length)];
+            }
+        }
 
         #endregion
 
