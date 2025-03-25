@@ -1,8 +1,6 @@
 ﻿using System.Media;
 
 //comment to test the workflow
-//test again bc it didnt work 
-
 namespace CybersecurityAwarenessBot
 {
     class Program
