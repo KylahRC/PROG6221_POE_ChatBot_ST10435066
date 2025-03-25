@@ -1,7 +1,6 @@
 name: .NET CI Workflow
 
 on:
-  
   push:
     branches:
       - main
