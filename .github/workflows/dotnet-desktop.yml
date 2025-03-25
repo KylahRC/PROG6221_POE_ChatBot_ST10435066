@@ -1,13 +1,13 @@
 name: .NET CI Workflow
 
 on:
+  workflow_dispatch: # Enables manual triggering of the workflow
   push:
     branches:
       - main
   pull_request:
     branches:
       - main
-workflow_dispatch: # Allows manual triggering of the workflow
 
 jobs:
   build:
@@ -28,7 +28,6 @@ jobs:
     - name: Build the application
       run: dotnet build --configuration Release --no-restore
 
-  
     - name: Syntax validation
       run: |
         dotnet run --configuration Debug
