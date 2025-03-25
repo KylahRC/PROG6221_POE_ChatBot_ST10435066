@@ -30,4 +30,4 @@ jobs:
 
     - name: Syntax validation
       run: |
-        dotnet run --configuration Debug
+        dotnet build --configuration Debug
