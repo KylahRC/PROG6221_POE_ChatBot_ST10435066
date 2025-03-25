@@ -37,6 +37,12 @@ jobs:
       - name: Run Code Formatter Check
         run: dotnet format PROG6221_POE_ChatBot_ST10435066.sln --verify-no-changes
 
-      # Step 6: Run Unit Tests (if applicable)
+      # Step 6: Add Platform-Specific Annotations for Warnings
+      - name: Add Platform-Specific Suppressions
+        run: |
+          echo "Add platform-specific warnings for APIs"
+          echo 'Consider applying "[SupportedOSPlatform("windows")]" for platform APIs.' 
+
+      # Step 7: Run Unit Tests (if applicable)
       - name: Run Unit Tests
         run: dotnet test PROG6221_POE_ChatBot_ST10435066.sln --no-build --verbosity normal
