@@ -5,7 +5,7 @@ namespace CybersecurityAwarenessBot
 {
     class Program
     {
-        // A global variable to store the user's name
+        //a global variable to store the user's name
         static string userName;
 
         #region Setup and Initialization
@@ -86,9 +86,6 @@ namespace CybersecurityAwarenessBot
         }
 
 
-
-
-
         /*
         _______________________________________________________________________________________
             Summary of MainMenu():
@@ -142,13 +139,13 @@ namespace CybersecurityAwarenessBot
         }
 
 
-
         /*
         _______________________________________________________________________________________
             Summary of AskQuestion():
                 Handles user questions and provides responses based on recognized keywords.
         _______________________________________________________________________________________
         */
+
         static void AskQuestion()
         {
             bool wantsToQuit = false;
@@ -215,8 +212,6 @@ namespace CybersecurityAwarenessBot
                 }
             }
         }
-
-
 
 
         #endregion
@@ -357,7 +352,7 @@ namespace CybersecurityAwarenessBot
 
         /*
         _______________________________________________________________________________________
-            Summary of PlayAudio():
+            Summary of AudioFiles:
                 Centralizes all known audio file paths for the chatbot.
         _______________________________________________________________________________________
         */
@@ -374,6 +369,13 @@ namespace CybersecurityAwarenessBot
             { "Bye", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Bye_meow.wav" }
         };
 
+
+        /*
+        _______________________________________________________________________________________
+            Summary of ChatbotResponses:
+                Contains all the dialog that can be said by the chatbot.
+        _______________________________________________________________________________________
+        */
 
         public static class ChatbotResponses
         {
