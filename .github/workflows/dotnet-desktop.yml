@@ -7,7 +7,7 @@ on:
   pull_request:
     branches:
       - main
-  workflow_dispatch: # Add this line to enable manual triggering
+  workflow_dispatch: # Allows manual triggering of the workflow
 
 jobs:
   build:
@@ -27,16 +27,16 @@ jobs:
 
       # Step 3: Install dependencies and restore NuGet packages
       - name: Restore NuGet packages
-        run: dotnet restore
+        run: dotnet restore PROG6221_POE_ChatBot_ST10435066.sln
 
       # Step 4: Build the project
       - name: Build the solution
-        run: dotnet build --no-restore --configuration Release
+        run: dotnet build PROG6221_POE_ChatBot_ST10435066.sln --no-restore --configuration Release
 
-      # Step 5: Run code analysis (optional but recommended for formatting checks)
+      # Step 5: Run Code Formatter Check
       - name: Run Code Formatter Check
-        run: dotnet format --check # Ensure code formatting standards are met
+        run: dotnet format PROG6221_POE_ChatBot_ST10435066.sln --check
 
-      # Step 6: Run tests (if applicable)
+      # Step 6: Run Unit Tests (if applicable)
       - name: Run Unit Tests
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test PROG6221_POE_ChatBot_ST10435066.sln --no-build --verbosity normal
