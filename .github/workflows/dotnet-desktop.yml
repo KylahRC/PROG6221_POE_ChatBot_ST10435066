@@ -35,7 +35,7 @@ jobs:
 
       # Step 5: Run Code Formatter Check
       - name: Run Code Formatter Check
-        run: dotnet format PROG6221_POE_ChatBot_ST10435066.sln --check
+        run: dotnet format PROG6221_POE_ChatBot_ST10435066.sln --verify-no-changes
 
       # Step 6: Run Unit Tests (if applicable)
       - name: Run Unit Tests
