@@ -9,6 +9,8 @@ using System.Media;
 //Personalization: Almost perfect
 //Basic Responses: Almost perfect
 //Input Validation: Almost perfect
+//Colourfulness: Almost perfect
+
 
 namespace CybersecurityAwarenessBot
 {
@@ -36,7 +38,9 @@ namespace CybersecurityAwarenessBot
               Irvine        Cyber        Security
                                 
             ";
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(asciiArt); //outputs the logo string
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         enum CatExpression //set of constant "values" that I can reliably call linked to a specific cat face, allows for a wide array of expressions to be called easy
@@ -91,8 +95,11 @@ namespace CybersecurityAwarenessBot
             };
 
             // Display the cat expression you want and the message together as one entity
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine(catArt);
-            Console.WriteLine($"| {message} |");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"{message}");
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         static void Main(string[] args)
@@ -103,7 +110,6 @@ namespace CybersecurityAwarenessBot
             GreetUser(); //the text greeting to start the program
 
         }
-
 
         //It works!
         static void PlayVoiceGreeting()
@@ -136,7 +142,6 @@ namespace CybersecurityAwarenessBot
             }
         }
 
-
         static void GreetUser()
         {
             // Display a greeting with the happy cat
@@ -146,7 +151,10 @@ namespace CybersecurityAwarenessBot
 
             while (gaveName == false)
             {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write("USER: ");
                 string userName = Console.ReadLine()?.Trim();
+                Console.ForegroundColor = ConsoleColor.White;
 
                 if (string.IsNullOrWhiteSpace(userName)) //checks if its blank
                 {
@@ -173,15 +181,19 @@ namespace CybersecurityAwarenessBot
             while (!exit)
             {
                 DisplayCat($"What do you want to do, {userName}?", CatExpression.Curious);
-                
+
 
                 //options of what the user can do
+                Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine("1. Ask a question");
                 Console.WriteLine("2. Pet the cat!");
                 Console.WriteLine("3. Exit");
                 Console.Write("Choose an option: ");
+                Console.ForegroundColor = ConsoleColor.White;
 
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 string choice = Console.ReadLine()?.Trim(); //gets the user choice
+                Console.ForegroundColor = ConsoleColor.White;
 
                 switch (choice)
                 {
@@ -231,7 +243,11 @@ namespace CybersecurityAwarenessBot
                 //tell user what to do, may need tweaking
                 DisplayCat("Give me a topic and I'll tell you more about it, or type 'quit' to go back to the main menu " +
                     "\nYou can also type \"keywords\" to see a list of topics I'm familiar with", CatExpression.Curious);
+
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write("USER: ");
                 string question = Console.ReadLine()?.ToLower()?.Trim(); //dont consider blank spaces after answer
+                Console.ForegroundColor = ConsoleColor.White;
 
                 if (question == "quit") //they want to leave
                 {
