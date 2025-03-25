@@ -19,6 +19,45 @@ namespace CybersecurityAwarenessBot
         // A global variable to store the user's name
         static string userName;
 
+        static void PlayAudio(string filePath)
+        {
+            try
+            {
+                // Instance of sound player
+                SoundPlayer player = new SoundPlayer(filePath);
+
+                // Load the WAV file
+                player.Load();
+
+                // Play the WAV file
+                player.PlaySync();
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine($"Error: The file '{filePath}' was not found. Please ensure the file path is correct.");
+            }
+            catch (InvalidOperationException)
+            {
+                Console.WriteLine("Error: The WAV file could not be played. Please check the file format or integrity.");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"An unexpected error occurred: {e.Message}");
+            }
+        }
+
+        static readonly Dictionary<string, string> AudioFiles = new Dictionary<string, string>
+        {
+            { "Intro", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Chatbot_voice_greeting.wav" },
+            { "Excited", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Excited_meow.wav" },
+            { "Sad", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Sad_meow.wav" },
+            { "Curious", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Curious_meow.wav" },
+            { "Dialog", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Dialog_meow.wav" },
+            { "Talk", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Talk_meow.wav" },
+            { "Purr", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Purr.wav" },
+            { "Bye", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Bye_meow.wav" }
+        };
+
         static void DisplayAsciiArt() //displays the logo
         {
             //assigns the art to a string
@@ -49,7 +88,8 @@ namespace CybersecurityAwarenessBot
             Curious,
             Sad,
             Loving,
-            Confused
+            Confused,
+            Explain
         }
 
         static void DisplayCat(string message, CatExpression expression) //method using the constants for expression and whatever needs to be said by the cat
@@ -86,6 +126,12 @@ namespace CybersecurityAwarenessBot
                                            "\r\n<   Ò    ó   >   " +
                                            "\r\n \\    ?     /    " +
                                            "\r\n  ~~~~~~~~~~",
+                CatExpression.Explain => "\n  /\\      /\\     " +
+                                          "\r\n /  \\____/  \\    " +
+                                          "\r\n<            >\t " +
+                                          "\r\n<   O    O   >   " +
+                                          "\r\n \\    0     /    " +
+                                          "\r\n  ~~~~~~~~~~",
                 _ => "\n  /\\      /\\     " +
                      "\r\n /  \\____/  \\    " +
                      "\r\n<            >\t " +
@@ -106,46 +152,18 @@ namespace CybersecurityAwarenessBot
         {
             
             DisplayAsciiArt(); //show the logo
-            PlayVoiceGreeting(); //the method to play the greeting
+            PlayAudio(AudioFiles["Intro"]); //play the voice greeting
             GreetUser(); //the text greeting to start the program
 
         }
 
-        //It works!
-        static void PlayVoiceGreeting()
-        {
-            // Path to the WAV file
-            string path = "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Chatbot_voice_greeting.wav"; //where to find the audio file
-
-            try
-            {
-                //instance of sound player
-                SoundPlayer player = new SoundPlayer(path);
-
-                //load the WAV file as its own action
-                player.Load();
-
-                //play the WAV file
-                player.PlaySync();
-            }
-            catch (FileNotFoundException)
-            {
-                Console.WriteLine($"Error: The file '{path}' was not found. Please ensure the file path is correct.");
-            }
-            catch (InvalidOperationException)
-            {
-                Console.WriteLine("Error: The WAV file could not be played. Please check the file format or integrity.");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"An unexpected error occurred: {e.Message}");
-            }
-        }
-
+        
         static void GreetUser()
         {
+            
             // Display a greeting with the happy cat
             DisplayCat("Hello! I am the CyberCat, your cybersecurity awareness assistant! What's your name?", CatExpression.Happy);
+            PlayAudio(AudioFiles["Excited"]);
 
             bool gaveName = false;
 
@@ -153,18 +171,20 @@ namespace CybersecurityAwarenessBot
             {
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.Write("USER: ");
-                string userName = Console.ReadLine()?.Trim();
+                userName = Console.ReadLine()?.Trim();
                 Console.ForegroundColor = ConsoleColor.White;
 
                 if (string.IsNullOrWhiteSpace(userName)) //checks if its blank
                 {
                     DisplayCat("Aw don't be shy, tell me!", CatExpression.Sad);
+                    PlayAudio(AudioFiles["Sad"]);
+
                 }
                 else  //gave name
                 {
                     DisplayCat($"Nice to meet you {userName}, lets get started!", CatExpression.Happy);
                     gaveName = true;
-                                       
+                    PlayAudio(AudioFiles["Excited"]);
                 }
 
             }
@@ -175,13 +195,11 @@ namespace CybersecurityAwarenessBot
 
         static void MainMenu() //the main menu display
         {
-            
-
             bool exit = false;
             while (!exit)
             {
                 DisplayCat($"What do you want to do, {userName}?", CatExpression.Curious);
-
+                PlayAudio(AudioFiles["Curious"]);
 
                 //options of what the user can do
                 Console.ForegroundColor = ConsoleColor.Blue;
@@ -202,13 +220,17 @@ namespace CybersecurityAwarenessBot
                         break;
                     case "2": //give cat pets
                         DisplayCat($"Aw, thanks {userName}! Im glad you like me!", CatExpression.Loving);
+                        PlayAudio(AudioFiles["Purr"]);
                         break;
                     case "3": //they want to leave
                         DisplayCat($"Goodbye {userName}! Stay safe online!", CatExpression.Happy);
+                        PlayAudio(AudioFiles["Bye"]);
+
                         exit = true;
                         break;
                     default: //they typed something else
                         DisplayCat("Invalid input. Please choose 1, 2 or 3.", CatExpression.Confused);
+                        PlayAudio(AudioFiles["Sad"]);
                         break;
                 }
             }
@@ -242,7 +264,8 @@ namespace CybersecurityAwarenessBot
             {
                 //tell user what to do, may need tweaking
                 DisplayCat("Give me a topic and I'll tell you more about it, or type 'quit' to go back to the main menu " +
-                    "\nYou can also type \"keywords\" to see a list of topics I'm familiar with", CatExpression.Curious);
+                    "\nYou can also type \"keywords\" to see a list of topics I'm familiar with", CatExpression.Happy);
+                PlayAudio(AudioFiles["Dialog"]);
 
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.Write("USER: ");
@@ -256,14 +279,17 @@ namespace CybersecurityAwarenessBot
                 else if (string.IsNullOrWhiteSpace(question)) //checks if its blank OR invalid
                 {
                     DisplayCat("Please enter a valid topic or type 'quit' to go back to the main menu!", CatExpression.Sad);
+                    PlayAudio(AudioFiles["Sad"]);
                 }
                 else if (responses.ContainsKey(question)) //if ther answer mathes a keyword in the dictionary, show the info associated with keyword
                 {
-                    DisplayCat(responses[question], CatExpression.Happy);
+                    DisplayCat(responses[question], CatExpression.Explain);
+                    PlayAudio(AudioFiles["Talk"]);
                 }
                 else //keyword is not in dictionary
                 {
                     DisplayCat("I don’t know about that topic yet. Can you try another?", CatExpression.Confused);
+                    PlayAudio(AudioFiles["Curious"]);
                 }
 
             }
