@@ -1,12 +1,11 @@
 ﻿using System.Media;
 
-//I just put this here to show the workflow works on all commits
 
 namespace CybersecurityAwarenessBot
 {
     class Program
     {
-        //a global variable to store the user's name
+        //a global variable to store the user's name so every method can access it
         static string userName;
 
         #region Setup and Initialization
@@ -41,7 +40,7 @@ namespace CybersecurityAwarenessBot
             Console.ForegroundColor = ConsoleColor.White;
         }
 
-        #endregion
+        #endregion //end the region
 
         /*==================================================================================================*/
 
@@ -56,34 +55,34 @@ namespace CybersecurityAwarenessBot
 
         static void GreetUser()
         {
-            string greeting = ChatbotResponses.GetRandomGreeting();
-            DisplayCat(greeting, CatExpression.Happy);
-            PlayAudio(AudioFiles["Excited"]);
+            string greeting = ChatbotResponses.GetRandomGreeting(); //gets a random greeting from the dictionary in utility methods region
+            DisplayCat(greeting, CatExpression.Happy); //display the cay art with the random greeting
+            PlayAudio(AudioFiles["Excited"]); //excited to see you meow
 
-            bool gaveName = false;
+            bool gaveName = false; //to know if they gave the name
 
             while (!gaveName)
             {
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.Write("USER: ");
-                userName = Console.ReadLine()?.Trim();
-                Console.ForegroundColor = ConsoleColor.White;
+                Console.ForegroundColor = ConsoleColor.Cyan; //change font colour
+                Console.Write("USER: "); //so they know when they can type bc meows must play first
+                userName = Console.ReadLine()?.Trim(); //enter username and trim off the extra spaces to prevent awkward spacing
+                Console.ForegroundColor = ConsoleColor.White; //I keep changing the colour back to see if things go wrong
 
-                if (string.IsNullOrWhiteSpace(userName)) // checks if input is blank
+                if (string.IsNullOrWhiteSpace(userName)) //checks if input is blank
                 {
-                    string noNameResponse = ChatbotResponses.GetRandomNoNameResponse();
-                    DisplayCat(noNameResponse, CatExpression.Sad);
-                    PlayAudio(AudioFiles["Sad"]);
+                    string noNameResponse = ChatbotResponses.GetRandomNoNameResponse(); //gets and assigns random no name given rsesponse
+                    DisplayCat(noNameResponse, CatExpression.Sad); //show cat art and message
+                    PlayAudio(AudioFiles["Sad"]); //sad meow
                 }
-                else // valid input
+                else //valid input
                 {
-                    DisplayCat($"Nice to meet you {userName}, let's get started!", CatExpression.Happy);
-                    PlayAudio(AudioFiles["Excited"]);
-                    gaveName = true;
+                    DisplayCat($"Nice to meet you {userName}, let's get started!", CatExpression.Happy); //custom dialog and happy art
+                    PlayAudio(AudioFiles["Excited"]); //excited meow
+                    gaveName = true; //gave the name, exit the loop
                 }
             }
 
-            MainMenu();
+            MainMenu(); //start up the main menu
         }
 
 
@@ -96,48 +95,48 @@ namespace CybersecurityAwarenessBot
 
         static void MainMenu()
         {
-            bool exit = false;
+            bool exit = false; //tracks whether the user wants to exit the program or not
             while (!exit)
             {
-                DisplayCat($"What do you want to do, {userName}?", CatExpression.Curious);
-                PlayAudio(AudioFiles["Curious"]);
+                DisplayCat($"What do you want to do, {userName}?", CatExpression.Curious); //show cat art and ask the user what they want to do
+                PlayAudio(AudioFiles["Curious"]); //play curious meow audio
 
-                //options of what the user can do
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("1. Ask a question");
-                Console.WriteLine("2. Pet the cat!");
-                Console.WriteLine("3. Exit");
-                Console.Write("Choose an option: ");
-                Console.ForegroundColor = ConsoleColor.White;
+                // options for user actions
+                Console.ForegroundColor = ConsoleColor.Blue; //set text color to blue
+                Console.WriteLine("1. Ask a question"); //option to ask the chatbot a question
+                Console.WriteLine("2. Pet the cat!"); //option to pet the cat
+                Console.WriteLine("3. Exit"); //option to exit the program
+                Console.Write("Choose an option: "); //show when user can enter
+                Console.ForegroundColor = ConsoleColor.White; //reset text color back to white just in case
 
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                string choice = Console.ReadLine()?.Trim(); //gets the user choice
-                Console.ForegroundColor = ConsoleColor.White;
+                Console.ForegroundColor = ConsoleColor.Cyan; //set text color to cyan bc user input is cyan
+                string choice = Console.ReadLine()?.Trim(); //read and trim user input to prevent extra spaces
+                Console.ForegroundColor = ConsoleColor.White; //reset text color back to white
 
                 switch (choice)
                 {
-                    case "1": // ask a question
-                        AskQuestion(); // launch question protocol
+                    case "1": //option 1: user wants to ask a question
+                        AskQuestion(); //call the AskQuestion method
                         break;
-                    case "2": // pet the cat
-                        string petResponse = ChatbotResponses.GetRandomPetTheCatResponse();
-                        DisplayCat(petResponse, CatExpression.Loving);
-                        PlayAudio(AudioFiles["Purr"]);
+                    case "2": //option 2: user wants to pet the cat
+                        string petResponse = ChatbotResponses.GetRandomPetTheCatResponse(); //get a random pet message
+                        DisplayCat(petResponse, CatExpression.Loving); //show loving cat art and message
+                        PlayAudio(AudioFiles["Purr"]); //play purring audio
                         break;
-                    case "3": // exit
-                        string goodbyeResponse = ChatbotResponses.GetRandomGoodbyeResponse();
-                        DisplayCat(goodbyeResponse, CatExpression.Happy);
-                        PlayAudio(AudioFiles["Bye"]);
-                        exit = true;
+                    case "3": //option 3: user wants to exit
+                        string goodbyeResponse = ChatbotResponses.GetRandomGoodbyeResponse(); //get a random goodbye response
+                        DisplayCat(goodbyeResponse, CatExpression.Happy); //show happy cat art and message
+                        PlayAudio(AudioFiles["Bye"]); //play goodbye audio
+                        exit = true; //user wants out, exit switch and quit program
                         break;
-                    default: // invalid input
-                        DisplayCat(ChatbotResponses.GetRandomInvalidInputResponse(), CatExpression.Confused);
-                        PlayAudio(AudioFiles["Sad"]);
+                    default: //invalid input
+                        DisplayCat(ChatbotResponses.GetRandomInvalidInputResponse(), CatExpression.Confused); //show confused cat art and random invalid input message
+                        PlayAudio(AudioFiles["Sad"]); //play sad audio
                         break;
                 }
-
             }
         }
+
 
 
         /*
@@ -149,70 +148,66 @@ namespace CybersecurityAwarenessBot
 
         static void AskQuestion()
         {
-            bool wantsToQuit = false;
+            bool wantsToQuit = false; //tracks whether the user wants to quit the AskQuestion loop
 
-            while (!wantsToQuit)
+            while (!wantsToQuit) //loop until the user decides to quit
             {
-                DisplayCat("Give me a topic and I'll tell you more about it, or type 'quit' to go back to the main menu. You can also type \"keywords\" to see a list of topics I'm familiar with.", CatExpression.Happy);
-                PlayAudio(AudioFiles["Dialog"]);
+                DisplayCat("Give me a topic and I'll tell you more about it, or type 'quit' to go back to the main menu. You can also type " +
+                    "\"keywords\" to see a list of topics I'm familiar with.", CatExpression.Happy); //prompt user to provide a topic
+                PlayAudio(AudioFiles["Dialog"]); //play dialog meow audio
 
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.Write("USER: ");
-                string question = Console.ReadLine()?.ToLower()?.Trim();
-                Console.ForegroundColor = ConsoleColor.White;
+                Console.ForegroundColor = ConsoleColor.Cyan; //set text color to cyan for user input
+                Console.Write("USER: "); //display prompt for user input
+                string question = Console.ReadLine()?.ToLower()?.Trim(); //get and process user input (convert to lowercase and trim spaces for keyword matching)
+                Console.ForegroundColor = ConsoleColor.White; //reset text color to white
 
-                if (question == "quit")
+                if (question == "quit") //user chooses to quit
                 {
-                    wantsToQuit = true;
+                    wantsToQuit = true; //exit the loop
                 }
-                else if (string.IsNullOrWhiteSpace(question)) // checks for blank input
+                else if (string.IsNullOrWhiteSpace(question)) //check for blank input
                 {
-                    DisplayCat(ChatbotResponses.GetRandomInvalidInputResponse(), CatExpression.Sad);
-                    PlayAudio(AudioFiles["Sad"]);
+                    DisplayCat(ChatbotResponses.GetRandomInvalidInputResponse(), CatExpression.Sad); //show sad cat art and invalid input response
+                    PlayAudio(AudioFiles["Sad"]); //play sad meow audio
                 }
-                else
+                else //user provides valid input
                 {
-                    string personalResponse = ChatbotResponses.GetPersonalResponse(question);
-                    string cybersecurityResponse = ChatbotResponses.GetCybersecurityResponse(question);
+                    string personalResponse = ChatbotResponses.GetPersonalResponse(question); //get personal response based on user input
+                    string cybersecurityResponse = ChatbotResponses.GetCybersecurityResponse(question); //get cybersecurity response based on user input
 
-                    if (personalResponse != null)
+                    if (personalResponse != null) //check if input matches a personal question
                     {
-                        if (question == "how are you")
+                        if (question == "how are you") //special case for "how are you"
                         {
-                            // Use the random "How are you?" response
-                            string howAreYouResponse = ChatbotResponses.GetRandomHowAreYouResponse();
-                            DisplayCat(howAreYouResponse, CatExpression.Explain);
-                            PlayAudio(AudioFiles["Talk"]);
+                            string howAreYouResponse = ChatbotResponses.GetRandomHowAreYouResponse(); //get a random "how are you" response
+                            DisplayCat(howAreYouResponse, CatExpression.Explain); //show explain cat art and response
+                            PlayAudio(AudioFiles["Talk"]); //play talk meow audio
                         }
-                        else
+                        else // other personal questions
                         {
-                            DisplayCat(personalResponse, CatExpression.Explain);
-                            PlayAudio(AudioFiles["Talk"]);
+                            DisplayCat(personalResponse, CatExpression.Explain); //show explain cat art and response
+                            PlayAudio(AudioFiles["Talk"]); //play talk meow audio
                         }
                     }
-                    else if (cybersecurityResponse != null)
+                    else if (cybersecurityResponse != null) //check if input matches a cybersecurity question
                     {
-                        // Use the fun phrase from ChatbotResponses
-                        string funPhrase = ChatbotResponses.GetRandomFunPhrase(question);
+                        string funPhrase = ChatbotResponses.GetRandomFunPhrase(question); //get fun phrase for cybersecurity topic
+                        DisplayCat(funPhrase, CatExpression.Curious); //show curious cat art and fun phrase
 
-                        // Display cat art with the fun phrase
-                        DisplayCat(funPhrase, CatExpression.Curious);
-                        
-
-                        // Display only the cybersecurity response without the cat art
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine(cybersecurityResponse);
-                        Console.ForegroundColor = ConsoleColor.White;
-                        PlayAudio(AudioFiles["Talk"]);
+                        Console.ForegroundColor = ConsoleColor.Green; //set text color to green for cybersecurity response
+                        Console.WriteLine(cybersecurityResponse); //display the cybersecurity response
+                        Console.ForegroundColor = ConsoleColor.White; //reset text color to white
+                        PlayAudio(AudioFiles["Talk"]); //play talk meow audio
                     }
-                    else
+                    else // input doesn't match known questions or topics
                     {
-                        DisplayCat(ChatbotResponses.GetRandomInvalidInputResponse(), CatExpression.Confused);
-                        PlayAudio(AudioFiles["Curious"]);
+                        DisplayCat(ChatbotResponses.GetRandomInvalidInputResponse(), CatExpression.Confused); //show confused cat art and response
+                        PlayAudio(AudioFiles["Curious"]); //play curious meow audio
                     }
                 }
             }
         }
+
 
 
         #endregion
@@ -228,7 +223,7 @@ namespace CybersecurityAwarenessBot
         _______________________________________________________________________________________
         */
 
-        enum CatExpression
+        enum CatExpression //array of expression names that corresponds to a cat art
         {
             Happy,
             Curious,
@@ -297,9 +292,9 @@ namespace CybersecurityAwarenessBot
             };
 
             // Display the cat expression you want and the message together as one entity
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.ForegroundColor = ConsoleColor.DarkYellow; //its kinds brown
             Console.WriteLine(catArt);
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.Green; //the text must be green
             Console.WriteLine($"{message}");
             Console.ForegroundColor = ConsoleColor.White;
         }
@@ -322,28 +317,29 @@ namespace CybersecurityAwarenessBot
         {
             try
             {
-                // Instance of sound player
+                //Create an instance of SoundPlayer to handle audio playback
                 SoundPlayer player = new SoundPlayer(filePath);
 
-                // Load the WAV file
+                //Load the WAV file to ensure it's ready for playback
                 player.Load();
 
-                // Play the WAV file
+                //Play the loaded WAV file synchronously (wait until playback completes)
                 player.PlaySync();
             }
-            catch (FileNotFoundException)
+            catch (FileNotFoundException) //handle case when the specified audio file is not found
             {
-                Console.WriteLine($"Error: The file '{filePath}' was not found. Please ensure the file path is correct.");
+                Console.WriteLine($"Error: The file '{filePath}' was not found. Please ensure the file path is correct."); //notify user of the missing file
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException) //handle invalid file format or issues with audio playback
             {
-                Console.WriteLine("Error: The WAV file could not be played. Please check the file format or integrity.");
+                Console.WriteLine("Error: The WAV file could not be played. Please check the file format or integrity."); //notify user of file issues
             }
-            catch (Exception e)
+            catch (Exception e) //handle any unexpected errors during audio playback
             {
-                Console.WriteLine($"An unexpected error occurred: {e.Message}");
+                Console.WriteLine($"An unexpected error occurred: {e.Message}"); //output the error message for debugging purposes
             }
         }
+
 
         #endregion
 
@@ -360,15 +356,16 @@ namespace CybersecurityAwarenessBot
 
         static readonly Dictionary<string, string> AudioFiles = new Dictionary<string, string>
         {
-            { "Intro", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Chatbot_voice_greeting.wav" },
-            { "Excited", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Excited_meow.wav" },
-            { "Sad", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Sad_meow.wav" },
-            { "Curious", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Curious_meow.wav" },
-            { "Dialog", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Dialog_meow.wav" },
-            { "Talk", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Talk_meow.wav" },
-            { "Purr", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Purr.wav" },
-            { "Bye", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Bye_meow.wav" }
+            { "Intro", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Chatbot_voice_greeting.wav" }, //path to the chatbot's introductory voice greeting audio
+            { "Excited", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Excited_meow.wav" }, //path to the excited meow audio
+            { "Sad", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Sad_meow.wav" }, //path to the sad meow audio
+            { "Curious", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Curious_meow.wav" }, //path to the curious meow audio
+            { "Dialog", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Dialog_meow.wav" }, //path to the dialog meow audio, used during interaction
+            { "Talk", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Talk_meow.wav" }, //path to the talk meow audio, used for explanation responses
+            { "Purr", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Purr.wav" }, //path to the purring audio, used for the pet-the-cat option
+            { "Bye", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Bye_meow.wav" } //path to the goodbye meow audio
         };
+
 
 
         /*
@@ -526,8 +523,8 @@ namespace CybersecurityAwarenessBot
             */
             public static string GetRandomGreeting()
             {
-                Random random = new Random();
-                return CheerfulGreetings[random.Next(CheerfulGreetings.Length)];
+                Random random = new Random(); // create an instance of the Random class
+                return CheerfulGreetings[random.Next(CheerfulGreetings.Length)]; // return a random greeting from the CheerfulGreetings array
             }
 
 
@@ -539,8 +536,8 @@ namespace CybersecurityAwarenessBot
             */
             public static string GetRandomHowAreYouResponse()
             {
-                Random random = new Random();
-                return HowAreYouResponses[random.Next(HowAreYouResponses.Length)];
+                Random random = new Random(); // create an instance of the Random class
+                return HowAreYouResponses[random.Next(HowAreYouResponses.Length)]; // return a random response from the HowAreYouResponses array
             }
 
 
@@ -549,11 +546,11 @@ namespace CybersecurityAwarenessBot
                 Summary of GetRandomPetTheCatResponse():
                    Gets a random response for petting the cat.
             _______________________________________________________________________________________
-            */            
+            */
             public static string GetRandomPetTheCatResponse()
             {
-                Random random = new Random();
-                return PetTheCatResponses[random.Next(PetTheCatResponses.Length)];
+                Random random = new Random(); // create an instance of the Random class
+                return PetTheCatResponses[random.Next(PetTheCatResponses.Length)]; // return a random response from the PetTheCatResponses array
             }
 
             /*
@@ -564,8 +561,8 @@ namespace CybersecurityAwarenessBot
             */
             public static string GetRandomGoodbyeResponse()
             {
-                Random random = new Random();
-                return GoodbyeResponses[random.Next(GoodbyeResponses.Length)];
+                Random random = new Random(); // create an instance of the Random class
+                return GoodbyeResponses[random.Next(GoodbyeResponses.Length)]; // return a random response from the GoodbyeResponses array
             }
 
             /*
@@ -576,9 +573,9 @@ namespace CybersecurityAwarenessBot
             */
             public static string GetRandomFunPhrase(string topic)
             {
-                Random random = new Random();
-                string funPhrase = FunPhrases[random.Next(FunPhrases.Length)];
-                return funPhrase.Replace("{topic}", topic);
+                Random random = new Random(); // create an instance of the Random class
+                string funPhrase = FunPhrases[random.Next(FunPhrases.Length)]; // pick a random fun phrase
+                return funPhrase.Replace("{topic}", topic); // replace the placeholder "{topic}" with the actual topic provided
             }
 
             /*
@@ -589,8 +586,8 @@ namespace CybersecurityAwarenessBot
             */
             public static string GetRandomInvalidInputResponse()
             {
-                Random random = new Random();
-                return InvalidInputResponses[random.Next(InvalidInputResponses.Length)];
+                Random random = new Random(); // create an instance of the Random class
+                return InvalidInputResponses[random.Next(InvalidInputResponses.Length)]; // return a random response from the InvalidInputResponses array
             }
 
             /*
@@ -601,11 +598,11 @@ namespace CybersecurityAwarenessBot
             */
             public static string GetPersonalResponse(string question)
             {
-                if (PersonalQuestions.ContainsKey(question))
+                if (PersonalQuestions.ContainsKey(question)) // check if the question exists in the PersonalQuestions dictionary
                 {
-                    return PersonalQuestions[question];
+                    return PersonalQuestions[question]; // return the corresponding response
                 }
-                return null;
+                return null; // return null if the question is not found
             }
 
             /*
@@ -616,11 +613,11 @@ namespace CybersecurityAwarenessBot
             */
             public static string GetCybersecurityResponse(string question)
             {
-                if (CybersecurityQuestions.ContainsKey(question))
+                if (CybersecurityQuestions.ContainsKey(question)) // check if the question exists in the CybersecurityQuestions dictionary
                 {
-                    return CybersecurityQuestions[question];
+                    return CybersecurityQuestions[question]; // return the corresponding response
                 }
-                return null;
+                return null; // return null if the question is not found
             }
 
             /*
@@ -631,12 +628,12 @@ namespace CybersecurityAwarenessBot
             */
             public static string GetRandomNoNameResponse()
             {
-                Random random = new Random();
-                return NoNameResponses[random.Next(NoNameResponses.Length)];
+                Random random = new Random(); // create an instance of the Random class
+                return NoNameResponses[random.Next(NoNameResponses.Length)]; // return a random response from the NoNameResponses array
             }
-        }
 
-        #endregion
+        }
+            #endregion
 
         /*==================================================================================================*/
 
@@ -658,7 +655,9 @@ namespace CybersecurityAwarenessBot
 
         }
 
-        #endregion
+        
+    #endregion
+       
     }
 }
 
