@@ -1,6 +1,5 @@
 ﻿using System.Media;
 
-
 namespace CybersecurityAwarenessBot
 {
     class Program
@@ -476,11 +475,26 @@ namespace CybersecurityAwarenessBot
             */
             public static readonly Dictionary<string, string> CybersecurityQuestions = new Dictionary<string, string>
             {
-                { "malware", "Malware is a program that wants to do bad things to your computer!" },
-                { "password", "Passwords secure accounts or devices from unauthorized access. Use a mix of lower case, upper case, symbols, and numbers to make strong passwords. Never share them with anyone!" },
-                { "virus", "Viruses are a type of malware that can damage or delete your files! They often spread through infected emails or files." },
-                { "phishing", "Phishing scams try to trick you into giving away personal information by pretending to be someone trustworthy. Always verify the sender and avoid suspicious links!" },
-                { "safe browsing", "Ensure your browser is updated, use HTTPS websites, and be cautious when entering personal information online." }
+                { "malware", "Malware, short for 'malicious software,' refers to any program or file designed to harm a computer, network, or user. " +
+                    "It can take many forms, such as viruses, worms, spyware, ransomware, or Trojan horses. Malware can disrupt operations, steal sensitive " +
+                    "data, or even render systems unusable. Staying vigilant against unusual activity and keeping your antivirus software updated are critical " +
+                    "to protecting against malware." },
+
+                { "password", "Passwords are vital for securing accounts, devices, and sensitive data from unauthorized access. A strong password should " +
+                    "be long and include a mix of uppercase letters, lowercase letters, numbers, and special characters. Avoid using easily guessable " +
+                    "information, like birthdays or common words. Always keep your passwords private and consider using a password manager for added security." },
+
+                { "virus", "A virus is a type of malware that infects and alters the way your computer operates, often damaging files, data, or software in the " +
+                    "process. Viruses spread through malicious email attachments, infected files, or compromised websites. Regularly scanning your system and " +
+                    "exercising caution with unknown downloads or links can help prevent viruses from affecting your device." },
+
+                { "phishing", "Phishing is a deceptive tactic used by attackers to trick individuals into revealing sensitive information, such as passwords " +
+                    "or credit card details. These scams often come in the form of fake emails, texts, or websites that appear to be trustworthy. " +
+                    "Protect yourself by verifying senders, avoiding suspicious links, and never sharing personal information without confirming the source's authenticity." },
+
+                { "safe browsing", "Safe browsing practices ensure your online activities are secure and free from malicious threats. Key tips include: keeping your browser " +
+                    "updated, avoiding unsecured websites, using HTTPS whenever possible, being cautious with downloads, and never sharing sensitive information on platforms " +
+                    "you don't trust. Employing ad-blockers and enabling browser security settings adds an extra layer of protection." }
             };
 
             /*
