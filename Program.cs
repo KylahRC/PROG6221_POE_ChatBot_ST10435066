@@ -70,7 +70,16 @@ namespace CybersecurityAwarenessBot
                 userName = Console.ReadLine()?.Trim(); //enter username and trim off the extra spaces to prevent awkward spacing
                 Console.ForegroundColor = ConsoleColor.White; //I keep changing the colour back to see if things go wrong
 
-                if (string.IsNullOrWhiteSpace(userName)) //checks if input is blank
+
+                if (userName.ToLower() == "testingtesting123") // Check for showcase trigger
+                {
+                    DisplayCat("Entering showcase mode...", CatExpression.Happy);
+                    PlayAudio(AudioFiles["Excited"]);
+
+                    // Call showcase run
+                    ShowcaseRun();
+                }
+                else if (string.IsNullOrWhiteSpace(userName)) //checks if input is blank
                 {
                     string noNameResponse = ChatbotResponses.GetRandomNoNameResponse(); //gets and assigns random no name given rsesponse
                     DisplayCat(noNameResponse, CatExpression.Sad); //show cat art and message
@@ -676,7 +685,7 @@ namespace CybersecurityAwarenessBot
             }
 
         }
-            #endregion
+        #endregion
 
         /*==================================================================================================*/
 
@@ -698,9 +707,158 @@ namespace CybersecurityAwarenessBot
 
         }
 
-        
-    #endregion
-       
+
+        #endregion
+
+
+        static void ShowcaseRun()
+        {
+            // Welcome message for showcase mode
+            DisplayCat("Showcase started: Watch me interact!", CatExpression.Happy);
+            PlayAudio(AudioFiles["Excited"]);
+
+            bool exit = false; // Flag to track whether to exit the showcase mode
+            while (!exit)
+            {
+                // Main menu
+                DisplayCat($"What do you want to do, {userName}?", CatExpression.Curious);
+                PlayAudio(AudioFiles["Curious"]);
+
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("1. Ask a question");
+                Console.WriteLine("2. Pet the cat!");
+                Console.WriteLine("3. Mute/Unmute the cat");
+                Console.WriteLine("4. Exit");
+                Console.ForegroundColor = ConsoleColor.White;
+
+                // Simulated menu choice: Ask a Question
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("USER: 1 (Ask a question)");
+                Console.ForegroundColor = ConsoleColor.White;
+                DisplayCat("Give me a topic and I'll tell you more about it, or type 'keywords' to see a list of topics I'm familiar with.", CatExpression.Happy);
+                PlayAudio(AudioFiles["Dialog"]);
+
+                // 1. Simulate asking all personal questions
+                foreach (var question in ChatbotResponses.PersonalQuestions.Keys)
+                {
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine($"USER: {question}"); // Simulated user input
+                    Console.ForegroundColor = ConsoleColor.White;
+                    string response = ChatbotResponses.GetPersonalResponse(question); // Get chatbot response
+                    DisplayCat(response, CatExpression.Explain); // Display response
+                    PlayAudio(AudioFiles["Talk"]); // Play talk audio
+                }
+
+                // Simulated "quit" input to return to main menu
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("USER: quit");
+                Console.ForegroundColor = ConsoleColor.White;
+
+
+
+                // Main menu
+                DisplayCat($"What do you want to do, {userName}?", CatExpression.Curious);
+                PlayAudio(AudioFiles["Curious"]);
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("1. Ask a question");
+                Console.WriteLine("2. Pet the cat!");
+                Console.WriteLine("3. Mute/Unmute the cat");
+                Console.WriteLine("4. Exit");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("USER: 3 (Mute the cat)"); // Simulated "Mute" input
+                Console.ForegroundColor = ConsoleColor.White;
+
+                // 2. Mute the cat
+                isMuted = true;
+                DisplayCat("Oh... alright then, I'll be quiet...", CatExpression.Sad);
+                Console.WriteLine("(We are muting the cat to speed up the showcase and to show what it is like when the cat is muted. Unmuted the audio plays just like it does for the personal questions.");
+                Thread.Sleep(2000); // Wait for 2 seconds (2000 milliseconds) before moving to the next question
+
+                // Main menu
+                DisplayCat($"What do you want to do, {userName}?", CatExpression.Curious);
+                PlayAudio(AudioFiles["Curious"]);
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("1. Ask a question");
+                Console.WriteLine("2. Pet the cat!");
+                Console.WriteLine("3. Mute/Unmute the cat");
+                Console.WriteLine("4. Exit");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("USER: 1 (Ask a question)"); // Simulated "Ask a question" input
+                Console.ForegroundColor = ConsoleColor.White;
+
+                // 3. Simulate asking all cybersecurity questions
+                foreach (var question in ChatbotResponses.CybersecurityQuestions.Keys)
+                {
+                    Console.WriteLine($"USER: {question}"); // Simulated user input
+                    string response = ChatbotResponses.GetCybersecurityResponse(question); // Get chatbot response
+                    DisplayCat(response, CatExpression.Explain); // Display response
+                    if (!isMuted) PlayAudio(AudioFiles["Talk"]); // Play talk audio if not muted
+                    Thread.Sleep(2000); // Wait for 2 seconds (2000 milliseconds) before moving to the next question
+                }
+
+
+                // Simulated "quit" input to return to main menu
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("USER: quit");
+                Console.ForegroundColor = ConsoleColor.White;
+
+
+
+                // Main menu
+                DisplayCat($"What do you want to do, {userName}?", CatExpression.Curious);
+                PlayAudio(AudioFiles["Curious"]);
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("1. Ask a question");
+                Console.WriteLine("2. Pet the cat!");
+                Console.WriteLine("3. Mute/Unmute the cat");
+                Console.WriteLine("4. Exit");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("USER: 3 (Unmute the cat)"); // Simulated "Unmute" input
+                Console.ForegroundColor = ConsoleColor.White;
+
+                // 4. Unmute the cat
+                isMuted = false;
+                DisplayCat("Yay! I's so glad you changed your mind!", CatExpression.Happy); // Show happy cat and message
+                PlayAudio(AudioFiles["Excited"]); // Play excited audio
+
+                // Main menu
+                DisplayCat($"What do you want to do, {userName}?", CatExpression.Curious);
+                PlayAudio(AudioFiles["Curious"]);
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("1. Ask a question");
+                Console.WriteLine("2. Pet the cat!");
+                Console.WriteLine("3. Mute/Unmute the cat");
+                Console.WriteLine("4. Exit");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("USER: 2 (Pet the cat)"); // Simulated "Pet the cat" input
+                Console.ForegroundColor = ConsoleColor.White;
+
+                // 5. Pet the cat
+                DisplayCat(ChatbotResponses.GetRandomPetTheCatResponse(), CatExpression.Loving);
+                PlayAudio(AudioFiles["Purr"]); // Play purring audio
+
+                // Main menu
+                DisplayCat($"What do you want to do, {userName}?", CatExpression.Curious);
+                PlayAudio(AudioFiles["Curious"]);
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("1. Ask a question");
+                Console.WriteLine("2. Pet the cat!");
+                Console.WriteLine("3. Mute/Unmute the cat");
+                Console.WriteLine("4. Exit");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("USER: 4 (Exit)"); // Simulated "Exit" input
+                Console.ForegroundColor = ConsoleColor.White;
+
+                // 6. Exit the program
+                DisplayCat(ChatbotResponses.GetRandomGoodbyeResponse(), CatExpression.Happy);
+                PlayAudio(AudioFiles["Bye"]); // Play goodbye audio
+
+                Console.WriteLine("Please restart the program, you cannot interact with the program normally after the showcase.");
+                
+                exit = true; // Set exit flag to true
+            }
+        }
+
     }
 }
 
