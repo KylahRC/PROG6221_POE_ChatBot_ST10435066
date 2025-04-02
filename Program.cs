@@ -1,4 +1,5 @@
 ﻿using System.Media;
+using System.Threading;
 
 namespace CybersecurityAwarenessBot
 {
@@ -6,6 +7,8 @@ namespace CybersecurityAwarenessBot
     {
         //a global variable to store the user's name so every method can access it
         static string userName;
+
+        static bool isMuted = false;
 
         #region Setup and Initialization
 
@@ -104,7 +107,8 @@ namespace CybersecurityAwarenessBot
                 Console.ForegroundColor = ConsoleColor.Blue; //set text color to blue
                 Console.WriteLine("1. Ask a question"); //option to ask the chatbot a question
                 Console.WriteLine("2. Pet the cat!"); //option to pet the cat
-                Console.WriteLine("3. Exit"); //option to exit the program
+                Console.WriteLine("3. Mute/Unmute the cat"); //option to stop hearing meows
+                Console.WriteLine("4. Exit"); //option to exit the program
                 Console.Write("Choose an option: "); //show when user can enter
                 Console.ForegroundColor = ConsoleColor.White; //reset text color back to white just in case
 
@@ -122,7 +126,20 @@ namespace CybersecurityAwarenessBot
                         DisplayCat(petResponse, CatExpression.Loving); //show loving cat art and message
                         PlayAudio(AudioFiles["Purr"]); //play purring audio
                         break;
-                    case "3": //option 3: user wants to exit
+                    case "3": // Option 3: mute or unmute the cat
+                        if (!isMuted) // Check if audio is currently enabled
+                        {
+                            isMuted = true; // Set mute to true
+                            DisplayCat("Oh... alright then, I'll be quiet...", CatExpression.Sad); // Show sad cat and message
+                        }
+                        else // Audio is currently muted
+                        {
+                            isMuted = false; // Set mute to false
+                            DisplayCat("Yay! I's so glad you changed your mind!", CatExpression.Happy); // Show happy cat and message
+                            PlayAudio(AudioFiles["Excited"]); // Play excited audio
+                        }
+                        break;
+                    case "4": //option 4: user wants to exit
                         string goodbyeResponse = ChatbotResponses.GetRandomGoodbyeResponse(); //get a random goodbye response
                         DisplayCat(goodbyeResponse, CatExpression.Happy); //show happy cat art and message
                         PlayAudio(AudioFiles["Bye"]); //play goodbye audio
@@ -244,6 +261,13 @@ namespace CybersecurityAwarenessBot
 
         static void DisplayCat(string message, CatExpression expression) //method using the constants for expression and whatever needs to be said by the cat
         {
+
+            // If mute is enabled, override the expression to always use 'Sad'
+            if (isMuted)
+            {
+                expression = CatExpression.Sad;
+            }
+
             string catArt = expression switch //using switch statement
             {
                 CatExpression.Happy => "\n  /\\      /\\     " +
@@ -314,6 +338,11 @@ namespace CybersecurityAwarenessBot
 
         static void PlayAudio(string filePath)
         {
+            if (isMuted) // Check if the audio is muted
+            {
+                return; // Do nothing if muted
+            }
+
             try
             {
                 //Create an instance of SoundPlayer to handle audio playback
