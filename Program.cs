@@ -8,6 +8,7 @@ namespace CybersecurityAwarenessBot
         //a global variable to store the user's name so every method can access it
         static string userName;
 
+        //global mute variable
         static bool isMuted = false;
 
         #region Setup and Initialization
@@ -710,6 +711,10 @@ namespace CybersecurityAwarenessBot
 
         #endregion
 
+        /*==================================================================================================*/
+
+        #region Showcase Mode
+
 
         static void ShowcaseRun()
         {
@@ -858,7 +863,9 @@ namespace CybersecurityAwarenessBot
                 exit = true; // Set exit flag to true
             }
         }
+        #endregion
 
+        /*==================================================================================================*/
     }
 }
 
