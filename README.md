@@ -37,6 +37,7 @@ To quit program from the main menu:
 3) The application should close
 
 **Showcase Mode**
+
 This mode will auto run through all inputs and outputs without the user having to input values at each step. 
 This saves time for testers.
 How to trigger:
@@ -46,6 +47,7 @@ How to trigger:
 4) Manually exit the program once the showcase is over
 
 **Frequently Asked Questions**
+
 1. What is the purpose of this chatbot?
 The Cybersecurity Awareness Bot is designed to help users learn about various aspects of cybersecurity in an engaging and interactive way. It can answer questions about topics like password safety, phishing, safe browsing, malware, and more.
 
