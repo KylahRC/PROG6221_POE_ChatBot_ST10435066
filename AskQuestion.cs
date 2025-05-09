@@ -9,13 +9,11 @@
             while (!wantsToQuit)
             {
                 CatExpressions.DisplayCat("Give me a topic and I'll tell you more about it, or type 'quit' to go back to the main menu. You can also type " +
-                    "\"keywords\" to see a list of topics I'm familiar with.", CatExpression.Happy);
+                                            "\"keywords\" to see a list of topics I'm familiar with.", CatExpression.Happy);
                 AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Dialog"]);
 
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.Write("USER: ");
-                string question = Console.ReadLine()?.ToLower()?.Trim();
-                Console.ForegroundColor = ConsoleColor.White;
+                // Get user input using centralized color formatting
+                string question = TextFormatter.GetUserInput("USER:").ToLower().Trim();
 
                 if (question == "quit")
                 {
@@ -44,9 +42,7 @@
                         string funPhrase = ChatbotUtilityFile.ChatbotResponses.GetRandomFunPhrase(question);
                         CatExpressions.DisplayCat(funPhrase, CatExpression.Curious);
 
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine(cybersecurityResponse);
-                        Console.ForegroundColor = ConsoleColor.White;
+                        TextFormatter.SetCybersecurityText(cybersecurityResponse);  // Cybersecurity response now in orange
                         AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Talk"]);
                     }
                     else
@@ -55,6 +51,7 @@
                         AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Curious"]);
                     }
                 }
+
             }
         }
     }

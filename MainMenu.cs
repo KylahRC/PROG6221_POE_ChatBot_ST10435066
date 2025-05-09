@@ -11,15 +11,12 @@
                 CatExpressions.DisplayCat($"What do you want to do, {GlobalVariables.userName}?", CatExpression.Curious);
                 AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Curious"]);
 
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("1. Ask a question");
-                Console.WriteLine("2. Pet the cat!");
-                Console.WriteLine("3. Mute/Unmute the cat");
-                Console.WriteLine("4. Exit");
-                Console.Write("Choose an option: ");
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                string choice = Console.ReadLine()?.Trim();
-                Console.ForegroundColor = ConsoleColor.White;
+                TextFormatter.SetColorText("1. Ask a question", GlobalVariables.MenuOptionColor);
+                TextFormatter.SetColorText("2. Pet the cat!", GlobalVariables.MenuOptionColor);
+                TextFormatter.SetColorText("3. Mute/Unmute the cat", GlobalVariables.MenuOptionColor);
+                TextFormatter.SetColorText("4. Exit", GlobalVariables.MenuOptionColor);
+
+                string choice = TextFormatter.GetUserInput("Choose an option:");
 
                 switch (choice)
                 {

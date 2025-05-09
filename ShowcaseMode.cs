@@ -14,54 +14,46 @@
                 CatExpressions.DisplayCat($"What do you want to do, {GlobalVariables.userName}?", CatExpression.Curious);
                 AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Curious"]);
 
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("1. Ask a question");
-                Console.WriteLine("2. Pet the cat!");
-                Console.WriteLine("3. Mute/Unmute the cat");
-                Console.WriteLine("4. Exit");
-                Console.ForegroundColor = ConsoleColor.White;
+                // Display menu options with centralized color formatting
+                TextFormatter.SetColorText("1. Ask a question", GlobalVariables.MenuOptionColor);
+                TextFormatter.SetColorText("2. Pet the cat!", GlobalVariables.MenuOptionColor);
+                TextFormatter.SetColorText("3. Mute/Unmute the cat", GlobalVariables.MenuOptionColor);
+                TextFormatter.SetColorText("4. Exit", GlobalVariables.MenuOptionColor);
 
-                // Simulated menu choice: Ask a Question
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("USER: 1 (Ask a question)");
-                Console.ForegroundColor = ConsoleColor.White;
+                // Get user input with color formatting
+                string choice = TextFormatter.GetUserInput("USER:");
+
                 CatExpressions.DisplayCat("Give me a topic and I'll tell you more about it, or type 'keywords' to see a list of topics I'm familiar with.", CatExpression.Happy);
                 AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Dialog"]);
 
                 // Simulated asking personal questions
                 foreach (var question in ChatbotUtilityFile.ChatbotResponses.PersonalQuestions.Keys)
                 {
-                    Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine($"USER: {question}");
-                    Console.ForegroundColor = ConsoleColor.White;
+                    TextFormatter.SetColorText($"USER: {question}", GlobalVariables.UserInputColor);
                     string response = ChatbotUtilityFile.ChatbotResponses.GetPersonalResponse(question);
                     CatExpressions.DisplayCat(response, CatExpression.Explain);
                     AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Talk"]);
                 }
 
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("USER: quit");
-                Console.ForegroundColor = ConsoleColor.White;
+                TextFormatter.SetColorText("USER: quit", GlobalVariables.UserInputColor);
 
                 // Mute the chatbot
                 GlobalVariables.isMuted = true;
                 CatExpressions.DisplayCat("Oh... alright then, I'll be quiet...", CatExpression.Sad);
-                Console.WriteLine("(We are muting the cat to speed up the showcase and to show what it is like when the cat is muted.)");
+                TextFormatter.SetColorText("(We are muting the cat to speed up the showcase and to show what it is like when the cat is muted.)", GlobalVariables.MenuOptionColor);
                 Thread.Sleep(2000);
 
                 // Simulated asking cybersecurity questions
                 foreach (var question in ChatbotUtilityFile.ChatbotResponses.CybersecurityQuestions.Keys)
                 {
-                    Console.WriteLine($"USER: {question}");
+                    TextFormatter.SetColorText($"USER: {question}", GlobalVariables.UserInputColor);
                     string response = ChatbotUtilityFile.ChatbotResponses.GetCybersecurityResponse(question);
                     CatExpressions.DisplayCat(response, CatExpression.Explain);
                     if (!GlobalVariables.isMuted) AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Talk"]);
                     Thread.Sleep(2000);
                 }
 
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("USER: quit");
-                Console.ForegroundColor = ConsoleColor.White;
+                TextFormatter.SetColorText("USER: quit", GlobalVariables.UserInputColor);
 
                 // Unmute the chatbot
                 GlobalVariables.isMuted = false;
@@ -75,9 +67,10 @@
                 // Exit showcase mode
                 CatExpressions.DisplayCat(ChatbotUtilityFile.ChatbotResponses.GetRandomGoodbyeResponse(), CatExpression.Happy);
                 AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Bye"]);
-                Console.WriteLine("Please restart the program, you cannot interact with the program normally after the showcase.");
+                TextFormatter.SetColorText("Please restart the program, you cannot interact with the program normally after the showcase.", GlobalVariables.MenuOptionColor);
 
                 exit = true;
+
             }
         }
     }

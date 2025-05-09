@@ -12,10 +12,8 @@
 
             while (!gaveName)
             {
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.Write("USER: ");
-                GlobalVariables.userName = Console.ReadLine()?.Trim(); // Store globally
-                Console.ForegroundColor = ConsoleColor.White;
+                // Get user input with predefined color formatting
+                GlobalVariables.userName = TextFormatter.GetUserInput("USER:"); // User input prompt
 
                 if (string.IsNullOrWhiteSpace(GlobalVariables.userName))
                 {
@@ -35,6 +33,7 @@
                     AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Excited"]);
                     gaveName = true;
                 }
+
             }
 
             MainMenu.Execute(); // Call MainMenu from separate file

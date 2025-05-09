@@ -67,10 +67,8 @@
             };
 
             // Display the cat expression and the message together as one entity
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine(catArt);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"{message}");
+            Console.WriteLine("\u001b[38;2;196;138;116m" + catArt + "\u001b[0m");  // Custom ANSI color for cat art (#C48A74)
+            Console.WriteLine("\u001b[38;2;125;218;88m" + message + "\u001b[0m");  // Custom ANSI color for message (#7DDA58)
             Console.ForegroundColor = ConsoleColor.White;
         }
     }
