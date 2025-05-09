@@ -2,42 +2,11 @@
 {
     public static class ChatbotUtilityFile
     {
-        #region Utility Methods
-
-        /*
-        _______________________________________________________________________________________
-            Summary of AudioFiles:
-                Centralizes all known audio file paths for the chatbot.
-        _______________________________________________________________________________________
-        */
-
-        public static readonly Dictionary<string, string> AudioFiles = new Dictionary<string, string>
-        {
-            { "Intro", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Chatbot_voice_greeting.wav" }, //path to the chatbot's introductory voice greeting audio
-            { "Excited", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Excited_meow.wav" }, //path to the excited meow audio
-            { "Sad", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Sad_meow.wav" }, //path to the sad meow audio
-            { "Curious", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Curious_meow.wav" }, //path to the curious meow audio
-            { "Dialog", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Dialog_meow.wav" }, //path to the dialog meow audio, used during interaction
-            { "Talk", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Talk_meow.wav" }, //path to the talk meow audio, used for explanation responses
-            { "Purr", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Purr.wav" }, //path to the purring audio, used for the pet-the-cat option
-            { "Bye", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Bye_meow.wav" } //path to the goodbye meow audio
-        };
-
-
-
-        /*
-        _______________________________________________________________________________________
-            Summary of ChatbotResponses:
-                Contains all the dialog that can be said by the chatbot.
-        _______________________________________________________________________________________
-        */
-
+        
         public static class ChatbotResponses
         {
-            /*====================================================
-            ================ Predefined Responses ================
-            ====================================================*/
 
+            #region CheerfulGreetings
             /*
             _______________________________________________________________________________________
                 Summary of CheerfulGreetings:
@@ -52,6 +21,24 @@
                 "Meow! Let’s dive into the world of cybersecurity together. I’d love to know your name!"
             };
 
+
+            /*
+            _______________________________________________________________________________________
+                Summary of GetRandomGreeting():
+                    Gets a random cheerful greeting.
+            _______________________________________________________________________________________
+            */
+            public static string GetRandomGreeting()
+            {
+                Random random = new Random(); // create an instance of the Random class
+                return CheerfulGreetings[random.Next(CheerfulGreetings.Length)]; // return a random greeting from the CheerfulGreetings array
+            }
+
+            #endregion
+
+            /*============================================================*/
+
+            #region HowAreYouResponses
             /*
             _______________________________________________________________________________________
                 Summary of HowAreYouResponses:
@@ -68,6 +55,23 @@
 
             /*
             _______________________________________________________________________________________
+                Summary of GetRandomHowAreYouResponse():
+                    Gets a random response to "How are you?"
+            _______________________________________________________________________________________
+            */
+            public static string GetRandomHowAreYouResponse()
+            {
+                Random random = new Random(); // create an instance of the Random class
+                return HowAreYouResponses[random.Next(HowAreYouResponses.Length)]; // return a random response from the HowAreYouResponses array
+            }
+
+            #endregion
+
+            /*============================================================*/
+
+            #region PetTheCatResponses
+            /*
+            _______________________________________________________________________________________
                 Summary of PetTheCatResponses:
                     Contains appreciation responses for when the user selects the "Pet the Cat" option.
             _______________________________________________________________________________________
@@ -79,6 +83,25 @@
                 "Thank you for the pets—you're so sweet!",
                 "Aw, I needed that! Now, let’s keep learning about cybersecurity!"
             };
+
+
+            /*
+            _______________________________________________________________________________________
+                Summary of GetRandomPetTheCatResponse():
+                   Gets a random response for petting the cat.
+            _______________________________________________________________________________________
+            */
+            public static string GetRandomPetTheCatResponse()
+            {
+                Random random = new Random(); // create an instance of the Random class
+                return PetTheCatResponses[random.Next(PetTheCatResponses.Length)]; // return a random response from the PetTheCatResponses array
+            }
+
+            #endregion
+
+            /*============================================================*/
+
+            #region GoodbyeResponses
 
             /*
            _______________________________________________________________________________________
@@ -93,6 +116,24 @@
                 "See you next time! I’ll be here to purr whenever you need cybersecurity advice.",
                 "Farewell, friend! Remember, safe browsing is the cat’s meow!"
             };
+
+            /*
+            _______________________________________________________________________________________
+                Summary of GetRandomGoodbyeResponse():
+                   Gets a random memorable goodbye response.
+            _______________________________________________________________________________________
+            */
+            public static string GetRandomGoodbyeResponse()
+            {
+                Random random = new Random(); // create an instance of the Random class
+                return GoodbyeResponses[random.Next(GoodbyeResponses.Length)]; // return a random response from the GoodbyeResponses array
+            }
+
+            #endregion
+
+            /*============================================================*/
+
+            #region FunPhrases
 
             /*
             _______________________________________________________________________________________
@@ -111,6 +152,25 @@
 
             /*
             _______________________________________________________________________________________
+                Summary of GetRandomFunPhrase():
+                   Gets a random fun introductory phrase for cybersecurity topics.
+            _______________________________________________________________________________________
+            */
+            public static string GetRandomFunPhrase(string topic)
+            {
+                Random random = new Random(); // create an instance of the Random class
+                string funPhrase = FunPhrases[random.Next(FunPhrases.Length)]; // pick a random fun phrase
+                return funPhrase.Replace("{topic}", topic); // replace the placeholder "{topic}" with the actual topic provided
+            }
+
+            #endregion
+
+            /*============================================================*/
+
+            #region PersonalQuestions
+
+            /*
+            _______________________________________________________________________________________
                 Summary of PersonalQuestions:
                     Stores responses for personal questions about the chatbot's personality or purpose.
             _______________________________________________________________________________________
@@ -125,6 +185,26 @@
                 { "keywords", "Recognized keywords include: malware, password, virus, phishing, safe browsing." }
             };
 
+            /*
+            _______________________________________________________________________________________
+                Summary of GetPersonalResponse():
+                   Gets a response for a recognized personal question.
+            _______________________________________________________________________________________
+            */
+            public static string GetPersonalResponse(string question)
+            {
+                if (PersonalQuestions.ContainsKey(question)) // check if the question exists in the PersonalQuestions dictionary
+                {
+                    return PersonalQuestions[question]; // return the corresponding response
+                }
+                return null; // return null if the question is not found
+            }
+
+            #endregion
+
+            /*============================================================*/
+
+            #region CybersecurityQuestions
             /*
             _______________________________________________________________________________________
                 Summary of CybersecurityQuestions:
@@ -157,6 +237,26 @@
 
             /*
             _______________________________________________________________________________________
+                Summary of GetCybersecurityResponse():
+                   Gets a response for a recognized cybersecurity question.
+            _______________________________________________________________________________________
+            */
+            public static string GetCybersecurityResponse(string question)
+            {
+                if (CybersecurityQuestions.ContainsKey(question)) // check if the question exists in the CybersecurityQuestions dictionary
+                {
+                    return CybersecurityQuestions[question]; // return the corresponding response
+                }
+                return null; // return null if the question is not found
+            }
+
+            #endregion
+
+            /*============================================================*/
+
+            #region InvalidInputResponses
+            /*
+            _______________________________________________________________________________________
                 Summary of InvalidInputResponses:
                     Contains responses for unrecognized user inputs.
             _______________________________________________________________________________________
@@ -167,6 +267,24 @@
                 "Oops! That doesn’t ring a bell. Maybe you can try keywords like ‘safe browsing’ or ‘virus’?",
                 "Oh no, that topic isn’t in my kitty brain yet! Let me grow smarter, but for now, try asking about passwords, malware, or phishing!"
             };
+
+            /*
+            _______________________________________________________________________________________
+                Summary of GetRandomInvalidInputResponse():
+                   Gets a random response for unrecognized inputs.
+            _______________________________________________________________________________________
+            */
+            public static string GetRandomInvalidInputResponse()
+            {
+                Random random = new Random(); // create an instance of the Random class
+                return InvalidInputResponses[random.Next(InvalidInputResponses.Length)]; // return a random response from the InvalidInputResponses array
+            }
+
+            #endregion
+
+            /*============================================================*/
+
+            #region NoNameResponses
 
             /*
             _______________________________________________________________________________________
@@ -182,116 +300,6 @@
                 "Purr-fectly fine if you're cautious to share your real name, you can give me a nickname of yours instead!"
             };
 
-            /*=========================================================
-            ================= Response Retrieval =====================
-            =========================================================*/
-
-
-            /*
-            _______________________________________________________________________________________
-                Summary of GetRandomGreeting():
-                    Gets a random cheerful greeting.
-            _______________________________________________________________________________________
-            */
-            public static string GetRandomGreeting()
-            {
-                Random random = new Random(); // create an instance of the Random class
-                return CheerfulGreetings[random.Next(CheerfulGreetings.Length)]; // return a random greeting from the CheerfulGreetings array
-            }
-
-
-            /*
-            _______________________________________________________________________________________
-                Summary of GetRandomHowAreYouResponse():
-                    Gets a random response to "How are you?"
-            _______________________________________________________________________________________
-            */
-            public static string GetRandomHowAreYouResponse()
-            {
-                Random random = new Random(); // create an instance of the Random class
-                return HowAreYouResponses[random.Next(HowAreYouResponses.Length)]; // return a random response from the HowAreYouResponses array
-            }
-
-
-            /*
-            _______________________________________________________________________________________
-                Summary of GetRandomPetTheCatResponse():
-                   Gets a random response for petting the cat.
-            _______________________________________________________________________________________
-            */
-            public static string GetRandomPetTheCatResponse()
-            {
-                Random random = new Random(); // create an instance of the Random class
-                return PetTheCatResponses[random.Next(PetTheCatResponses.Length)]; // return a random response from the PetTheCatResponses array
-            }
-
-            /*
-            _______________________________________________________________________________________
-                Summary of GetRandomGoodbyeResponse():
-                   Gets a random memorable goodbye response.
-            _______________________________________________________________________________________
-            */
-            public static string GetRandomGoodbyeResponse()
-            {
-                Random random = new Random(); // create an instance of the Random class
-                return GoodbyeResponses[random.Next(GoodbyeResponses.Length)]; // return a random response from the GoodbyeResponses array
-            }
-
-            /*
-            _______________________________________________________________________________________
-                Summary of GetRandomFunPhrase():
-                   Gets a random fun introductory phrase for cybersecurity topics.
-            _______________________________________________________________________________________
-            */
-            public static string GetRandomFunPhrase(string topic)
-            {
-                Random random = new Random(); // create an instance of the Random class
-                string funPhrase = FunPhrases[random.Next(FunPhrases.Length)]; // pick a random fun phrase
-                return funPhrase.Replace("{topic}", topic); // replace the placeholder "{topic}" with the actual topic provided
-            }
-
-            /*
-            _______________________________________________________________________________________
-                Summary of GetRandomInvalidInputResponse():
-                   Gets a random response for unrecognized inputs.
-            _______________________________________________________________________________________
-            */
-            public static string GetRandomInvalidInputResponse()
-            {
-                Random random = new Random(); // create an instance of the Random class
-                return InvalidInputResponses[random.Next(InvalidInputResponses.Length)]; // return a random response from the InvalidInputResponses array
-            }
-
-            /*
-            _______________________________________________________________________________________
-                Summary of GetPersonalResponse():
-                   Gets a response for a recognized personal question.
-            _______________________________________________________________________________________
-            */
-            public static string GetPersonalResponse(string question)
-            {
-                if (PersonalQuestions.ContainsKey(question)) // check if the question exists in the PersonalQuestions dictionary
-                {
-                    return PersonalQuestions[question]; // return the corresponding response
-                }
-                return null; // return null if the question is not found
-            }
-
-            /*
-            _______________________________________________________________________________________
-                Summary of GetCybersecurityResponse():
-                   Gets a response for a recognized cybersecurity question.
-            _______________________________________________________________________________________
-            */
-            public static string GetCybersecurityResponse(string question)
-            {
-                if (CybersecurityQuestions.ContainsKey(question)) // check if the question exists in the CybersecurityQuestions dictionary
-                {
-                    return CybersecurityQuestions[question]; // return the corresponding response
-                }
-                return null; // return null if the question is not found
-            }
-
             /*
             _______________________________________________________________________________________
                 Summary of GetRandomNoNameResponse():
@@ -304,8 +312,37 @@
                 return NoNameResponses[random.Next(NoNameResponses.Length)]; // return a random response from the NoNameResponses array
             }
 
+            #endregion
+
+            /*============================================================*/
+
         }
+
+        /*============================================================*/
+
+        #region AudioFileLocations
+
+        /*
+        _______________________________________________________________________________________
+            Summary of AudioFiles:
+                Centralizes all known audio file paths for the chatbot.
+        _______________________________________________________________________________________
+        */
+
+        public static readonly Dictionary<string, string> AudioFiles = new Dictionary<string, string>
+        {
+            { "Intro", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Chatbot_voice_greeting.wav" }, //path to the chatbot's introductory voice greeting audio
+            { "Excited", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Excited_meow.wav" }, //path to the excited meow audio
+            { "Sad", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Sad_meow.wav" }, //path to the sad meow audio
+            { "Curious", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Curious_meow.wav" }, //path to the curious meow audio
+            { "Dialog", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Dialog_meow.wav" }, //path to the dialog meow audio, used during interaction
+            { "Talk", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Talk_meow.wav" }, //path to the talk meow audio, used for explanation responses
+            { "Purr", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Purr.wav" }, //path to the purring audio, used for the pet-the-cat option
+            { "Bye", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Bye_meow.wav" } //path to the goodbye meow audio
+        };
+
         #endregion
 
+        /*============================================================*/
     }
 }

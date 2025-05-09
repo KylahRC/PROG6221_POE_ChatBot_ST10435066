@@ -4,8 +4,6 @@ namespace CybersecurityAwarenessBot
 {
     public static class AsciiArtLogo
     {
-        #region Setup and Initialization
-
         /*
         ________________________________________________________________________ 
             Summary of DisplayAsciiArt():
@@ -35,9 +33,5 @@ namespace CybersecurityAwarenessBot
             Console.WriteLine(asciiArt); //outputs the logo string
             Console.ForegroundColor = ConsoleColor.White;
         }
-
-        #endregion //end the region
-
-        /*==================================================================================================*/
     }
 }
