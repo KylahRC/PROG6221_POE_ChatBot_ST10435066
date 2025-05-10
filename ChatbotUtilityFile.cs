@@ -2,7 +2,7 @@
 {
     public static class ChatbotUtilityFile
     {
-        
+
         public static class ChatbotResponses
         {
 
@@ -211,7 +211,64 @@
                     Stores cybersecurity-related questions and their corresponding responses.
             _______________________________________________________________________________________
             */
-            public static readonly Dictionary<string, string> CybersecurityQuestions = new Dictionary<string, string>
+
+
+            private static readonly Dictionary<string, List<string>> ShortCybersecurityTips = new Dictionary<string, List<string>>
+            {
+                { "password", new List<string>
+                    {
+                        "Use a mix of uppercase, lowercase, numbers, and symbols!",
+                        "Never reuse the same password across accounts.",
+                        "Try using a password manager to store secure passwords.",
+                        "Avoid using personal details like birthdays or pet names!"
+                    }
+                },
+                { "malware", new List<string>
+                    {
+                        "Always keep your antivirus software updated.",
+                        "Never download attachments from unknown emails.",
+                        "Be cautious of free software—it might contain hidden malware!",
+                        "Use a firewall to help block suspicious activity."
+                    }
+                },
+                { "phishing", new List<string>
+                    {
+                        "Look for misspelled URLs—scammers imitate real websites!",
+                        "Never click suspicious links in emails or messages.",
+                        "If an email asks for sensitive info, always verify first.",
+                        "Use multi-factor authentication (MFA) to protect accounts!"
+                    }
+                },
+                { "safe browsing", new List<string>
+                    {
+                        "Check for HTTPS before entering personal info!",
+                        "Use an ad blocker to prevent malicious pop-ups.",
+                        "Don’t download software from untrusted sources!",
+                        "Regularly clear your cookies and browsing history."
+                    }
+                },
+                { "virus", new List<string>
+                    {
+                        "Run regular virus scans to catch threats early.",
+                        "Don’t ignore security warnings on websites!",
+                        "Always verify the source before opening an attachment.",
+                        "If a computer slows down randomly, check for malware!"
+                    }
+                }
+            };
+
+            public static string GetRandomShortTip(string keyword)
+            {
+                if (ShortCybersecurityTips.ContainsKey(keyword))
+                {
+                    List<string> tips = ShortCybersecurityTips[keyword];
+                    return tips[new Random().Next(tips.Count)];
+                }
+                return "I don't have a tip for that yet!";
+            }
+
+
+            private static readonly Dictionary<string, string> DetailedCybersecurityResponses = new Dictionary<string, string>
             {
                 { "malware", "Malware, short for 'malicious software,' refers to any program or file designed to harm a computer, network, or user. " +
                     "It can take many forms, such as viruses, worms, spyware, ransomware, or Trojan horses. Malware can disrupt operations, steal sensitive " +
@@ -235,20 +292,147 @@
                     "you don't trust. Employing ad-blockers and enabling browser security settings adds an extra layer of protection." }
             };
 
-            /*
-            _______________________________________________________________________________________
-                Summary of GetCybersecurityResponse():
-                   Gets a response for a recognized cybersecurity question.
-            _______________________________________________________________________________________
-            */
-            public static string GetCybersecurityResponse(string question)
+            public static string GetDetailedResponse(string keyword)
             {
-                if (CybersecurityQuestions.ContainsKey(question)) // check if the question exists in the CybersecurityQuestions dictionary
-                {
-                    return CybersecurityQuestions[question]; // return the corresponding response
-                }
-                return null; // return null if the question is not found
+                return DetailedCybersecurityResponses.ContainsKey(keyword) ? DetailedCybersecurityResponses[keyword] : "I don't have details on that yet!";
             }
+
+            public static readonly Dictionary<string, Dictionary<string, string>> FeelingResponses = new Dictionary<string, Dictionary<string, string>>
+            {
+                { "password", new Dictionary<string, string>
+                    {
+                        { "worried", "It's understandable to be concerned about password security. The good news is that strong passwords and password managers can keep you safe!" },
+                        { "curious", "Great! Understanding how passwords work is key to cybersecurity. Did you know a strong password is at least 12 characters long?" },
+                        { "confident", "That's awesome! Having good password habits makes you significantly safer online. Keep using unique passwords for every account!" }
+                    }
+                },
+                { "malware", new Dictionary<string, string>
+                    {
+                        { "worried", "You're right to be cautious—malware can be dangerous. Keeping antivirus software updated is a great step toward protection." },
+                        { "curious", "Awesome! Learning about malware helps you stay safe. Malware can spread through emails, fake downloads, and malicious ads." },
+                        { "confident", "You're already ahead of the game! Safe browsing and using a firewall can help you avoid malware altogether." }
+                    }
+                },
+                { "phishing", new Dictionary<string, string>
+                    {
+                        { "worried", "Phishing scams are tricky, but knowing how to spot suspicious links makes you much safer!" },
+                        { "curious", "Glad you're interested! Phishing relies on deception—scammers impersonate trusted sources to steal information." },
+                        { "confident", "Awesome! Being able to recognize phishing scams is crucial for cybersecurity. Stay vigilant!" }
+                    }
+                },
+                { "safe browsing", new Dictionary<string, string>
+                    {
+                        { "worried", "It’s understandable—privacy and security online are major concerns. Avoid clicking random links and always check for HTTPS!" },
+                        { "curious", "That's a great mindset! Safe browsing means making sure your personal data is protected at all times." },
+                        { "confident", "Love that confidence! Using an ad-blocker and browser security settings puts you ahead in cybersecurity." }
+                    }
+                },
+                { "virus", new Dictionary<string, string>
+                    {
+                        { "worried", "Viruses can harm your system, but regular security scans and safe downloads will protect you!" },
+                        { "curious", "Viruses spread through attachments, downloads, and infected websites. Knowing this helps you avoid them!" },
+                        { "confident", "Nice! Being cautious with downloads and keeping software updated puts you ahead in virus protection." }
+                    }
+                }
+            };
+
+            // Getter method for FeelingResponses
+            public static string GetFeelingResponse(string topic, string feeling)
+            {
+                if (FeelingResponses.ContainsKey(topic) && FeelingResponses[topic].ContainsKey(feeling))
+                {
+                    return FeelingResponses[topic][feeling];
+                }
+                return "I'm not sure how to respond to that feeling, but cybersecurity is important for everyone!";
+            }
+
+
+            public static readonly Dictionary<string, List<string>> FollowUpQuestions = new Dictionary<string, List<string>>
+            {
+                { "password", new List<string>
+                    {
+                        "What makes a password strong?",
+                        "Why shouldn't I reuse passwords?",
+                        "What is a password manager?",
+                        "Move to a new topic"
+                    }
+                },
+                { "malware", new List<string>
+                    {
+                        "How does malware spread?",
+                        "What is ransomware?",
+                        "How can I check if my device has malware?",
+                        "Move to a new topic"
+                    }
+                },
+                { "phishing", new List<string>
+                    {
+                        "How to spot phishing scams?",
+                        "What should I do if I see one?",
+                        "How to recover if I fell for a phishing scam?",
+                        "Move to a new topic"
+                    }
+                },
+                { "safe browsing", new List<string>
+                    {
+                        "What is HTTPS?",
+                        "Why should I use an ad blocker?",
+                        "How does browser security protect me?",
+                        "Move to a new topic"
+                    }
+                },
+                { "virus", new List<string>
+                    {
+                        "What types of viruses exist?",
+                        "How can I prevent virus infections?",
+                        "What should I do if I suspect a virus?",
+                        "Move to a new topic"
+                    }
+                }
+            };
+
+            // Getter method for FollowUpQuestions
+            public static List<string> GetFollowUpQuestions(string topic)
+            {
+                return FollowUpQuestions.ContainsKey(topic) ? FollowUpQuestions[topic] : new List<string> { "I don't have follow-up questions for this topic yet." };
+            }
+
+            public static readonly Dictionary<string, string> FollowUpQuestionAnswers = new Dictionary<string, string>
+            {
+                // Password follow-up questions
+                { "What makes a password strong?", "A strong password is at least 12 characters long and includes uppercase, lowercase, numbers, and symbols. Avoid personal details!" },
+                { "Why shouldn't I reuse passwords?", "Reusing passwords makes all your accounts vulnerable! If one gets breached, hackers can access everything else." },
+                { "What is a password manager?", "A password manager securely stores and generates unique passwords for each of your accounts." },
+
+                // Malware follow-up questions
+                { "How does malware spread?", "Malware spreads through email attachments, fake downloads, and malicious ads. Never open suspicious links or files!" },
+                { "What is ransomware?", "Ransomware encrypts files and demands a ransom payment to unlock them. Always back up important data!" },
+                { "How can I check if my device has malware?", "Run an antivirus scan, check for unusual slowdowns, and monitor network activity for unknown connections." },
+
+                // Phishing follow-up questions
+                { "How to spot phishing scams?", "Phishing scams use fake emails, urgent language, and links to fraudulent websites. Always verify sender details!" },
+                { "What should I do if I see one?", "Report the email, don’t click any links, and educate others to prevent phishing attacks!" },
+                { "How to recover if I fell for a phishing scam?", "Immediately change your passwords, enable two-factor authentication, and check for fraudulent charges on your accounts." },
+
+                // Safe browsing follow-up questions
+                { "What is HTTPS?", "HTTPS encrypts your browsing data to keep it safe from attackers. Always check for 'https://' before entering sensitive info!" },
+                { "Why should I use an ad blocker?", "Ad blockers prevent malicious ads from tracking you or infecting your device." },
+                { "How does browser security protect me?", "Browsers have built-in security features like anti-phishing warnings and sandboxing to prevent exploits." },
+
+                // Virus follow-up questions
+                { "What types of viruses exist?", "Viruses come in many forms, such as Trojans, worms, spyware, and ransomware, each with different attack methods." },
+                { "How can I prevent virus infections?", "Always keep software updated, avoid unknown downloads, and use trusted antivirus tools!" },
+                { "What should I do if I suspect a virus?", "Run a full system scan, disconnect from the internet, and delete any unknown or suspicious files immediately." }
+            };
+
+            // ✅ Getter method for FollowUpQuestionAnswers
+            public static string GetFollowUpAnswer(string question)
+            {
+                return FollowUpQuestionAnswers.ContainsKey(question) ? FollowUpQuestionAnswers[question] : "I don’t have an answer for that question yet.";
+            }
+
+
+
 
             #endregion
 

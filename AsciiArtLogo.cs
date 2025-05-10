@@ -1,6 +1,4 @@
-﻿using CybersecurityAwarenessBot;
-
-namespace CybersecurityAwarenessBot
+﻿namespace CybersecurityAwarenessBot
 {
     public static class AsciiArtLogo
     {

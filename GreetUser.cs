@@ -2,45 +2,51 @@
 {
     public static class GreetUser
     {
+        // This method handles the chatbot’s greeting sequence.
+        // Its job? Say hi, get the user's name, and avoid awkward silence.
         public static void Execute()
         {
+            // Step 1: Get a random greeting response from the chatbot's predefined messages.
+            // Because nobody likes a boring bot that always says "Hello."
             string greeting = ChatbotUtilityFile.ChatbotResponses.GetRandomGreeting();
-            CatExpressions.DisplayCat(greeting, CatExpression.Happy);
-            AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Excited"]); // Using AudioHelper
+            CatExpressions.DisplayCat(greeting, CatExpression.Happy); // Display the greeting alongside a cat face.
+            AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Excited"]); // Play an audio clip to make the greeting more lively.
 
-            bool gaveName = false;
+            bool gaveName = false; // Keeps track of whether the user has given a name.
 
-            while (!gaveName)
+            while (!gaveName) // This loop forces the user to give a name before moving forward.
             {
-                // Get user input with predefined color formatting
-                GlobalVariables.userName = TextFormatter.GetUserInput("USER:"); // User input prompt
+                // Step 2: Ask for the user’s name.
+                // If they type nonsense, they get stuck with that as their name, not the bots fault they think they're funny.
+                GlobalVariables.userName = TextFormatter.GetUserInput("USER:"); // Prompt user for input.
 
-                if (string.IsNullOrWhiteSpace(GlobalVariables.userName))
+                if (string.IsNullOrWhiteSpace(GlobalVariables.userName)) // If the user refuses to cooperate...
                 {
+                    // Step 3: If they enter an empty string or just spaces, they get passive-aggressively encouraged to try again.
                     string noNameResponse = ChatbotUtilityFile.ChatbotResponses.GetRandomNoNameResponse();
-                    CatExpressions.DisplayCat(noNameResponse, CatExpression.Sad);
-                    AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Sad"]);
+                    CatExpressions.DisplayCat(noNameResponse, CatExpression.Sad); // Display sad cat face because we're disappointed.
+                    AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Sad"]); // Play a sad sound to emphasize our disappointment.
                 }
-                else if (GlobalVariables.userName.ToLower() == "testingtesting123")
+                else if (GlobalVariables.userName.ToLower() == "testingtesting123") // Secret input for entering Showcase Mode.
                 {
+                    // Step 4: Special case where the user activates showcase mode.
+                    
                     CatExpressions.DisplayCat("Entering showcase mode...", CatExpression.Happy);
                     AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Excited"]);
-                    ShowcaseMode.Execute();
+                    //ShowcaseMode.Execute(); // Runs Showcase Mode.
                 }
-                else
+                else // User FINALLY gives a name.
                 {
+                    // Step 5: Store the name and move on.
+                    // The chatbot acts way too enthusiastic about knowing your name.
                     CatExpressions.DisplayCat($"Nice to meet you, {GlobalVariables.userName}! Let's get started!", CatExpression.Happy);
                     AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Excited"]);
-                    gaveName = true;
+                    gaveName = true; // Finally let them proceed.
                 }
-
             }
 
-            MainMenu.Execute(); // Call MainMenu from separate file
+            // Step 6: Move on to the main menu
+            MainMenu.Execute();
         }
     }
 }
-
-    
-
-

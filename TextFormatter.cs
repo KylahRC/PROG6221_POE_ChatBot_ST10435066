@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CybersecurityAwarenessBot
+﻿namespace CybersecurityAwarenessBot
 {
     public static class TextFormatter
     {
