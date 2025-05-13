@@ -24,15 +24,15 @@ namespace CybersecurityAwarenessBot
             }
             catch (FileNotFoundException) //handle case when the specified audio file is not found
             {
-                Console.WriteLine($"Error: The file '{filePath}' was not found. Please ensure the file path is correct."); //notify user of the missing file
+               TextFormatter.SetErrorMessageText($"Error: The file '{filePath}' was not found. Please ensure the file path is correct."); //notify user of the missing file
             }
             catch (InvalidOperationException) //handle invalid file format or issues with audio playback
             {
-                Console.WriteLine("Error: The WAV file could not be played. Please check the file format or integrity."); //notify user of file issues
+                TextFormatter.SetErrorMessageText("Error: The WAV file could not be played. Please check the file format or integrity."); //notify user of file issues
             }
             catch (Exception e) //handle any unexpected errors during audio playback
             {
-                Console.WriteLine($"An unexpected error occurred: {e.Message}"); //output the error message for debugging purposes
+                TextFormatter.SetErrorMessageText($"An unexpected error occurred: {e.Message}"); //output the error message for debugging purposes
             }
         }
     }

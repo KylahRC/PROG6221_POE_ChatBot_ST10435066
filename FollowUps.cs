@@ -34,7 +34,7 @@
             {
                 // Handle unknown topics.
                 CatExpressions.DisplayCat("I don't have follow-up questions for this topic yet. Try another cybersecurity keyword!", CatExpression.Confused);
-                TextFormatter.SetErrorMessageText("No follow-up questions found.");
+                TextFormatter.SetErrorMessageText($"Error: No follow up questions found about {GlobalVariables.FollowUpTopic} in database");
             }
         }
 
@@ -54,7 +54,7 @@
             {
                 // Retrieve and display the selected answer.
                 string answer = followUpAnswers[GlobalVariables.FollowUpAnswerKey];
-                CatExpressions.DisplayCat($"Here's the answer for your follow-up question:", CatExpression.Explain);
+                CatExpressions.DisplayCat($"Here's the answer for your follow-up question {GlobalVariables.userName}:", CatExpression.Explain);
                 TextFormatter.SetCybersecurityText(answer);
                 AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Tip"]);
             }
