@@ -6,7 +6,7 @@
         public static string userName;       
 
         //global mute variable
-        public static bool isMuted = true;
+        public static bool isMuted = false;
 
         public static string FollowUpTopic;
 

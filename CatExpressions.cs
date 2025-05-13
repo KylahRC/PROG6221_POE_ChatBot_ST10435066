@@ -7,7 +7,8 @@
         Sad,
         Loving,
         Confused,
-        Explain
+        Explain,
+        Depressed
     }
 
     public static class CatExpressions
@@ -17,7 +18,7 @@
             // If mute is enabled, override the expression to always use 'Sad'
             if (GlobalVariables.isMuted)
             {
-                expression = CatExpression.Sad;
+                expression = CatExpression.Depressed;
             }
 
             string catArt = expression switch
@@ -44,15 +45,16 @@
                                         "\r\n ((_/`(____,-'",
 
 
-                CatExpression.Sad =>      "\n  /\\_____/\\" +
-                                        "\r\n /  -   -  \\" +
-                                        "\r\n( ==  ^  == ) ,--." +
-                                        "\r\n )         ( / ,-'" +
-                                        "\r\n /         `. \\" +
-                                        "\r\n |        _  \\ |" +
-                                        "\r\n \\ \\ ,  /      |" +
-                                        "\r\n  || |-_\\__   /" +
-                                        "\r\n ((_/`(____,-'",
+                CatExpression.Sad =>  "\n_____________" +
+                                    "\r\n\\   -   -   /" +
+                                    "\r\n( ==  ^  == ) " +
+                                    "\r\n )         (  \t" +
+                                    "\r\n /         `.  " +
+                                    "\r\n|         _  \\  \t" +
+                                    "\r\n \\ \\ ,  /     \\._____.'; " +
+                                    "\r\n  || |-_\\__   '......../" +
+                                    "\r\n ((_/`(____,-'" +
+                                    "\r\n",
 
 
                 CatExpression.Loving =>   "\n  /\\_____/\\" +
@@ -66,15 +68,17 @@
                                         "\r\n ((_/`(____,-'",
 
 
-                CatExpression.Confused => "\n  /\\_____/\\" +
-                                        "\r\n /  o   O  \\" +
-                                        "\r\n( ==  ?  == ) ,--." +
-                                        "\r\n )         ( / ,-'" +
-                                        "\r\n /         `. \\" +
-                                        "\r\n |        _  \\ |" +
-                                        "\r\n \\ \\ ,  /      |" +
-                                        "\r\n  || |-_\\__   /" +
-                                        "\r\n ((_/`(____,-'",
+                CatExpression.Confused =>     "\n  /\\_________" +
+                                            "\r\n /  O   o   /" +
+                                            "\r\n( ==  ?  == ) " +
+                                            "\r\n )         (  \t____" +
+                                            "\r\n /         `.  /  __)" +
+                                            "\r\n|         _  \\/  /\t" +
+                                            "\r\n \\ \\ ,  /       /" +
+                                            "\r\n  || |-_\\__   /" +
+                                            "\r\n ((_/`(____,-'" +
+                                            "\r\n" ,
+                                        
 
 
                 CatExpression.Explain =>  "\n  /\\_____/\\" +
@@ -86,6 +90,14 @@
                                         "\r\n \\ \\ ,  /      |" +
                                         "\r\n  || |-_\\__   /" +
                                         "\r\n ((_/`(____,-'",
+
+                CatExpression.Depressed =>    "\n   _______" +
+                                            "\r\n  /_ ,_, _\\" +
+                                            "\r\n    \\_^_/-..----." +
+                                            "\r\n ___/ `   ' ,\"\"+ \\  " +
+                                            "\r\n(__...'   __\\    |`.___.';" +
+                                            "\r\n  (_,...'(_,.`__)/'.....+",
+
                 _ => "\n  /\\      /\\     " +
                      "\r\n /  \\____/  \\    " +
                      "\r\n<            >\t " +

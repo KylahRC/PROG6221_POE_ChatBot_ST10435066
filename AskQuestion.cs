@@ -105,26 +105,34 @@
                             // Ask the user what they want next.
                             CatExpressions.DisplayCat($"Would you like a detailed explanation {GlobalVariables.userName}? Select an option:", CatExpression.Curious);
                             TextFormatter.SetColorText("1. Yes, explain in detail", GlobalVariables.MenuOptionColor);
-                            TextFormatter.SetColorText("2. No, move to a new topic", GlobalVariables.MenuOptionColor);
-                            TextFormatter.SetColorText("3. Exit to main menu", GlobalVariables.MenuOptionColor);
+                            TextFormatter.SetColorText("2. Can I have another tip?", GlobalVariables.MenuOptionColor);
+                            TextFormatter.SetColorText("3. No, move to a new topic", GlobalVariables.MenuOptionColor);
+                            TextFormatter.SetColorText("4. Exit to main menu", GlobalVariables.MenuOptionColor);
                             AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Menu"]);
 
                             string detailedChoice = TextFormatter.GetUserInput("USER:");
 
                                 switch (detailedChoice)
                                 {
-                                    case "3": // User wants to exit the chatbot.
+                                    case "4": // User wants to exit the chatbot.
                                         CatExpressions.DisplayCat("Alright! Returning to the main menu.", CatExpression.Happy);
                                         wantsToQuit = true;
                                         continueTopic = false;
                                         break;
 
-                                    case "2": // Move to a new topic.
+                                    case "3": // Move to a new topic.
                                         CatExpressions.DisplayCat("Alright! Let's talk about something new.", CatExpression.Happy);
                                         continueTopic = false;
                                         break;
 
-                                    case "1": // Provide a detailed explanation.
+                                    case "2":
+                                        // Give the user a short cybersecurity tip.
+                                        CatExpressions.DisplayCat($"Sure, here's another tip about {correctedKeyword} {GlobalVariables.userName}:", CatExpression.Explain);
+                                        TextFormatter.SetCybersecurityText(ChatbotUtilityFile.ChatbotResponses.GetRandomShortTip(correctedKeyword));
+                                        AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Tip"]);
+                                        break;
+
+                                case "1": // Provide a detailed explanation.
                                         CatExpressions.DisplayCat($"Here’s a detailed explanation of {correctedKeyword}:", CatExpression.Explain);
                                         TextFormatter.SetCybersecurityText(detailedResponse);
                                         AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Dialog"]);
@@ -164,7 +172,7 @@
 
                                                 continueTopic = false;
                                             }
-                                            else
+                                            else if (askFollowUp == "1")
                                             {
 
                                                 bool followUpLoop = true;
@@ -194,6 +202,12 @@
 
                                                     }
                                                 }
+                                            }
+                                            else
+                                            {
+                                            CatExpressions.DisplayCat("Thats not one of the options silly!", CatExpression.Confused);
+                                            TextFormatter.SetErrorMessageText($"Error: Invalid input, please try again.");
+                                            
                                             }
                                         }
 
