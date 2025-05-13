@@ -2,16 +2,37 @@
 {
     public static class AskQuestion
     {
+
         // This method controls the chatbot, allowing the user to ask about cybersecurity topics.
         public static void Execute()
         {
             bool wantsToQuit = false; // Tracks whether the user wants to exit the chatbot.
+                                      // Maintain a list of previously asked topics
+            List<string> askedTopics = new List<string>();
+            List<string> interestedIn = new List<string>();
 
             while (!wantsToQuit) // Keep running until the user decides to leave.
             {
-                // Ask the user for a cybersecurity topic or let them exit.
-                CatExpressions.DisplayCat($"Tell me a cybersecurity topic {GlobalVariables.userName}, and I'll start with a tip! Or type 'exit' to leave.", CatExpression.Curious);
-                AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Curious"]);
+
+                if (interestedIn.Count > 0)
+                {
+                    // Dynamically format the topics list into a readable string
+                    string previousTopics = interestedIn.Count == 1
+                        ? interestedIn[0]
+                        : string.Join(", ", interestedIn.Take(interestedIn.Count - 1)) + " and " + interestedIn.Last();
+
+                    // Display the message dynamically
+                    CatExpressions.DisplayCat($"Tell me a cybersecurity topic, {GlobalVariables.userName}, and I'll start with a tip! I remember you liked talking about {previousTopics}, meow! Or type 'exit' to leave.", CatExpression.Curious);
+
+                    AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Curious"]);
+                }
+
+                else
+                {
+                    // Ask the user for a cybersecurity topic or let them exit.
+                    CatExpressions.DisplayCat($"Tell me a cybersecurity topic {GlobalVariables.userName}, and I'll start with a tip! Or type 'exit' to leave.", CatExpression.Curious);
+                    AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Curious"]);
+                }
 
                 string question = TextFormatter.GetUserInput("USER:").ToLower().Trim(); // Get input, lowercase it, and clean spaces.
 
@@ -20,7 +41,6 @@
                     CatExpressions.DisplayCat($"I don't see a topic {GlobalVariables.userName}, I can't help if you won't tell me", CatExpression.Sad);
                     TextFormatter.SetErrorMessageText($"Error: Input cannot be left empty, please enter a topic.");
                     AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Sad"]);
-
                 }
                 else if (question == "exit") // If the user wants to leave, exit the loop.
                 {
@@ -30,20 +50,47 @@
                 }
                 else
                 {
-
                     string correctedKeyword = KeywordCorrector.CorrectKeyword(question); // Ensure the keyword is properly formatted.
                     string detailedResponse = ChatbotUtilityFile.ChatbotResponses.GetDetailedResponse(correctedKeyword); // Get relevant info.
                     GlobalVariables.FollowUpTopic = correctedKeyword;
 
-                    if (detailedResponse == "I don't have details on that yet!") // If there's info on the topic, continue.
+                    if (!interestedIn.Contains(correctedKeyword))
                     {
-                        CatExpressions.DisplayCat("I dont know about that one yet!", CatExpression.Sad);
+                    
+                        // Check if topic was asked before and prompt user to confirm
+                        if (askedTopics.Contains(correctedKeyword))
+                        {
+                            CatExpressions.DisplayCat($"You've already asked about '{correctedKeyword}', {GlobalVariables.userName}. Do you find this topic interesting?", CatExpression.Curious);
+                            string userConfirmation = TextFormatter.GetUserInput("USER:").ToLower().Trim();
+
+                            if (userConfirmation == "no")
+                            {
+                                CatExpressions.DisplayCat("Oh, thats ok, its not for everyone", CatExpression.Sad);
+                                
+                            }
+                            else
+                            {
+                                interestedIn.Add(correctedKeyword);
+                            }
+                        }
+                        else
+                        {
+
+                            // Add the topic to the history list and proceed
+                            askedTopics.Add(correctedKeyword);
+                        }
+                    }
+
+
+                    if (detailedResponse == "I don't have details on that yet!")
+                    {
+                        CatExpressions.DisplayCat("I don't know about that one yet!", CatExpression.Sad);
                         TextFormatter.SetErrorMessageText($"Error: Invalid input, please try again.");
                         AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Sad"]);
-                        
                     }
-                    else if (detailedResponse != "I don't have details on that yet!") // If there's info on the topic, continue.
-                    {
+                    else
+                    
+                        {
                         bool continueTopic = true;
 
                         // Give the user a short cybersecurity tip.
