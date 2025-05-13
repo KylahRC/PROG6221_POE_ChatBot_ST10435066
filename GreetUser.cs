@@ -10,7 +10,7 @@
             // Because nobody likes a boring bot that always says "Hello."
             string greeting = ChatbotUtilityFile.ChatbotResponses.GetRandomGreeting();
             CatExpressions.DisplayCat(greeting, CatExpression.Happy); // Display the greeting alongside a cat face.
-            AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Excited"]); // Play an audio clip to make the greeting more lively.
+            AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Greeting"]); // Play an audio clip to make the greeting more lively.
 
             bool gaveName = false; // Keeps track of whether the user has given a name.
 
@@ -27,14 +27,14 @@
                     CatExpressions.DisplayCat(noNameResponse, CatExpression.Sad); // Display sad cat face because we're disappointed.
                     AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Sad"]); // Play a sad sound to emphasize our disappointment.
                 }
-                else if (GlobalVariables.userName.ToLower() == "testingtesting123") // Secret input for entering Showcase Mode.
-                {
-                    // Step 4: Special case where the user activates showcase mode.
+                //else if (GlobalVariables.userName.ToLower() == "testingtesting123") // Secret input for entering Showcase Mode.
+                //{
+                //    // Step 4: Special case where the user activates showcase mode.
                     
-                    CatExpressions.DisplayCat("Entering showcase mode...", CatExpression.Happy);
-                    AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Excited"]);
-                    //ShowcaseMode.Execute(); // Runs Showcase Mode.
-                }
+                //    CatExpressions.DisplayCat("Entering showcase mode...", CatExpression.Happy);
+                //    AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Excited"]);
+                //    ShowcaseMode.Execute(); // Runs Showcase Mode.
+                //}
                 else // User FINALLY gives a name.
                 {
                     // Step 5: Store the name and move on.

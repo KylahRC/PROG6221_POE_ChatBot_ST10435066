@@ -12,7 +12,7 @@
         static void Main(string[] args)
         {
             AsciiArtLogo.DisplayAsciiArt();
-            AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Intro"]);
+            //AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Intro"]);
             GreetUser.Execute(); // Calls the new GreetUser file
         }
     }

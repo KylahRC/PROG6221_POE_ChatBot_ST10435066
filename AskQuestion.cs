@@ -2,158 +2,148 @@
 {
     public static class AskQuestion
     {
-        // This method controls the entire chatbot questioning system.
-        // The program loops until the user either learns enough cybersecurity or gets tired of talking to Cyercat.
+        // This method controls the chatbot, allowing the user to ask about cybersecurity topics.
         public static void Execute()
         {
-            bool wantsToQuit = false; // Tracks whether the user wants to quit the questioning process.
+            bool wantsToQuit = false; // Tracks whether the user wants to exit the chatbot.
 
-            while (!wantsToQuit) // This loop keeps running until the user decides they've had enough.
+            while (!wantsToQuit) // Keep running until the user decides to leave.
             {
-                // Welcoming the user with an introduction message.
-                // If they don't want to talk about cybersecurity, they can type 'exit' to escape.
-                CatExpressions.DisplayCat("Tell me a cybersecurity topic, and I'll start with a tip! Or if you want to go back to the main menu, type 'exit'", CatExpression.Curious);
+                // Ask the user for a cybersecurity topic or let them exit.
+                CatExpressions.DisplayCat("Tell me a cybersecurity topic, and I'll start with a tip! Or type 'exit' to leave.", CatExpression.Curious);
                 AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Curious"]);
 
-                // Getting user input, making it lowercase, and trimming unnecessary spaces to avoid having to error handle that.
-                string question = TextFormatter.GetUserInput("USER:").ToLower().Trim();
+                string question = TextFormatter.GetUserInput("USER:").ToLower().Trim(); // Get input, lowercase it, and clean spaces.
 
-                // If the user wants out, we let them go.
-                if (question == "exit")
+                
+
+                if (question == "exit") // If the user wants to leave, exit the loop.
                 {
                     CatExpressions.DisplayCat("Alright! Returning to the main menu.", CatExpression.Happy);
-                    wantsToQuit = true; // Set flag to exit the program loop.
-                    break; // We out this loop.
+                    wantsToQuit = true;
+                    break;
                 }
 
-                // Cleaning up the user's input to make sure it's properly formatted before searching for responses.
-                string correctedKeyword = KeywordCorrector.CorrectKeyword(question);
+                string correctedKeyword = KeywordCorrector.CorrectKeyword(question); // Ensure the keyword is properly formatted.
+                string detailedResponse = ChatbotUtilityFile.ChatbotResponses.GetDetailedResponse(correctedKeyword); // Get relevant info.
+                GlobalVariables.FollowUpTopic = correctedKeyword;
 
-                // Checking if the chatbot actually knows anything about the topic the user entered.
-                string detailedResponse = ChatbotUtilityFile.ChatbotResponses.GetDetailedResponse(correctedKeyword);
 
-                if (detailedResponse != "I don't have details on that yet!") // If we have something to say, proceed.
+                if (detailedResponse != "I don't have details on that yet!") // If there's info on the topic, continue.
                 {
-                    bool continueTopic = true; // Keeps the user focused in the current topic.
+                    bool continueTopic = true;
 
-                    while (continueTopic) // Loop while the user wants to keep talking.
+                    while (continueTopic) // Stay on this topic until the user wants to move on.
                     {
-                        // Step 1: The bot gives a short tip automatically.
-                        // Whether the user wanted one or not, they're getting cybersecurity wisdom.
+                        // Give the user a short cybersecurity tip.
                         CatExpressions.DisplayCat($"Here's a tip about {correctedKeyword}:", CatExpression.Explain);
                         TextFormatter.SetCybersecurityText(ChatbotUtilityFile.ChatbotResponses.GetRandomShortTip(correctedKeyword));
-                        AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Talk"]);
+                        AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Tip"]);
 
-                        // Step 2: Offer a choice of more details, a new topic, or escape to the main menu.
+                        // Ask the user what they want next.
                         CatExpressions.DisplayCat("Would you like a detailed explanation? Select an option:", CatExpression.Curious);
                         TextFormatter.SetColorText("1. Yes, explain in detail", GlobalVariables.MenuOptionColor);
                         TextFormatter.SetColorText("2. No, move to a new topic", GlobalVariables.MenuOptionColor);
                         TextFormatter.SetColorText("3. Exit to main menu", GlobalVariables.MenuOptionColor);
+                        AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Menu"]);
 
                         string detailedChoice = TextFormatter.GetUserInput("USER:");
 
-                        if (detailedChoice == "3") // User has had enough, time to exit.
+                        switch (detailedChoice)
                         {
-                            CatExpressions.DisplayCat("Alright! Returning to the main menu.", CatExpression.Happy);
-                            wantsToQuit = true;
-                            break; // Escape the loop.
-                        }
-                        else if (detailedChoice == "1") // User actually wants more cybersecurity knowledge.
-                        {
-                            // Step 3: Provide a detailed explanation.
-                            CatExpressions.DisplayCat($"Here’s a detailed explanation of {correctedKeyword}:", CatExpression.Explain);
-                            TextFormatter.SetCybersecurityText(detailedResponse);
-                            AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Talk"]);
+                            case "3": // User wants to exit the chatbot.
+                                CatExpressions.DisplayCat("Alright! Returning to the main menu.", CatExpression.Happy);
+                                wantsToQuit = true;
+                                continueTopic = false;
+                                break;
 
-                            // Step 4: Ask how the user feels about this life-changing cybersecurity revelation.
-                            CatExpressions.DisplayCat($"How do you feel about {correctedKeyword}?", CatExpression.Curious);
-                            string userFeelingChoice = TextFormatter.GetUserInput("USER:");
+                            case "2": // Move to a new topic.
+                                CatExpressions.DisplayCat("Alright! Let's talk about something new.", CatExpression.Happy);
+                                continueTopic = false;
+                                break;
 
-                            // Step 5: Validate the user's feelings using predefined responses.
-                            string feelingResponse = ChatbotUtilityFile.ChatbotResponses.GetFeelingResponse(correctedKeyword, userFeelingChoice);
+                            case "1": // Provide a detailed explanation.
+                                CatExpressions.DisplayCat($"Here’s a detailed explanation of {correctedKeyword}:", CatExpression.Explain);
+                                TextFormatter.SetCybersecurityText(detailedResponse);
+                                AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Dialog"]);
 
-                            // If the response doesn't exist in the dictionary, provide a backup response.
-                            if (string.IsNullOrWhiteSpace(feelingResponse) || feelingResponse == "")
-                            {
-                                CatExpressions.DisplayCat("That's okay, everyone has a unique way to look at the world.", CatExpression.Curious);
-                            }
-                            else
-                            {
-                                CatExpressions.DisplayCat(feelingResponse, CatExpression.Curious);
-                                AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Talk"]);
-                            }
+                                // Ask how the user feels about this info.
+                                CatExpressions.DisplayCat($"How do you feel after learning more information about {correctedKeyword}", CatExpression.Curious);
+                                AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Curious"]);
+                                string userFeelingChoice = TextFormatter.GetUserInput("USER:");
+                                string feelingResponse = ChatbotUtilityFile.ChatbotResponses.GetFeelingResponse(correctedKeyword, userFeelingChoice);
 
-
-                            // Step 6: Offer follow-up questions, because cybersecurity is never-ending.
-                            List<string> followUpQuestions = ChatbotUtilityFile.ChatbotResponses.GetFollowUpQuestions(correctedKeyword);
-
-                            // Ensure that follow-up questions exist before proceeding.
-                            if (followUpQuestions.Count > 0)
-                            {
-                                bool followUpLoop = true;
-
-                                while (followUpLoop) // Keep looping until the user actively decides to exit.
+                                // Respond to the user's feelings.
+                                if (string.IsNullOrWhiteSpace(feelingResponse))
                                 {
-                                    CatExpressions.DisplayCat("Would you like to explore one of these?", CatExpression.Curious);
+                                    CatExpressions.DisplayCat("That's okay, everyone has a unique way to look at the world.", CatExpression.Happy);
+                                    AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Menu"]);
+                                }
+                                else
+                                {
+                                    CatExpressions.DisplayCat(feelingResponse, CatExpression.Curious);
+                                }
 
-                                    int questionNumber = 1;
-                                    Dictionary<string, string> followUpMap = new Dictionary<string, string>();
+                                AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Dialog"]);
 
-                                    // Present each follow-up question as a numbered option.
-                                    foreach (string followUp in followUpQuestions)
+                                bool wantsFollowUp = true;
+
+                                while (wantsFollowUp)
+                                {
+                                    CatExpressions.DisplayCat("Do you want to ask some follow up questions?", CatExpression.Happy);
+                                    TextFormatter.SetColorText("1. Yes, show me a list of follow ups", GlobalVariables.MenuOptionColor);
+                                    TextFormatter.SetColorText("2. No, move to a new topic", GlobalVariables.MenuOptionColor);
+                                    AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Menu"]);
+                                    string askFollowUp = TextFormatter.GetUserInput("USER:");
+
+                                    if (askFollowUp == "2")
                                     {
-                                        TextFormatter.SetColorText($"{questionNumber}. {followUp}", GlobalVariables.MenuOptionColor);
-                                        followUpMap[questionNumber.ToString()] = followUp;
-                                        questionNumber++;
-                                    }
+                                        wantsFollowUp = false;
 
-                                    // Provide an option to exit directly instead of trapping users in an endless loop.
-                                    TextFormatter.SetColorText($"{questionNumber}. Move to a new topic", GlobalVariables.MenuOptionColor);
-                                    followUpMap[questionNumber.ToString()] = "Move to a new topic";
-
-                                    string followUpChoice = TextFormatter.GetUserInput("USER:");
-
-                                    if (followUpMap.ContainsKey(followUpChoice) && followUpMap[followUpChoice] != "Move to a new topic")
-                                    {
-                                        // Step 7: Fetch and display the answer to the selected follow-up question.
-                                        string selectedQuestion = followUpMap[followUpChoice];
-                                        string followUpResponse = ChatbotUtilityFile.ChatbotResponses.GetFollowUpAnswer(selectedQuestion);
-
-                                        TextFormatter.SetCybersecurityText(followUpResponse);
-                                        AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Talk"]);
-
-                                        // Instead of forcing another loop, reconfirm with the user whether they want another follow-up question.
-                                        CatExpressions.DisplayCat("Would you like to ask another follow-up question or move on?", CatExpression.Curious);
-                                        TextFormatter.SetColorText("1. Ask another follow-up question", GlobalVariables.MenuOptionColor);
-                                        TextFormatter.SetColorText("2. Move to a new topic", GlobalVariables.MenuOptionColor);
-
-                                        string nextChoice = TextFormatter.GetUserInput("USER:");
-
-                                        if (nextChoice == "2")
-                                        {
-                                            followUpLoop = false;
-                                            continueTopic = false;
-                                        }
-                                    }
-                                    else if (followUpMap.ContainsKey(followUpChoice) && followUpMap[followUpChoice] == "Move to a new topic")
-                                    {
-                                        // User wants to exit—break out of the loop.
-                                        CatExpressions.DisplayCat("Alright! Let's move on to a new topic.", CatExpression.Happy);
-                                        followUpLoop = false;
                                         continueTopic = false;
                                     }
                                     else
                                     {
-                                        // Invalid input handling—prompt them to choose a valid number.
-                                        CatExpressions.DisplayCat("Oops! Please enter a valid number from the list.", CatExpression.Confused);
-                                        TextFormatter.SetErrorMessageText("Invalid choice. Please select an option from the list.");
+
+                                        bool followUpLoop = true;
+
+                                        while (followUpLoop) // Loop until the user decides to exit.
+                                        {
+                                            // Call FollowUpTopicHandler to display the relevant follow-up questions.
+                                            FollowUps.DisplayFollowUpQuestions();
+
+                                            // Get user selection.
+                                            string followUpChoice = TextFormatter.GetUserInput("USER:");
+                                            GlobalVariables.FollowUpAnswerKey = followUpChoice;
+
+                                            switch (followUpChoice)
+                                            {
+                                                case "4": // Move to a new topic.
+                                                    CatExpressions.DisplayCat("Alright! Let's move on to a new topic.", CatExpression.Happy);
+                                                    followUpLoop = false;
+                                                    continueTopic = false;
+                                                    wantsFollowUp = false;
+                                                    break;
+
+                                                default:
+                                                    FollowUps.DisplayFollowUpAnswer();
+                                                    break;
+
+
+                                            }
+                                        }
                                     }
                                 }
-                            }
+
+
+                                break;
+
+                            default:
+                                CatExpressions.DisplayCat("Invalid choice. Please try again.", CatExpression.Confused);
+                                break;
                         }
                     }
                 }
-
             }
         }
     }

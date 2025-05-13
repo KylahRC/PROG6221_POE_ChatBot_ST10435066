@@ -9,12 +9,14 @@
             while (!exit)
             {
                 CatExpressions.DisplayCat($"What do you want to do, {GlobalVariables.userName}?", CatExpression.Curious);
-                AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Curious"]);
+                
 
                 TextFormatter.SetColorText("1. Ask a question", GlobalVariables.MenuOptionColor);
                 TextFormatter.SetColorText("2. Pet the cat!", GlobalVariables.MenuOptionColor);
                 TextFormatter.SetColorText("3. Mute/Unmute the cat", GlobalVariables.MenuOptionColor);
                 TextFormatter.SetColorText("4. Exit", GlobalVariables.MenuOptionColor);
+
+                AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Menu"]);
 
                 string choice = TextFormatter.GetUserInput("Choose an option:");
 

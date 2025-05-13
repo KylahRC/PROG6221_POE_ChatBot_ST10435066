@@ -213,7 +213,7 @@
             */
 
 
-            private static readonly Dictionary<string, List<string>> ShortCybersecurityTips = new Dictionary<string, List<string>>
+            public static readonly Dictionary<string, List<string>> ShortCybersecurityTips = new Dictionary<string, List<string>>
             {
                 { "password", new List<string>
                     {
@@ -268,7 +268,7 @@
             }
 
 
-            private static readonly Dictionary<string, string> DetailedCybersecurityResponses = new Dictionary<string, string>
+            public static readonly Dictionary<string, string> DetailedCybersecurityResponses = new Dictionary<string, string>
             {
                 { "malware", "Malware, short for 'malicious software,' refers to any program or file designed to harm a computer, network, or user. " +
                     "It can take many forms, such as viruses, worms, spyware, ransomware, or Trojan horses. Malware can disrupt operations, steal sensitive " +
@@ -294,7 +294,14 @@
 
             public static string GetDetailedResponse(string keyword)
             {
-                return DetailedCybersecurityResponses.ContainsKey(keyword) ? DetailedCybersecurityResponses[keyword] : "I don't have details on that yet!";
+                if (DetailedCybersecurityResponses.ContainsKey(keyword))
+                {
+                    return DetailedCybersecurityResponses[keyword]; // If the keyword exists in the dictionary, return its response.
+                }
+                else
+                {
+                    return "I don't have details on that yet!"; // If the keyword isn't found, return a default message.
+                }
             }
 
             public static readonly Dictionary<string, Dictionary<string, string>> FeelingResponses = new Dictionary<string, Dictionary<string, string>>
@@ -347,90 +354,83 @@
             }
 
 
-            public static readonly Dictionary<string, List<string>> FollowUpQuestions = new Dictionary<string, List<string>>
+            public static readonly Dictionary<string, string> PasswordFollowUpQuestions = new Dictionary<string, string>
             {
-                { "password", new List<string>
-                    {
-                        "What makes a password strong?",
-                        "Why shouldn't I reuse passwords?",
-                        "What is a password manager?",
-                        "Move to a new topic"
-                    }
-                },
-                { "malware", new List<string>
-                    {
-                        "How does malware spread?",
-                        "What is ransomware?",
-                        "How can I check if my device has malware?",
-                        "Move to a new topic"
-                    }
-                },
-                { "phishing", new List<string>
-                    {
-                        "How to spot phishing scams?",
-                        "What should I do if I see one?",
-                        "How to recover if I fell for a phishing scam?",
-                        "Move to a new topic"
-                    }
-                },
-                { "safe browsing", new List<string>
-                    {
-                        "What is HTTPS?",
-                        "Why should I use an ad blocker?",
-                        "How does browser security protect me?",
-                        "Move to a new topic"
-                    }
-                },
-                { "virus", new List<string>
-                    {
-                        "What types of viruses exist?",
-                        "How can I prevent virus infections?",
-                        "What should I do if I suspect a virus?",
-                        "Move to a new topic"
-                    }
-                }
+                { "1", "What makes a password strong?" },
+                { "2", "Why shouldn't I reuse passwords?" },
+                { "3", "What is a password manager?" },
+                { "4", "Move to a new topic" }
             };
 
-            // Getter method for FollowUpQuestions
-            public static List<string> GetFollowUpQuestions(string topic)
+            public static readonly Dictionary<string, string> MalwareFollowUpQuestions = new Dictionary<string, string>
             {
-                return FollowUpQuestions.ContainsKey(topic) ? FollowUpQuestions[topic] : new List<string> { "I don't have follow-up questions for this topic yet." };
-            }
-
-            public static readonly Dictionary<string, string> FollowUpQuestionAnswers = new Dictionary<string, string>
-            {
-                // Password follow-up questions
-                { "What makes a password strong?", "A strong password is at least 12 characters long and includes uppercase, lowercase, numbers, and symbols. Avoid personal details!" },
-                { "Why shouldn't I reuse passwords?", "Reusing passwords makes all your accounts vulnerable! If one gets breached, hackers can access everything else." },
-                { "What is a password manager?", "A password manager securely stores and generates unique passwords for each of your accounts." },
-
-                // Malware follow-up questions
-                { "How does malware spread?", "Malware spreads through email attachments, fake downloads, and malicious ads. Never open suspicious links or files!" },
-                { "What is ransomware?", "Ransomware encrypts files and demands a ransom payment to unlock them. Always back up important data!" },
-                { "How can I check if my device has malware?", "Run an antivirus scan, check for unusual slowdowns, and monitor network activity for unknown connections." },
-
-                // Phishing follow-up questions
-                { "How to spot phishing scams?", "Phishing scams use fake emails, urgent language, and links to fraudulent websites. Always verify sender details!" },
-                { "What should I do if I see one?", "Report the email, don’t click any links, and educate others to prevent phishing attacks!" },
-                { "How to recover if I fell for a phishing scam?", "Immediately change your passwords, enable two-factor authentication, and check for fraudulent charges on your accounts." },
-
-                // Safe browsing follow-up questions
-                { "What is HTTPS?", "HTTPS encrypts your browsing data to keep it safe from attackers. Always check for 'https://' before entering sensitive info!" },
-                { "Why should I use an ad blocker?", "Ad blockers prevent malicious ads from tracking you or infecting your device." },
-                { "How does browser security protect me?", "Browsers have built-in security features like anti-phishing warnings and sandboxing to prevent exploits." },
-
-                // Virus follow-up questions
-                { "What types of viruses exist?", "Viruses come in many forms, such as Trojans, worms, spyware, and ransomware, each with different attack methods." },
-                { "How can I prevent virus infections?", "Always keep software updated, avoid unknown downloads, and use trusted antivirus tools!" },
-                { "What should I do if I suspect a virus?", "Run a full system scan, disconnect from the internet, and delete any unknown or suspicious files immediately." }
+                { "1", "How does malware spread?" },
+                { "2", "What is ransomware?" },
+                { "3", "How can I check if my device has malware?" },
+                { "4", "Move to a new topic" }
             };
 
-            // ✅ Getter method for FollowUpQuestionAnswers
-            public static string GetFollowUpAnswer(string question)
+            public static readonly Dictionary<string, string> PhishingFollowUpQuestions = new Dictionary<string, string>
             {
-                return FollowUpQuestionAnswers.ContainsKey(question) ? FollowUpQuestionAnswers[question] : "I don’t have an answer for that question yet.";
-            }
+                { "1", "How to spot phishing scams?" },
+                { "2", "What should I do if I see one?" },
+                { "3", "How to recover if I fell for a phishing scam?" },
+                { "4", "Move to a new topic" }
+            };
 
+            public static readonly Dictionary<string, string> SafeBrowsingFollowUpQuestions = new Dictionary<string, string>
+            {
+                { "1", "What is HTTPS?" },
+                { "2", "Why should I use an ad blocker?" },
+                { "3", "How does browser security protect me?" },
+                { "4", "Move to a new topic" }
+            };
+
+            public static readonly Dictionary<string, string> VirusFollowUpQuestions = new Dictionary<string, string>
+            {
+                { "1", "What types of viruses exist?" },
+                { "2", "How can I prevent virus infections?" },
+                { "3", "What should I do if I suspect a virus?" },
+                { "4", "Move to a new topic" }
+            };
+
+
+            
+
+            public static readonly Dictionary<string, string> PasswordFollowUpAnswers = new Dictionary<string, string>
+            {
+                { "1", "A strong password is at least 12 characters long and includes uppercase, lowercase, numbers, and symbols. Avoid personal details!" },
+                { "2", "Reusing passwords makes all your accounts vulnerable! If one gets breached, hackers can access everything else." },
+                { "3", "A password manager securely stores and generates unique passwords for each of your accounts." }
+            };
+
+            public static readonly Dictionary<string, string> MalwareFollowUpAnswers = new Dictionary<string, string>
+            {
+                { "1", "Malware spreads through email attachments, fake downloads, and malicious ads. Never open suspicious links or files!" },
+                { "2", "Ransomware encrypts files and demands a ransom payment to unlock them. Always back up important data!" },
+                { "3", "Run an antivirus scan, check for unusual slowdowns, and monitor network activity for unknown connections." }
+            };
+
+            public static readonly Dictionary<string, string> PhishingFollowUpAnswers = new Dictionary<string, string>
+            {
+                { "1", "Phishing scams use fake emails, urgent language, and links to fraudulent websites. Always verify sender details!" },
+                { "2", "Report the email, don’t click any links, and educate others to prevent phishing attacks!" },
+                { "3", "Immediately change your passwords, enable two-factor authentication, and check for fraudulent charges on your accounts." }
+            };
+
+            public static readonly Dictionary<string, string> SafeBrowsingFollowUpAnswers = new Dictionary<string, string>
+            {
+                { "1", "HTTPS encrypts your browsing data to keep it safe from attackers. Always check for 'https://' before entering sensitive info!" },
+                { "2", "Ad blockers prevent malicious ads from tracking you or infecting your device." },
+                { "3", "Browsers have built-in security features like anti-phishing warnings and sandboxing to prevent exploits." }
+            };
+
+            public static readonly Dictionary<string, string> VirusFollowUpAnswers = new Dictionary<string, string>
+            {
+                { "1", "Viruses come in many forms, such as Trojans, worms, spyware, and ransomware, each with different attack methods." },
+                { "2", "Always keep software updated, avoid unknown downloads, and use trusted antivirus tools!" },
+                { "3", "Run a full system scan, disconnect from the internet, and delete any unknown or suspicious files immediately." }
+            };
 
 
 
@@ -521,8 +521,12 @@
             { "Curious", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Curious_meow.wav" }, //path to the curious meow audio
             { "Dialog", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Dialog_meow.wav" }, //path to the dialog meow audio, used during interaction
             { "Talk", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Talk_meow.wav" }, //path to the talk meow audio, used for explanation responses
-            { "Purr", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Purr.wav" }, //path to the purring audio, used for the pet-the-cat option
-            { "Bye", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Bye_meow.wav" } //path to the goodbye meow audio
+            { "Purr", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Purr_meow.wav" }, //path to the purring audio, used for the pet-the-cat option
+            { "Bye", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Bye_meow.wav" }, //path to the goodbye meow audio
+            { "Greeting", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Greeting_meow.wav" },
+            { "Tip", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Tip_meow.wav" },
+            { "Menu", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Menu_meow.wav" }
+            
         };
 
         #endregion

@@ -8,6 +8,10 @@
         //global mute variable
         public static bool isMuted = false;
 
+        public static string FollowUpTopic;
+
+        public static string FollowUpAnswerKey;
+
         // ANSI escape sequences for custom colors
         public static readonly string UserInputColor = "\u001b[38;2;201;73;236m";  // Purple (#C949EC)
         public static readonly string MenuOptionColor = "\u001b[38;2;0;122;204m";  // Blue (#007ACC)
