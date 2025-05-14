@@ -22,7 +22,8 @@
                         : string.Join(", ", interestedIn.Take(interestedIn.Count - 1)) + " and " + interestedIn.Last();
 
                     // Display the message dynamically
-                    CatExpressions.DisplayCat($"Tell me a cybersecurity topic, {GlobalVariables.userName}, and I'll start with a tip! I remember you liked talking about {previousTopics}, meow! Or type 'exit' to leave.", CatExpression.Curious);
+                    CatExpressions.DisplayCat($"Tell me a cybersecurity topic, {GlobalVariables.userName}, and I'll start with a tip! I remember you liked talking about {previousTopics}, meow! " +
+                        $"\nYou can also type 'list' to see a list of topics I know or type 'exit' to leave.", CatExpression.Curious);
 
                     AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Curious"]);
                 }
@@ -30,7 +31,8 @@
                 else
                 {
                     // Ask the user for a cybersecurity topic or let them exit.
-                    CatExpressions.DisplayCat($"Tell me a cybersecurity topic {GlobalVariables.userName}, and I'll start with a tip! Or type 'exit' to leave.", CatExpression.Curious);
+                    CatExpressions.DisplayCat($"Tell me a cybersecurity topic {GlobalVariables.userName}, and I'll start with a tip!"
+                        + $"\nYou can also type 'list' to see a list of topics I know or type 'exit' to leave.", CatExpression.Curious);
                     AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Curious"]);
                 }
 
@@ -48,6 +50,18 @@
                     wantsToQuit = true;
                     break;
                 }
+                else if (question == "list")
+                {
+                    CatExpressions.DisplayCat($"Sure thing {GlobalVariables.userName}, heres a list of topics I know a lot about", CatExpression.Happy);
+                    TextFormatter.SetColorText("- Malware", GlobalVariables.MenuOptionColor);
+                    TextFormatter.SetColorText("- Virus", GlobalVariables.MenuOptionColor);
+                    TextFormatter.SetColorText("- Phishing", GlobalVariables.MenuOptionColor);
+                    TextFormatter.SetColorText("- Safe Browsing", GlobalVariables.MenuOptionColor);
+                    TextFormatter.SetColorText("- Password", GlobalVariables.MenuOptionColor);
+                    AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Menu"]);
+
+
+                }
                 else
                 {
                     string correctedKeyword = KeywordCorrector.CorrectKeyword(question); // Ensure the keyword is properly formatted.
@@ -61,15 +75,18 @@
                         if (askedTopics.Contains(correctedKeyword))
                         {
                             CatExpressions.DisplayCat($"You've already asked about '{correctedKeyword}', {GlobalVariables.userName}. Do you find this topic interesting?", CatExpression.Curious);
+                            AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Curious"]);
                             string userConfirmation = TextFormatter.GetUserInput("USER:").ToLower().Trim();
 
                             if (userConfirmation == "no")
                             {
                                 CatExpressions.DisplayCat("Oh, thats ok, its not for everyone", CatExpression.Sad);
-                                
+                                AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Sad"]);
                             }
                             else
                             {
+                                CatExpressions.DisplayCat("That's great, Ill remember that!", CatExpression.Happy);
+                                AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Happy"]);
                                 interestedIn.Add(correctedKeyword);
                             }
                         }
@@ -116,12 +133,14 @@
                                 {
                                     case "4": // User wants to exit the chatbot.
                                         CatExpressions.DisplayCat("Alright! Returning to the main menu.", CatExpression.Happy);
+                                        AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Happy"]);
                                         wantsToQuit = true;
                                         continueTopic = false;
                                         break;
 
                                     case "3": // Move to a new topic.
                                         CatExpressions.DisplayCat("Alright! Let's talk about something new.", CatExpression.Happy);
+                                        AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Happy"]);
                                         continueTopic = false;
                                         break;
 
@@ -132,7 +151,7 @@
                                         AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Tip"]);
                                         break;
 
-                                case "1": // Provide a detailed explanation.
+                                    case "1": // Provide a detailed explanation.
                                         CatExpressions.DisplayCat($"Here’s a detailed explanation of {correctedKeyword}:", CatExpression.Explain);
                                         TextFormatter.SetCybersecurityText(detailedResponse);
                                         AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Dialog"]);
@@ -147,11 +166,12 @@
                                         if (string.IsNullOrWhiteSpace(feelingResponse))
                                         {
                                             CatExpressions.DisplayCat($"That's okay {GlobalVariables.userName}, everyone has a unique way to look at the world.", CatExpression.Happy);
-
+                                            AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Happy"]);
                                         }
                                         else
                                         {
                                             CatExpressions.DisplayCat(feelingResponse, CatExpression.Curious);
+                                            AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Curious"]);
                                         }
 
                                         AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Dialog"]);
@@ -190,6 +210,7 @@
                                                     {
                                                         case "4": // Move to a new topic.
                                                             CatExpressions.DisplayCat("Alright! Let's move on to a new topic.", CatExpression.Happy);
+                                                            AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Happy"]);
                                                             followUpLoop = false;
                                                             continueTopic = false;
                                                             wantsFollowUp = false;
@@ -205,13 +226,11 @@
                                             }
                                             else
                                             {
-                                            CatExpressions.DisplayCat("Thats not one of the options silly!", CatExpression.Confused);
-                                            TextFormatter.SetErrorMessageText($"Error: Invalid input, please try again.");
-                                            
+                                                CatExpressions.DisplayCat("Thats not one of the options silly!", CatExpression.Confused);                                            
+                                                TextFormatter.SetErrorMessageText($"Error: Invalid input, please try again.");
+                                                AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Happy"]);
                                             }
                                         }
-
-
                                         break;
 
                                     default:

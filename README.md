@@ -8,11 +8,33 @@ To ask about cyber security:
 3) Hit "Enter" using keyboard
 4) Type "1" for option 1 (Ask a question) using keyboard
 5) Hit "Enter" using keyboard
-6) Type "keywords" using keyboard to access a list of keywords you are able to input
+6) Type "list" using keyboard to access a list of keywords you are able to input
 7) Hit "Enter" using keyboard
 8) Look over list and type using keyboard the keyword you wish to learn more about
 9) Hit "Enter" using keyboard
-10) Once the response is given, you may type another keyword or quit the program by typing "quit" using keyboard
+10) Once the response is given, you will be asked the following
+    "1. Yes, explain in detail" (See Path 1)
+    "2. Can I have another tip?" (See Path 2)
+    "3. No, move to a new topic" (See Path 3)
+    "4. Exit to main menu" (See Path 4)
+
+Path 1: If you type "1" using the keyboard and hit "Enter":
+1) You will recieve a detailed explanation of your chosen topic
+2) CyberCat will then ask you how you feel about the topic
+3) Please type one word to decribe how you feel using your keyboard
+4) Hit "Enter" using your keyboard
+5) CyberCat will validate your feelings
+6) You will be prompted to select from 2 options:
+        "1. Show me a list of follow ups"
+        "2. No, Move to a new topic" 
+7) If you type 
+
+
+
+
+
+
+
 
 To pet the cat:
 1) Launch program
@@ -24,7 +46,7 @@ To pet the cat:
 7) Repeat steps 4-6 as many times as wanted
 
 To quit program from "Ask a question":
-1) In the "Ask a question" menu, type "quit" using keyboard
+1) In the "Ask a question" menu, type "exit" using keyboard
 2) Hit "Enter" using  keyboard
 3) You should be in the main menu now
 4) Type "3" using keyboard to select "Exit"
@@ -35,16 +57,6 @@ To quit program from the main menu:
 1) Type "3" using keyboard to select "Exit"
 2) Hit "Enter" using keyboard
 3) The application should close
-
-**Showcase Mode**
-
-This mode will auto run through all inputs and outputs without the user having to input values at each step. 
-This saves time for testers.
-How to trigger:
-1) Type "testingtesting123" on your keyboard when prompted for your name 
-2) Hit enter on your keyboard
-3) Watch the program play itself
-4) Manually exit the program once the showcase is over
 
 **Frequently Asked Questions**
 
