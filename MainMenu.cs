@@ -1,4 +1,6 @@
-﻿namespace CybersecurityAwarenessBot
+﻿using System.Text.RegularExpressions;
+
+namespace CybersecurityAwarenessBot
 {
     public static class MainMenu
     {
@@ -32,9 +34,20 @@
                         break;
                     case "3":
                         GlobalVariables.isMuted = !GlobalVariables.isMuted;
-                        string muteMessage = GlobalVariables.isMuted ? "Oh... alright then, I'll be quiet..." : "Yay! I'm so glad you changed your mind!";
-                        CatExpressions.DisplayCat(muteMessage, GlobalVariables.isMuted ? CatExpression.Sad : CatExpression.Happy);
-                        if (!GlobalVariables.isMuted) AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Excited"]);
+                        string muteMessage;
+
+                        if (GlobalVariables.isMuted)
+                        {
+                            muteMessage = "Oh... alright then, I'll be quiet...";
+                            CatExpressions.DisplayCat(muteMessage, CatExpression.Sad);
+                        }
+                        else
+                        {
+                            muteMessage = "Yay! I'm so glad you changed your mind!";
+                            CatExpressions.DisplayCat(muteMessage, CatExpression.Happy);
+                            AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Excited"]);
+                        }
+
                         break;
                     case "4":
                         string goodbyeResponse = ChatbotUtilityFile.ChatbotResponses.GetRandomGoodbyeResponse();
@@ -43,8 +56,19 @@
                         exit = true;
                         break;
                     default:
-                        CatExpressions.DisplayCat(ChatbotUtilityFile.ChatbotResponses.GetRandomInvalidInputResponse(), CatExpression.Confused);
-                        AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Sad"]);
+
+                        if (Regex.IsMatch(choice, @"[a-zA-Z]") || Regex.IsMatch(choice, @"\W"))
+                        {
+                            CatExpressions.DisplayCat("Please type the number of the option you want to chose!", CatExpression.Confused);
+                            TextFormatter.SetErrorMessageText($"Error: Input must contail numbers only, please try again.");
+                            AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Sad"]);
+                        }
+                        else
+                        {
+                            CatExpressions.DisplayCat("That's not one of the options silly!", CatExpression.Confused);
+                            TextFormatter.SetErrorMessageText($"Error: Invalid option selected, please try again.");
+                            AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Sad"]);
+                        }
                         break;
                 }
             }

@@ -1,4 +1,6 @@
-﻿namespace CybersecurityAwarenessBot
+﻿using System.Text.RegularExpressions;
+
+namespace CybersecurityAwarenessBot
 {
     public static class AskQuestion
     {
@@ -17,9 +19,16 @@
                 if (interestedIn.Count > 0)
                 {
                     // Dynamically format the topics list into a readable string
-                    string previousTopics = interestedIn.Count == 1
-                        ? interestedIn[0]
-                        : string.Join(", ", interestedIn.Take(interestedIn.Count - 1)) + " and " + interestedIn.Last();
+                    string previousTopics;
+
+                    if (interestedIn.Count == 1)
+                    {
+                        previousTopics = interestedIn[0];
+                    }
+                    else
+                    {
+                        previousTopics = string.Join(", ", interestedIn.Take(interestedIn.Count - 1)) + " and " + interestedIn.Last();
+                    }
 
                     // Display the message dynamically
                     CatExpressions.DisplayCat($"Tell me a cybersecurity topic, {GlobalVariables.userName}, and I'll start with a tip! I remember you liked talking about {previousTopics}, meow! " +
@@ -49,6 +58,12 @@
                     CatExpressions.DisplayCat("Alright! Returning to the main menu.", CatExpression.Happy);
                     wantsToQuit = true;
                     break;
+                }
+                else if (Regex.IsMatch(question, @"\d") || Regex.IsMatch(question, @"\W"))
+                {
+                    CatExpressions.DisplayCat("You have to type the word you want to learn about!", CatExpression.Confused);
+                    TextFormatter.SetErrorMessageText($"Error: Input cannot contain numbers or symbols, please try again.");
+                    AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Sad"]);
                 }
                 else if (question == "list")
                 {
@@ -106,8 +121,7 @@
                         AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Sad"]);
                     }
                     else
-                    
-                        {
+                    {
                         bool continueTopic = true;
 
                         // Give the user a short cybersecurity tip.
@@ -217,8 +231,24 @@
                                                             break;
 
                                                         default:
-                                                            FollowUps.DisplayFollowUpAnswer();
-                                                            break;
+                                                            if (Regex.IsMatch(question, @"[a-zA-Z]") || Regex.IsMatch(question, @"\W"))
+                                                            {
+                                                                CatExpressions.DisplayCat("Please use numbers to select an option!", CatExpression.Confused);
+                                                                TextFormatter.SetErrorMessageText($"Error: Input may only contain numbers, please try again.");
+                                                                AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Sad"]);
+                                                            }
+                                                            else if (!(followUpChoice == "1" || followUpChoice == "2" || followUpChoice == "3"))
+                                                            {
+                                                                CatExpressions.DisplayCat("Thats not one of the options silly!", CatExpression.Confused);
+                                                                TextFormatter.SetErrorMessageText($"Error: Invalid input, please try again.");
+                                                                AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Sad"]);
+                                                            }
+                                                            else 
+                                                            {
+                                                                FollowUps.DisplayFollowUpAnswer();
+                                                                
+                                                            }
+                                                        break;
 
 
                                                     }
@@ -226,17 +256,36 @@
                                             }
                                             else
                                             {
-                                                CatExpressions.DisplayCat("Thats not one of the options silly!", CatExpression.Confused);                                            
-                                                TextFormatter.SetErrorMessageText($"Error: Invalid input, please try again.");
-                                                AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Happy"]);
+                                                if (Regex.IsMatch(question, @"[a-zA-Z]") || Regex.IsMatch(question, @"\W"))
+                                                {
+                                                    CatExpressions.DisplayCat("Please use numbers to select an option!", CatExpression.Confused);
+                                                    TextFormatter.SetErrorMessageText($"Error: Input may only contain numbers, please try again.");
+                                                    AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Sad"]);
+                                                }
+                                                else
+                                                {
+                                                    CatExpressions.DisplayCat("Thats not one of the options silly!", CatExpression.Confused);
+                                                    TextFormatter.SetErrorMessageText($"Error: Invalid input, please try again.");
+                                                    AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Sad"]);
+                                                }
                                             }
                                         }
                                         break;
 
                                     default:
-                                        CatExpressions.DisplayCat("Thats not one of the options silly!", CatExpression.Confused);
-                                        TextFormatter.SetErrorMessageText($"Error: Invalid input, please try again.");
-                                        break;
+                                        if (Regex.IsMatch(question, @"[a-zA-Z]") || Regex.IsMatch(question, @"\W"))
+                                        {
+                                            CatExpressions.DisplayCat("Please use numbers to select an option!", CatExpression.Confused);
+                                            TextFormatter.SetErrorMessageText($"Error: Input may only contain numbers, please try again.");
+                                            AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Sad"]);
+                                        }
+                                        else
+                                        {
+                                            CatExpressions.DisplayCat("Thats not one of the options silly!", CatExpression.Confused);
+                                            TextFormatter.SetErrorMessageText($"Error: Invalid input, please try again.");
+                                            AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Sad"]);
+                                        }
+                                    break;
                                 }
                             
                         }

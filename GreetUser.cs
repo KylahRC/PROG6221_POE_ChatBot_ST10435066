@@ -1,4 +1,6 @@
-﻿namespace CybersecurityAwarenessBot
+﻿using System.Text.RegularExpressions;
+
+namespace CybersecurityAwarenessBot
 {
     public static class GreetUser
     {
@@ -31,11 +33,30 @@
                 //else if (GlobalVariables.userName.ToLower() == "testingtesting123") // Secret input for entering Showcase Mode.
                 //{
                 //    // Step 4: Special case where the user activates showcase mode.
-                    
+
                 //    CatExpressions.DisplayCat("Entering showcase mode...", CatExpression.Happy);
                 //    AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Excited"]);
                 //    ShowcaseMode.Execute(); // Runs Showcase Mode.
                 //}
+                else if (Regex.IsMatch(GlobalVariables.userName, @"\W") && Regex.IsMatch(GlobalVariables.userName, @"\d"))
+                {
+                    CatExpressions.DisplayCat("I would prefer if you didn't give me your gamertag, meow!", CatExpression.Confused);
+                    TextFormatter.SetErrorMessageText($"Error: Name may not contain numbers, please try again.");
+                    AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Sad"]);
+                }
+                else if (Regex.IsMatch(GlobalVariables.userName, @"\W"))
+                {
+                    CatExpressions.DisplayCat("Human names don't have symbols in them silly!", CatExpression.Confused);
+                    TextFormatter.SetErrorMessageText($"Error: Name may not contain numbers, please try again.");
+                    AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Sad"]);
+                }
+                else if (Regex.IsMatch(GlobalVariables.userName, @"\d"))
+                {
+                    CatExpressions.DisplayCat("Human names don't have numbers in them silly!", CatExpression.Confused);
+                    TextFormatter.SetErrorMessageText($"Error: Name may not contain numbers, please try again.");
+                    AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Sad"]);
+                }
+            
                 else // User FINALLY gives a name.
                 {
                     // Step 5: Store the name and move on.
