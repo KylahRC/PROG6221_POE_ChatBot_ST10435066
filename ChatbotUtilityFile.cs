@@ -513,20 +513,22 @@
         _______________________________________________________________________________________
         */
 
+        
+
         public static readonly Dictionary<string, string> AudioFiles = new Dictionary<string, string>
         {
-            { "Intro", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Chatbot_voice_greeting.wav" }, //path to the chatbot's introductory voice greeting audio
-            { "Excited", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Excited_meow.wav" }, //path to the excited meow audio
-            { "Sad", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Sad_meow.wav" }, //path to the sad meow audio
-            { "Curious", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Curious_meow.wav" }, //path to the curious meow audio
-            { "Dialog", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Dialog_meow.wav" }, //path to the dialog meow audio, used during interaction
-            { "Talk", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Talk_meow.wav" }, //path to the talk meow audio, used for explanation responses
-            { "Purr", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Purr_meow.wav" }, //path to the purring audio, used for the pet-the-cat option
-            { "Bye", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Bye_meow.wav" }, //path to the goodbye meow audio
-            { "Greeting", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Greeting_meow.wav" },
-            { "Tip", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Tip_meow.wav" },
-            { "Menu", "C:\\Users\\RC_Student_lab\\source\\repos\\PROG6221_POE_ChatBot_ST10435066\\Audio Files\\Menu_meow.wav" }
-            
+            { "Intro", GlobalVariables.IntroFilePath }, //path to the chatbot's introductory voice greeting audio
+            { "Excited", GlobalVariables.ExcitedFilePath }, //path to the excited meow audio
+            { "Sad", GlobalVariables.SadFilePath }, //path to the sad meow audio
+            { "Curious", GlobalVariables.CuriousFilePath }, //path to the curious meow audio
+            { "Dialog",  GlobalVariables.DialogFilePath }, //path to the dialog meow audio, used during interaction
+            { "Talk", GlobalVariables.TalkFilePath }, //path to the talk meow audio, used for explanation responses
+            { "Purr",  GlobalVariables.PurrFilePath}, //path to the purring audio, used for the pet-the-cat option
+            { "Bye", GlobalVariables.ByeFilePath }, //path to the goodbye meow audio
+            { "Greeting",  GlobalVariables.GreetingFilePath },
+            { "Tip", GlobalVariables.TipFilePath },
+            { "Menu", GlobalVariables.MenuFilePath }
+
         };
 
         #endregion

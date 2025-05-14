@@ -1,4 +1,5 @@
-﻿namespace CybersecurityAwarenessBot
+﻿
+namespace CybersecurityAwarenessBot
 {
     class Program
     {
@@ -11,6 +12,7 @@
 
         static void Main(string[] args)
         {
+            AudioFileLocationConverter.AudioFileFinder();
             AsciiArtLogo.DisplayAsciiArt();
             AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Intro"]);
             GreetUser.Execute(); // Calls the new GreetUser file

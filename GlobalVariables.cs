@@ -3,7 +3,22 @@
     public static class GlobalVariables
     {
         //a global variable to store the user's name so every method can access it
-        public static string userName;       
+        public static string userName;
+
+        public static string IntroFilePath;
+        public static string ExcitedFilePath;
+        public static string SadFilePath;
+        public static string CuriousFilePath;
+        public static string DialogFilePath;
+        public static string TalkFilePath;
+        public static string PurrFilePath;
+        public static string ByeFilePath;
+        public static string GreetingFilePath;
+        public static string TipFilePath;
+        public static string MenuFilePath;
+
+
+       
 
         //global mute variable
         public static bool isMuted = false;
