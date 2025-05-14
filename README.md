@@ -2,17 +2,28 @@ This project is a chatbot that is meant to help teach users about various aspect
 
 **INSTRUCTIONS:**
 
-To ask about cyber security:
-1) Launch program
-2) Enter name using keyboard
-3) Hit "Enter" using keyboard
-4) Type "1" for option 1 (Ask a question) using keyboard
+Entering the program
+1) You will recive an introduction to the program
+2) You will meet CyberCat
+3) CyberCat will ask for your name
+4) Type your prefered name using your keyboard
+5) Hit "Enter" using your keyboard
+6) You will then be greeted with a menu
+     "1. Ask a question" (See Option 1)
+     "2. Pet the cat!" (See Option 2)
+     "3. Mute/Unmute the cat" (See Option 3)
+     "4. Exit" (See Option 4)
+
+
+Option 1: To ask about cyber security:
+1) Type "1" for option 1 (Ask a question) using keyboard
+2) Hit "Enter" using keyboard
+3) You will be asked to provide a Cyber security topic
+4) Type "list" using keyboard to access a list of keywords you are able to input
 5) Hit "Enter" using keyboard
-6) Type "list" using keyboard to access a list of keywords you are able to input
+6) Look over list and type using keyboard the keyword you wish to learn more about
 7) Hit "Enter" using keyboard
-8) Look over list and type using keyboard the keyword you wish to learn more about
-9) Hit "Enter" using keyboard
-10) Once the response is given, you will be asked the following
+8) Once the response is given, you will be asked the following
     "1. Yes, explain in detail" (See Path 1)
     "2. Can I have another tip?" (See Path 2)
     "3. No, move to a new topic" (See Path 3)
@@ -25,18 +36,46 @@ Path 1: If you type "1" using the keyboard and hit "Enter":
 4) Hit "Enter" using your keyboard
 5) CyberCat will validate your feelings
 6) You will be prompted to select from 2 options:
-        "1. Show me a list of follow ups"
-        "2. No, Move to a new topic" 
-7) If you type 
+        "1. Show me a list of follow ups" (See Path 1a)
+        "2. No, Move to a new topic" (See Path 1b)
+Path 1a: 
+1) Type "1" using the keyboard
+2) Hit "Enter" using your keyboard
+3) CyberCat will display a list of follow-up questions related to your topic
+4) Type the number corresponding to the follow-up question you'd like answered
+5) Hit "Enter" using the keyboard
+6) CyberCat will give you the answer to your selected question
+7) You will be prompted to select one of 2 options
+        "1. Yes, show me more follow-ups"
+        "2. No, move to a new topic"
+8) If you chose to type "1" using your keyboard and hit "Enter"
+   you return to the beginning of Path 1a
+9) If you chose to type "2" using your keyboard and hit "Enter"
+   you will be sent back to Step 3 of "Option 1"
 
 
+Path 1b:
+1) Type "2" using your keyboard
+2) Hit "Enter" using your keyboard
+3) You will be sent back to Step 3 of "Option 1"
+
+Path 2: 
+1) Type "2" using the keyboard and hit "Enter":
+2) CyberCat will provide a new cybersecurity tip on the same topic
+3) You will be sent back to Step 8 of "Option 1"
+
+Path 3:
+1) Type "3" using your keyboard
+2) Hit "Enter" using your keyboard
+3) You will be sent back to Step 3 of "Option 1"
+
+Path 4:
+1) Type "4" using your keyboard
+2) Hit "Enter" using your keyboard
+3) You will be sent back to Step 6 of the "Entering Program" sequence
 
 
-
-
-
-
-To pet the cat:
+Option 2: To pet the cat:
 1) Launch program
 2) Enter name using keyboard
 3) Hit "Enter" using keyboard
@@ -45,18 +84,20 @@ To pet the cat:
 6) Observe the cyber cats happy response
 7) Repeat steps 4-6 as many times as wanted
 
-To quit program from "Ask a question":
-1) In the "Ask a question" menu, type "exit" using keyboard
-2) Hit "Enter" using  keyboard
-3) You should be in the main menu now
-4) Type "3" using keyboard to select "Exit"
-5) Hit "Enter" using keyboard
-6) The application should close
+Option 3: Muting/Unmuting the cat:
+CyberCat will always start out unmuted
+1) Type "3" using your keyboard
+2) Hit "Enter" using your keyboard
+3) CyberCat will now no longer meow to you and will feel depressed
+4) You will be returned to Step 6 of "Entering Program"
+5) You can continue the program as normal, however CyberCat will be noticably sadder
+6) To unmute, repeat Option 3 
 
-To quit program from the main menu:
-1) Type "3" using keyboard to select "Exit"
-2) Hit "Enter" using keyboard
-3) The application should close
+Option 4: Exit the program:
+1) Type "4" using your keyboard
+2) Hit "Enter" using your keyboard
+3) The program will close
+
 
 **Frequently Asked Questions**
 
