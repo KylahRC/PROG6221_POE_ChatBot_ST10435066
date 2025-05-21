@@ -101,7 +101,7 @@ namespace CybersecurityAwarenessBot
                             else
                             {
                                 CatExpressions.DisplayCat("That's great, Ill remember that!", CatExpression.Happy);
-                                AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Happy"]);
+                                AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Excited"]);
                                 interestedIn.Add(correctedKeyword);
                             }
                         }
@@ -147,14 +147,14 @@ namespace CybersecurityAwarenessBot
                                 {
                                     case "4": // User wants to exit the chatbot.
                                         CatExpressions.DisplayCat("Alright! Returning to the main menu.", CatExpression.Happy);
-                                        AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Happy"]);
+                                        AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Excited"]);
                                         wantsToQuit = true;
                                         continueTopic = false;
                                         break;
 
                                     case "3": // Move to a new topic.
                                         CatExpressions.DisplayCat("Alright! Let's talk about something new.", CatExpression.Happy);
-                                        AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Happy"]);
+                                        AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Excited"]);
                                         continueTopic = false;
                                         break;
 
@@ -180,7 +180,7 @@ namespace CybersecurityAwarenessBot
                                         if (string.IsNullOrWhiteSpace(feelingResponse))
                                         {
                                             CatExpressions.DisplayCat($"That's okay {GlobalVariables.userName}, everyone has a unique way to look at the world.", CatExpression.Happy);
-                                            AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Happy"]);
+                                            AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Excited"]);
                                         }
                                         else
                                         {
@@ -224,7 +224,7 @@ namespace CybersecurityAwarenessBot
                                                     {
                                                         case "4": // Move to a new topic.
                                                             CatExpressions.DisplayCat("Alright! Let's move on to a new topic.", CatExpression.Happy);
-                                                            AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Happy"]);
+                                                            AudioHelper.PlayAudio(ChatbotUtilityFile.AudioFiles["Excited"]);
                                                             followUpLoop = false;
                                                             continueTopic = false;
                                                             wantsFollowUp = false;
