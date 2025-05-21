@@ -35,3 +35,4 @@
         public static readonly string DefaultColor = "\u001b[0m";  // Reset to default
     }
 }
+//
